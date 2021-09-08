@@ -38,8 +38,12 @@ public class UserDAO {
 		// 회원 삭제
 		jdbcTemplate.update("DELETE FROM USER WHERE USERID='" + inputUserID + "';");
 	}
-	
-	public void updatePwd(String inputUserPwd) {
+
+	public void updatePwd(UserDTO _userDTO, String inputUserPwd) {
 		// 회원 비밀번호 수정
+		this.userDTO = _userDTO;
+
+		jdbcTemplate
+				.update("UPDATE USER SET USERPWD='" + inputUserPwd + "' WHERE USERID='" + userDTO.getUserId() + "';");
 	}
 }
