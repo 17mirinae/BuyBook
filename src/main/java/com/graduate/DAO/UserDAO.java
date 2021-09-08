@@ -25,5 +25,17 @@ public class UserDAO {
 			return null;
 		}
 	}
-	
+
+	public void insertUser(UserDTO _userDTO) {
+		// 회원가입
+		this.userDTO = _userDTO;
+
+		jdbcTemplate.update("INSERT INTO USER(USERID, USERPWD, USEREMAIL) VALUES('" + userDTO.getUserId() + "', '"
+				+ userDTO.getUserPwd() + "', '" + userDTO.getUserEmail() + "');");
+	}
+
+	public void deleteUser(String inputUserID) {
+		// 회원 삭제
+		jdbcTemplate.update("DELETE FROM USER WHERE USERID='" + inputUserID + "';");
+	}
 }
