@@ -41,6 +41,7 @@ public class UserService {
 		} else if (userDTO.getUserPwd().equals(_userPwd)) {
 			
 		}
+		return userDTO;
 	}
 	
 	public void sendPasswordEmail(UserDTO userDTO, String div) throws Exception {
