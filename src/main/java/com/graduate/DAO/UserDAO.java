@@ -46,4 +46,12 @@ public class UserDAO {
 		jdbcTemplate
 				.update("UPDATE USER SET USERPWD='" + inputUserPwd + "' WHERE USERID='" + userDTO.getUserId() + "';");
 	}
+
+	public void updateName(UserDTO _userDTO, String inputUserName) {
+		// 회원 닉네임 변경
+		this.userDTO = _userDTO;
+
+		jdbcTemplate
+				.update("UPDATE USER SET USERNAME='" + inputUserName + "' WHERE USERID='" + userDTO.getUserId() + "';");
+	}
 }
