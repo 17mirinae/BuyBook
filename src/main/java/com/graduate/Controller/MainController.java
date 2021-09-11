@@ -10,25 +10,8 @@ public class MainController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 		// ㅇ
-		
+
 		return "index";
 	}
 
-//	// 로그인
-//	@RequestMapping(value = "/user/signIn", method = RequestMethod.GET)
-//	public String userSignIn() {
-//		return "userSignIn";
-//	}
-//
-//	// 회원가입
-//	@RequestMapping(value = "/user/signUp", method = RequestMethod.GET)
-//	public String userSignUp() {
-//		return "userSignUp";
-//	}
-	
-	// 각각의 아이템들의 세부사항
-	@RequestMapping(value = "/item/", method = RequestMethod.GET)
-	public String itemDetailPage() {
-		return "itemDetail";
-	}
 }
