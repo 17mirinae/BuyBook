@@ -12,6 +12,10 @@ public class BookController {
 	public String bookDetail() {
 		return "bookDetail";
 	}
-	
-	//
+
+	// 도서 구매 페이지
+	@RequestMapping(value = "/bookBuy", method = RequestMethod.GET)
+	public String bookBuy() {
+		return "bookBuy";
+	}
 }

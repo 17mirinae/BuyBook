@@ -17,36 +17,53 @@
 			<main>
 				<div class="container">
 					<div class="row justify-content-center">
-						<div class="col-lg-5">
+						<div class="col-lg-7">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
 								<div class="card-header">
-									<h3 class="text-center font-weight-light my-4">Sign In</h3>
+									<h3 class="text-center font-weight-light my-4">Sign Up</h3>
 								</div>
 								<div class="card-body">
-									<!-- 로그인 -->
-									<form action="/user/userSignIn" method="POST">
-										<!-- 이메일 -->
+									<!-- 회원가입 -->
+									<form action="/user/userSignUp" method="POST">
+										<!-- 이메일 주소 -->
 										<div class="form-floating mb-3">
-											<input class="form-control" id="inputUserEmail" type="email" placeholder="name@example.com" name="inputUserEmail" />
+											<input class="form-control" id="inputUserEmail" type="text" placeholder="name@example.com" name="inputUserEmail" />
 											<label for="inputUserEmail">E-Mail Address</label>
 										</div>
-										<!-- 이메일 -->
+										<!-- 이메일 주소 -->
 										<!-- 비밀번호 -->
-										<div class="form-floating mb-3">
-											<input class="form-control" id="inputUserPwd" type="password" placeholder="Password" name="inputUserPwd" />
-											<label for="inputUserPwd">Password</label>
+										<div class="row mb-3">
+											<div class="col-md-6">
+												<div class="form-floating mb-3 mb-md-0">
+													<input class="form-control" id="inputUserPwd" type="password" placeholder="Create a password" name="inputUserPwd" />
+													<label for="inputUserPwd">Password</label>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-floating mb-3 mb-md-0">
+													<input class="form-control" id="inputUserConfirmPwd" type="password" placeholder="Confirm password" name="inputUserConfirmPwd" />
+													<label for="inputUserConfirmPwd">Confirm Password</label>
+												</div>
+											</div>
 										</div>
 										<!-- 비밀번호 -->
-										<div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="/user/userForgotPwd">Forgot Password?</a>
-											<input type="submit" class="btn btn-primary" value="Login" />
+										<!-- 이름 -->
+										<div class="form-floating mb-3">
+											<input class="form-control" id="inputUserName" type="text" placeholder="Full Name" name="inputUserName" />
+											<label for="inputUserName">Name</label>
+										</div>
+										<!-- 이름 -->
+										<div class="mt-4 mb-0">
+											<div class="d-grid">
+												<input type="submit" class="btn btn-primary btn-block" value="Create Account" />
+											</div>
 										</div>
 									</form>
-									<!-- 로그인 -->
+									<!-- 회원가입 -->
 								</div>
 								<div class="card-footer text-center py-3">
 									<div class="small">
-										<a href="/user/userSignUp">Need an account? Sign up!</a>
+										<a href="/user/userSignIn">Have an account? Go to sign in</a>
 									</div>
 								</div>
 							</div>
@@ -59,7 +76,7 @@
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid px-4">
 					<div class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Book Store 2021</div>
+						<div class="text-muted">Copyright &copy; Book Store</div>
 						<div>
 							<a href="#">Privacy Policy</a>
 							&middot;

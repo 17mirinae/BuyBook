@@ -97,4 +97,11 @@ public class BookDTO {
 		this.bookSummary = bookSummary;
 	}
 
+	@Override
+	public String toString() {
+		return "BookDTO [bookISBN=" + bookISBN + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor
+				+ ", bookPrice=" + bookPrice + ", bookGenre=" + bookGenre + ", bookPublisher=" + bookPublisher
+				+ ", bookImage=" + bookImage + ", bookCount=" + bookCount + ", bookSummary=" + bookSummary + "]";
+	}
+
 }

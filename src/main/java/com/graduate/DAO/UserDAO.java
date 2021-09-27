@@ -16,11 +16,12 @@ public class UserDAO {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public UserDTO selectByUserID(String inputUserID) {
+	public UserDTO selectByUserEmail(String inputUserEmail) {
 		// 한 명의 회원 조회
 		try {
-			return jdbcTemplate.queryForObject("SELECT * FROM USER WHERE USERID='" + inputUserID + "';", (rs,
-					rowNum) -> new UserDTO(rs.getString("USERID"), rs.getString("USERPWD"), rs.getString("USEREMAIL")));
+			return jdbcTemplate.queryForObject("SELECT * FROM USER WHERE USEREMAIL='" + inputUserEmail + "';",
+					(rs, rowNum) -> new UserDTO(rs.getString("USEREMAIL"), rs.getString("USERPWD"),
+							rs.getString("USERNAME")));
 		} catch (Exception ex) {
 			return null;
 		}
@@ -30,28 +31,28 @@ public class UserDAO {
 		// 회원가입
 		this.userDTO = _userDTO;
 
-		jdbcTemplate.update("INSERT INTO USER(USERID, USERPWD, USEREMAIL) VALUES('" + userDTO.getUserId() + "', '"
-				+ userDTO.getUserPwd() + "', '" + userDTO.getUserEmail() + "');");
+		jdbcTemplate.update("INSERT INTO USER(USEREMAIL, USERPWD, USERNAME) VALUES('" + userDTO.getUserEmail() + "', '"
+				+ userDTO.getUserPwd() + "', '" + userDTO.getUserName() + "');");
 	}
 
-	public void deleteUser(String inputUserID) {
+	public void deleteUser(String inputUserEmail) {
 		// 회원 삭제
-		jdbcTemplate.update("DELETE FROM USER WHERE USERID='" + inputUserID + "';");
+		jdbcTemplate.update("DELETE FROM USER WHERE USEREMAIL='" + inputUserEmail + "';");
 	}
 
 	public void updatePwd(UserDTO _userDTO, String inputUserPwd) {
 		// 회원 비밀번호 수정
 		this.userDTO = _userDTO;
 
-		jdbcTemplate
-				.update("UPDATE USER SET USERPWD='" + inputUserPwd + "' WHERE USERID='" + userDTO.getUserId() + "';");
+		jdbcTemplate.update(
+				"UPDATE USER SET USERPWD='" + inputUserPwd + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
 	}
 
 	public void updateName(UserDTO _userDTO, String inputUserName) {
 		// 회원 닉네임 변경
 		this.userDTO = _userDTO;
 
-		jdbcTemplate
-				.update("UPDATE USER SET USERNAME='" + inputUserName + "' WHERE USERID='" + userDTO.getUserId() + "';");
+		jdbcTemplate.update(
+				"UPDATE USER SET USERNAME='" + inputUserName + "' WHERE USERID='" + userDTO.getUserEmail() + "';");
 	}
 }

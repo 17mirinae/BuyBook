@@ -18,7 +18,7 @@ public class UserService {
 	
 	public UserDTO userSignUp(UserDTO _userDTO) {
 		// 회원가입
-		UserDTO userDTO = userDAO.selectByUserID(_userDTO.getUserEmail());
+		UserDTO userDTO = userDAO.selectByUserEmail(_userDTO.getUserEmail());
 		
 		if(userDTO == null) { // 회원이 존재하지 않음 --> 회원가입 진행
 			userDAO.insertUser(_userDTO);
@@ -31,9 +31,9 @@ public class UserService {
 		}
 	}
 	
-	public UserDTO userSignIn(String _userId, String _userPwd) {
+	public UserDTO userSignIn(String _userEmail, String _userPwd) {
 		// 로그인
-		UserDTO userDTO = userDAO.selectByUserID(_userId); // 입력된 정보로 회원 찾기
+		UserDTO userDTO = userDAO.selectByUserEmail(_userEmail); // 입력된 정보로 회원 찾기
 		
 		if(userDTO == null) { // 회원이 존재하지 않음
 			System.out.println("회원이 존재하지 않습니다.");
@@ -59,11 +59,11 @@ public class UserService {
 		String subject = "";
 		String msg = "";
 		
-		if(div.equals("forgotPwd")) {
+		if(div.equals("userForgotPwd")) {
 			subject = "MinGW's Diary 임시 비밀번호입니다.";
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 			msg += "<h3 style='color: blue;'>";
-			msg += userDTO.getUserId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+			msg += userDTO.getUserEmail() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
 			msg += "<p>임시 비밀번호 : ";
 			msg += userDTO.getUserPwd() + "</p></div>";
 		}
