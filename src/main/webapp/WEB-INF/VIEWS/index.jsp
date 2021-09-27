@@ -22,9 +22,9 @@
 	<nav class="navbar navbar-expand-lg bg-light static-top ">
 		<div class="container px-5">
 			<a class="navbar-brand" href="/">Book Store</a>
-			<!-- <%
+			<%
 			// 세션값 가져오기
-			String id = (String) session.getAttribute("signInUserName"); // Object 타입이므로 다운캐스팅
+			String id = (String) session.getAttribute("userSessionName"); // Object 타입이므로 다운캐스팅
 			if (id == null) {
 			%>
 			<a class="navbar-brand" href="/">Book Store</a>
@@ -32,8 +32,9 @@
 			} else {
 			%>
 			<a class="navbar-brand" href="/member_index">Book Store</a>
-	}
-			%>  -->
+			<%
+			}
+			%>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -223,8 +224,7 @@
 								<!-- <li class="mb-2"><i class="bi bi-check text-primary"></i> <strong>1 users</strong></li>
                                 <li class="mb-2"><i class="bi bi-check text-primary"></i>5GB storage</li> -->
 								<c:forEach var="noticeDTO" items="${noticeList}">
-									<li class="mb-2"><i class="bi bi-check text-primary"></i>
-									<a href="/notice/notice_detail?noticeID=${noticeDTO.noticeID}">${noticeDTO.noticeTitle}</a></li>
+									<li class="mb-2"><i class="bi bi-check text-primary"></i> <a href="/notice/notice_detail?noticeID=${noticeDTO.noticeID}">${noticeDTO.noticeTitle}</a></li>
 								</c:forEach>
 							</ul>
 							<div class="d-grid">

@@ -26,8 +26,8 @@
 									<div class="small mb-3 text-muted">Enter your email address and we will send you a link to reset your password.</div>
 									<form action="/user/userForgotPwd" method="POST">
 										<div class="form-floating mb-3">
-											<input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="inputEmail" />
-											<label for="inputEmail">Email address</label>
+											<input class="form-control" id="inputUserEmail" type="email" placeholder="name@example.com" name="inputUserEmail" />
+											<label for="inputUserEmail">Email address</label>
 										</div>
 										<div class="d-flex align-items-center justify-content-between mt-4 mb-0">
 											<a class="small" href="/user/userSignIn">Return to login</a>

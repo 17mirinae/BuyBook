@@ -9,7 +9,6 @@ import com.graduate.DTO.*;
 
 @Component
 public class UserDAO {
-	private UserDTO userDTO;
 	private JdbcTemplate jdbcTemplate;
 
 	public UserDAO(DataSource dataSource) {
@@ -27,10 +26,8 @@ public class UserDAO {
 		}
 	}
 
-	public void insertUser(UserDTO _userDTO) {
+	public void insertUser(UserDTO userDTO) {
 		// 회원가입
-		this.userDTO = _userDTO;
-
 		jdbcTemplate.update("INSERT INTO USER(USEREMAIL, USERPWD, USERNAME) VALUES('" + userDTO.getUserEmail() + "', '"
 				+ userDTO.getUserPwd() + "', '" + userDTO.getUserName() + "');");
 	}
@@ -40,18 +37,14 @@ public class UserDAO {
 		jdbcTemplate.update("DELETE FROM USER WHERE USEREMAIL='" + inputUserEmail + "';");
 	}
 
-	public void updatePwd(UserDTO _userDTO, String inputUserPwd) {
+	public void updatePwd(UserDTO userDTO, String inputUserPwd) {
 		// 회원 비밀번호 수정
-		this.userDTO = _userDTO;
-
 		jdbcTemplate.update(
 				"UPDATE USER SET USERPWD='" + inputUserPwd + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
 	}
 
-	public void updateName(UserDTO _userDTO, String inputUserName) {
+	public void updateName(UserDTO userDTO, String inputUserName) {
 		// 회원 닉네임 변경
-		this.userDTO = _userDTO;
-
 		jdbcTemplate.update(
 				"UPDATE USER SET USERNAME='" + inputUserName + "' WHERE USERID='" + userDTO.getUserEmail() + "';");
 	}

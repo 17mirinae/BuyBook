@@ -27,7 +27,7 @@
 									<form action="/user/userSignUp" method="POST">
 										<!-- 이메일 주소 -->
 										<div class="form-floating mb-3">
-											<input class="form-control" id="inputUserEmail" type="text" placeholder="name@example.com" name="inputUserEmail" />
+											<input class="form-control" id="inputUserEmail" type="email" placeholder="name@example.com" name="inputUserEmail" />
 											<label for="inputUserEmail">E-Mail Address</label>
 										</div>
 										<!-- 이메일 주소 -->
