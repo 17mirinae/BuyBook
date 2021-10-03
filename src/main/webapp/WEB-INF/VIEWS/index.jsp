@@ -82,16 +82,16 @@
 				</div>
 			</div>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 도서관 이용 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 서점 이용 </a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/good/unified_search">사서 추천 도서</a>
+					<a class="dropdown-item" href="/good/unified_search">추천 도서</a>
 					<a class="dropdown-item" href="/book/new_unified_search">신간 도서</a>
 				</div>
 			</div>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 도서관 정보 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 서점 정보 </a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/library_introduce">도서관 소개</a>
+					<a class="dropdown-item" href="/library_introduce">서점 소개</a>
 					<a class="dropdown-item" href="/notice/unified_search">공지 사항</a>
 				</div>
 			</div>
@@ -105,7 +105,7 @@
 				<div class="col-xl-6">
 					<div class="text-center text-white">
 						<!-- Page heading-->
-						<h1 class="mb-5">Welcome to MinGW's Library</h1>
+						<h1 class="mb-5">Welcome to Book Store</h1>
 						</form>
 					</div>
 				</div>
@@ -145,7 +145,7 @@
 			<div class="card text-center">
 				<div class="card-header">
 					<ul class="nav nav-tabs card-header-tabs" id="tabs">
-						<li class="nav-item"><a class="nav-link active" href="#librarianNominate" data-toggle="tab">사서 추천 도서</a></li>
+						<li class="nav-item"><a class="nav-link active" href="#librarianNominate" data-toggle="tab">추천 도서</a></li>
 						<li class="nav-item"><a class="nav-link" href="#hitBook" data-toggle="tab">인기 도서</a></li>
 					</ul>
 				</div>
@@ -170,7 +170,7 @@
 							</div>
 							<div class="card text-white bg-primary my-5 py-10 text-center">
 								<div class="card-body">
-									<a href="/good/unified_search" class="btn btn-primary btn-lg">사서 추천 도서 게시판</a>
+									<a href="/good/unified_search" class="btn btn-primary btn-lg">추천 도서 게시판</a>
 								</div>
 							</div>
 						</div>
@@ -259,8 +259,8 @@
 	<!-- Testimonials-->
 	<section class="testimonials text-center bg-light">
 		<div class="container">
-			<h2 class="mb-5">Spring Project 를 함께한 전우</h2>
-			<div class="row">
+			<h2 class="mb-5">Made By.</h2>
+			<div class="row justify-content-center">
 				<div class="col-lg-6">
 					<div class="testimonial-item mx-auto mb-5 mb-lg-0">
 						<img class="img-fluid rounded-circle mb-3" src="assets/img/MJC.jpg" alt="..." />
@@ -268,13 +268,13 @@
 						<p class="font-weight-light mb-0">"취업하고 싶어요!"</p>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<!-- <div class="col-lg-6">
 					<div class="testimonial-item mx-auto mb-5 mb-lg-0">
 						<img class="img-fluid rounded-circle mb-3" src="assets/img/MJK.png" alt="..." />
 						<h5>MJ.K</h5>
 						<p class="font-weight-light mb-0">"The cake is a lie!"</p>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</section>
@@ -288,7 +288,7 @@
 						<li class="list-inline-item">⋅</li>
 						<li class="list-inline-item"><a href="#!">Contact</a></li>
 					</ul>
-					<p class="text-muted small mb-4 mb-lg-0">&copy; MinGW's Library 2021. All Rights Reserved.</p>
+					<p class="text-muted small mb-4 mb-lg-0">&copy; Book Store 2021. All Rights Reserved.</p>
 				</div>
 				<div class="col-lg-6 h-100 text-center text-lg-end my-auto">
 					<ul class="list-inline mb-0">

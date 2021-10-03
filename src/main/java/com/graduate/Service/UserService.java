@@ -83,8 +83,13 @@ public class UserService {
 				break;
 			}
 		}
+		
+		// System.out.println(newPwd.toString());
+		// System.out.println(userDTO.toString());
 
 		userDAO.updatePwd(userDTO, newPwd.toString());
+		
+		// System.out.println(userDTO.toString());
 		
 		return userDTO;
 	}
@@ -94,8 +99,8 @@ public class UserService {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.gmail.com"; // 지메일 이용시 smtp.gmail.com
-		String hostSMTPid = ""; // "서버 이메일 주소(보내는 사람 이메일 주소)";
-		String hostSMTPpwd = ""; // "서버 이메일 비번(보내는 사람 이메일 비번)";
+		String hostSMTPid = "hargeon305@gmail.com"; // "서버 이메일 주소(보내는 사람 이메일 주소)";
+		String hostSMTPpwd = "Minji1106!"; // "서버 이메일 비번(보내는 사람 이메일 비번)";
 
 		// 보내는 사람 Email, 제목, 내용
 		String fromEmail = "admin@admin"; // "보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";

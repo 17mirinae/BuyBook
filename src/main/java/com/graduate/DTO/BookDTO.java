@@ -1,5 +1,7 @@
 package com.graduate.DTO;
 
+import java.sql.*;
+
 public class BookDTO {
 	private String bookISBN; // 도서 ISBN -- Primary Key
 	private String bookTitle; // 도서 제목
@@ -10,9 +12,10 @@ public class BookDTO {
 	private String bookImage; // 도서 이미지
 	private int bookCount; // 도서 재고수
 	private String bookSummary; // 도서 한 줄 줄거리
+	private Date bookDate; // 도서 추가 시각
 
 	public BookDTO(String bookISBN, String bookTitle, String bookAuthor, int bookPrice, String bookGenre,
-			String bookPublisher, String bookImage, int bookCount, String bookSummary) {
+			String bookPublisher, String bookImage, int bookCount, String bookSummary, Date bookDate) {
 		super();
 		this.bookISBN = bookISBN;
 		this.bookTitle = bookTitle;
@@ -23,6 +26,7 @@ public class BookDTO {
 		this.bookImage = bookImage;
 		this.bookCount = bookCount;
 		this.bookSummary = bookSummary;
+		this.bookDate = bookDate;
 	}
 
 	public String getBookISBN() {
@@ -97,11 +101,20 @@ public class BookDTO {
 		this.bookSummary = bookSummary;
 	}
 
+	public Date getBookDate() {
+		return bookDate;
+	}
+
+	public void setBookDate(Date bookDate) {
+		this.bookDate = bookDate;
+	}
+
 	@Override
 	public String toString() {
 		return "BookDTO [bookISBN=" + bookISBN + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor
 				+ ", bookPrice=" + bookPrice + ", bookGenre=" + bookGenre + ", bookPublisher=" + bookPublisher
-				+ ", bookImage=" + bookImage + ", bookCount=" + bookCount + ", bookSummary=" + bookSummary + "]";
+				+ ", bookImage=" + bookImage + ", bookCount=" + bookCount + ", bookSummary=" + bookSummary
+				+ ", bookDate=" + bookDate + "]";
 	}
 
 }

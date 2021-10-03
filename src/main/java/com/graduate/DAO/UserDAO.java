@@ -39,13 +39,16 @@ public class UserDAO {
 
 	public void updatePwd(UserDTO userDTO, String inputUserPwd) {
 		// 회원 비밀번호 수정
+		System.out.println(inputUserPwd);
+		System.out.println(userDTO.toString());
 		jdbcTemplate.update(
 				"UPDATE USER SET USERPWD='" + inputUserPwd + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
+		System.out.println(userDTO.toString());
 	}
 
 	public void updateName(UserDTO userDTO, String inputUserName) {
 		// 회원 닉네임 변경
 		jdbcTemplate.update(
-				"UPDATE USER SET USERNAME='" + inputUserName + "' WHERE USERID='" + userDTO.getUserEmail() + "';");
+				"UPDATE USER SET USERNAME='" + inputUserName + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
 	}
 }
