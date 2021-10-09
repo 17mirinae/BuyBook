@@ -1,6 +1,6 @@
 ## 데이터베이스 쿼리문 모음
 
-### USER
+### 회원
 	* 2021-09-27
 ~~~~sql
 CREATE TABLE `gradb`.`user` (
@@ -10,7 +10,13 @@ CREATE TABLE `gradb`.`user` (
   PRIMARY KEY (`USEREMAIL`));
 ~~~~
 
-### BOOK
+	* 2021-10-03
+~~~~sql
+ALTER TABLE `gradb`.`user` 
+ADD COLUMN `USERPOINT` INT NOT NULL DEFAULT 3000 AFTER `USERNAME`;
+~~~~
+
+### 도서
 	* 2021-09-27
 ~~~~sql
 CREATE TABLE `gradb`.`book` (
@@ -31,3 +37,6 @@ CREATE TABLE `gradb`.`book` (
 ALTER TABLE `gradb`.`book` 
 ADD COLUMN `BOOKDATE` DATE NOT NULL AFTER `BOOKSUMMARY`;
 ~~~~
+
+### 주문내역
+	* 2021-10-09

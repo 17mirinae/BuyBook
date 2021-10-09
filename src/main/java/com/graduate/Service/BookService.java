@@ -17,6 +17,13 @@ public class BookService {
 		this.bookDAO = _bookDAO;
 	}
 
+	// 모든 도서 목록 출력
+	public List<BookDTO> showAll() {
+		List<BookDTO> bookList = bookDAO.showAll();
+		
+		return bookList;
+	}
+	
 	// ISBN 으로 도서 한 권 가져오기
 	public BookDTO selectByBookISBN(String inputBookISBN) {
 		BookDTO bookDTO = bookDAO.selectByBookISBN(inputBookISBN);

@@ -73,7 +73,11 @@ public class UserController {
 
 	// 회원 수정
 	@RequestMapping(value = "/userUpdate", method = RequestMethod.GET)
-	public String userUpdate() {
+	public String userUpdate(Model model, HttpSession session) {
+//		UserDTO userDTO = (UserDTO)session.getAttribute("userSessionDTO");
+//
+//		model.addAttribute("userDTO", userDTO);
+//		
 		return "userUpdate";
 	}
 

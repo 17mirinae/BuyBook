@@ -48,7 +48,7 @@ public class BookDAO {
 
 	// 신작 도서 10권 목록
 	public List<BookDTO> newBookList() {
-		List<BookDTO> result = jdbcTemplate.query("SELECT * FROM BOOK;", (rs, rowNum) -> {
+		List<BookDTO> result = jdbcTemplate.query("SELECT * FROM BOOK ORDER BY DATE DESC LIMIT 10;", (rs, rowNum) -> {
 			BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 					rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 					rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
@@ -80,5 +80,10 @@ public class BookDAO {
 						+ "', '" + bookDTO.getBookPrice() + "', '" + bookDTO.getBookGenre() + "', '"
 						+ bookDTO.getBookPublisher() + "', '" + bookDTO.getBookImage() + "', '" + bookDTO.getBookCount()
 						+ "', '" + bookDTO.getBookSummary() + "', NOW());");
+	}
+
+	// 도서 삭제
+	public void deleteBook(BookDTO bookDTO) {
+		jdbcTemplate.update("DELETE FROM BOOK WHERE BOOKISBN = '" + bookDTO.getBookISBN() + "';");
 	}
 }

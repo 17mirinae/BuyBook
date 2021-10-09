@@ -1,6 +1,12 @@
-<%@page import="com.graduate.DTO.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String name = "minji";//(String) request.getAttribute("name");
+String email = "minji@minji";//(String) request.getAttribute("email");
+String phone = "010-111-2222"; //(String) request.getAttribute("phone");
+String address = "서울 서울"; //(String) request.getAttribute("address");
+int totalPrice = 1;//(int) request.getAttribute("totalPrice");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +23,11 @@
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../css/styles.css" rel="stylesheet" />
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 </head>
 <body>
 	<!-- Responsive navbar-->
@@ -25,9 +36,17 @@
 			<a class="navbar-brand" href="/">Book Store</a>
 			<%
 			// 세션값 가져오기
-			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
+			String id = (String) session.getAttribute("userSessionName"); // Object 타입이므로 다운캐스팅
+			if (id == null) {
 			%>
 			<a class="navbar-brand" href="/">Book Store</a>
+			<%
+			} else {
+			%>
+			<a class="navbar-brand" href="/member_index">Book Store</a>
+			<%
+			}
+			%>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -35,16 +54,15 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<%
 					// 세션값 가져오기
-					if (userDTO == null) {
+					if (id == null) {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">회원가입</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">로그인</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">Sign In</a></li>
 					<%
 					} else {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/cart/Cart?userEmail=<%=userDTO.getUserEmail()%>">장바구니</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userDetail">내 정보</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">로그아웃</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userDetail">My Page</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">Sign Out</a></li>
 					<%
 					}
 					%>
@@ -55,13 +73,13 @@
 	<!-- Navigation-->
 	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 		<div class="container">
-			<a class="btn" style="background-color: #e3f2fd; color: dodgerblue;" href="/book/bookSearch">자료 검색</a>
+			<a class="btn" style="background-color: #e3f2fd; color: dodgerblue;" href="/book/unified_search">자료 검색</a>
 			<div class="dropdown show">
 				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 신청 / 참여 </a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					<%
 					// 세션값 가져오기
-					if (userDTO == null) {
+					if (id == null) {
 					%>
 					<a class="dropdown-item disabled" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
 					<%
@@ -82,7 +100,7 @@
 			<div class="dropdown show">
 				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 서점 정보 </a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/storeIntroduce">서점 소개</a> <a class="dropdown-item" href="/notice/unified_search">공지 사항</a>
+					<a class="dropdown-item" href="/library_introduce">서점 소개</a> <a class="dropdown-item" href="/notice/unified_search">공지 사항</a>
 				</div>
 			</div>
 		</div>
@@ -96,6 +114,7 @@
 					<div class="text-center text-white">
 						<!-- Page heading-->
 						<h1 class="mb-5">Welcome to Book Store</h1>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -256,6 +275,7 @@
 						<h5>MJ.C</h5>
 						<p class="font-weight-light mb-0">"취업하고 싶어요!"</p>
 					</div>
+					<button id="payBtn">구매하기</button>
 				</div>
 				<!-- <div class="col-lg-6">
 					<div class="testimonial-item mx-auto mb-5 mb-lg-0">
