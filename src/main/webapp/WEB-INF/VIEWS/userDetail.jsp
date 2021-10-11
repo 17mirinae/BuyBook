@@ -31,8 +31,8 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<%
 					// 세션값 가져오기
-					String id = (String) session.getAttribute("userSessionName"); // Object 타입이므로 다운캐스팅
-					if (id == null) {
+					UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
+					if (userDTO == null) {
 					%>
 					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">Register</a></li>
 					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">Login</a></li>
@@ -58,7 +58,7 @@
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					<%
 					// 세션값 가져오기
-					if (id == null) {
+					if (userDTO == null) {
 					%>
 					<a class="dropdown-item disabled" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
 					<%
@@ -163,8 +163,6 @@
 									<label for="inputReturnEmail">
 										<!--<c var="checkOutDTO">-->
 										<%
-										UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
-
 										out.println(userDTO.getUserEmail());
 										%>
 									</label>
@@ -198,7 +196,7 @@
 									<label for="inputReturnEmail">
 										<!--<c var="checkOutDTO">-->
 										<%
-										out.println(memberDTO.getMemberEmail());
+										out.println(userDTO.getUserEmail());
 										%>
 									</label>
 									님 안녕하세요.<br />

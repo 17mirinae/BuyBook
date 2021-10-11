@@ -15,6 +15,20 @@ public class BookDTO {
 	private Date bookDate; // 도서 추가 시각
 
 	public BookDTO(String bookISBN, String bookTitle, String bookAuthor, int bookPrice, String bookGenre,
+			String bookPublisher, String bookImage, int bookCount, String bookSummary) {
+		super();
+		this.bookISBN = bookISBN;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.bookPrice = bookPrice;
+		this.bookGenre = bookGenre;
+		this.bookPublisher = bookPublisher;
+		this.bookImage = bookImage;
+		this.bookCount = bookCount;
+		this.bookSummary = bookSummary;
+	}
+
+	public BookDTO(String bookISBN, String bookTitle, String bookAuthor, int bookPrice, String bookGenre,
 			String bookPublisher, String bookImage, int bookCount, String bookSummary, Date bookDate) {
 		super();
 		this.bookISBN = bookISBN;

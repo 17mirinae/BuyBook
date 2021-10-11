@@ -104,11 +104,11 @@
 
 
     <!-- !!!!!!!!!!!!!!!!!!!!   자유게시판  !!!!!!!!!!!!!!!!!!!!-->
-    <div class="row justify-content-center" style="padding:250px;">
+    <div class="row justify-content-center" style="padding: 50px;">
     	<div class="text-center">
     		<h1>Purchase ERROR!</h1>
     		<h1 style="visibility:hidden;">여백</h1>
-    		<img src="../assets/img/Fail.png" alt="..." style="height: 25rem" />
+    		<img src="../assets/img/Fail.png" alt="..." style="height: 20rem" />
     	</div>
     </div>
 	

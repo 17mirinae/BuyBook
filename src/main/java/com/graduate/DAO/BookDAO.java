@@ -22,11 +22,10 @@ public class BookDAO {
 	public BookDTO selectByBookISBN(String inputBookISBN) {
 		try {
 			return jdbcTemplate.queryForObject("SELECT * FROM BOOK WHERE BOOKISBN = '" + inputBookISBN + "';",
-					(rs, getrowNum) -> new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
+					(rs, rowNum) -> new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE")),
-					inputBookISBN);
+							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE")));
 		} catch (Exception ex) {
 			return null;
 		}
@@ -73,7 +72,7 @@ public class BookDAO {
 	}
 
 	// 도서 추가
-	public void insertBook(BookDTO bookDTO) {
+	public void addBook(BookDTO bookDTO) {
 		jdbcTemplate.update(
 				"INSERT INTO BOOK(BOOKISBN, BOOKTITLE, BOOKAUTHOR, BOOKPRICE, BOOKGENRE, BOOKPUBLISHER, BOOKIMAGE, BOOKCOUNT, BOOKSUMMARY, BOOKDATE) VALUES('"
 						+ bookDTO.getBookISBN() + "', '" + bookDTO.getBookTitle() + "', '" + bookDTO.getBookAuthor()

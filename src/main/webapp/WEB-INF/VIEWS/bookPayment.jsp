@@ -37,7 +37,7 @@ int totalPrice = 1;//(int) request.getAttribute("totalPrice");
 			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 				jQuery.ajax({
-					url : "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
+					url : "/cart/payFail", //cross-domain error가 발생하지 않도록 주의해주세요
 					type : 'POST',
 					dataType : 'json',
 					data : {
@@ -59,10 +59,12 @@ int totalPrice = 1;//(int) request.getAttribute("totalPrice");
 						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
 					}
 				});
+				location.href='<%=request.getContextPath()%>/cart/paySuccess?msg='+msg;
 			} else {
+				// 결제에 실패시
 				var msg = '결제에 실패';
 				msg += '에러내용 : ' + rsp.error_msg;
-
+				location.href='<%=request.getContextPath()%>/cart/payFail';
 				alert(msg);
 			}
 		});

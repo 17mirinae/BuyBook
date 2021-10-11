@@ -1,17 +1,83 @@
-<%@page import="com.graduate.DTO.UserDTO"%>
+<%@page import="com.graduate.Service.*"%>
+<%@page import="com.graduate.DTO.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String name = (String) request.getAttribute("name");
+String email = (String) request.getAttribute("email");
+String phone = (String) request.getAttribute("phone");
+%>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>MINGW's Library</title>
+<title>Book Store</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles2.css" rel="stylesheet" />
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script>
+	function requestPay() {
+		var IMP = window.IMP; // 생략가능
+		IMP.init("imp75701478"); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		console.log("HI");
+		var msg;
+
+		IMP.request_pay({
+			pg : "kakaopay",
+			pay_method : "card",
+			merchant_uid : "ORD20180131-0000023",
+			name : "노르웨이 회전 의자",
+			amount : 64900,
+			buyer_email : "gildong@gmail.com",
+			buyer_name : "홍길동",
+			buyer_tel : "010-4242-4242",
+			buyer_addr : "서울특별시 강남구 신사동",
+			buyer_postcode : "01181"
+		}, function(rsp) { // callback
+			if (rsp.success) {
+				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+				jQuery.ajax({
+					url : "/cart/Cart?userEmail="${userDTO.getUserEmail()}, //cross-domain error가 발생하지 않도록 주의해주세요
+					type : 'POST',
+					dataType : 'json',
+					data : {
+						imp_uid : rsp.imp_uid
+					//기타 필요한 데이터가 있으면 추가 전달
+					}
+				}).done(function(data) {
+					//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+					if (everythings_fine) {
+						var msg = '결제가 완료되었습니다.';
+						msg += '\n고유ID : ' + rsp.imp_uid;
+						msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+						msg += '\결제 금액 : ' + rsp.paid_amount;
+						msg += '카드 승인번호 : ' + rsp.apply_num;
+
+						alert(msg);
+					} else {
+						//[3] 아직 제대로 결제가 되지 않았습니다.
+						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+					}
+				});
+				location.href='<%=request.getContextPath()%>/cart/paySuccess?msg='+msg;
+			} else {
+				// 결제에 실패시
+				var msg = '결제에 실패';
+				msg += '에러내용 : ' + rsp.error_msg;
+				location.href='<%=request.getContextPath()%>/cart/payFail?msg='+msg;
+				alert(msg);
+			}
+		});
+
+	}
+</script>
 </head>
 <body>
 	<!-- Responsive navbar-->
@@ -87,20 +153,19 @@
 			<main>
 				<div class="container-fluid px-4">
 					<h1 class="mt-4">장바구니</h1>
-					<form method="get" action="form-action.html">
-						<div class="card mb-4">
-							<div class="card-body">
-								<table id="datatablesSimple">
-									<thead>
-										<tr>
-											<th>이미지</th>
-											<th>제목</th>
-											<th>수량</th>
-											<th>금액</th>
-											<th>Check</th>
-										</tr>
-									</thead>
-									<!-- <tfoot>
+					<div class="card mb-4">
+						<div class="card-body">
+							<table id="datatablesSimple">
+								<thead>
+									<tr>
+										<th>이미지</th>
+										<th>제목</th>
+										<th>수량</th>
+										<th>금액</th>
+										<th>삭제</th>
+									</tr>
+								</thead>
+								<!-- <tfoot>
 									<tr>
 										<th>ISBN10</th>
 										<th>제목</th>
@@ -109,62 +174,38 @@
 										<th>장르</th>
 									</tr>
 								</tfoot> -->
-									<tbody>
-										<tr>
-											<td><img src="assets/img/logo_transparent.png" alt="..." style="height: 25rem" /></td>
-											<td>System Architect</td>
-											<td>61</td>
-											<td>$320,800</td>
-											<td><label>
+								<tbody>
+									<form action="/cart/Cart?userEmail=<%=userDTO.getUserEmail()%>" method="POST">
+										<c:set var="totalPrice" value="0" />
+										<c:forEach var="cartDTO" items="${cartList}">
+											<tr>
+												<td><img src="/bookImageStorage/${cartDTO.cartImage}" alt="..." style="height: 25rem" /></td>
+												<td>${cartDTO.cartTitle}</td>
+												<td>${cartDTO.cartCount}</td>
+												<td>${cartDTO.cartPrice}</td>
+												<!-- <td><label>
 													<input type="checkbox" name="choice" value="System Architect|isbnCode">
-												</label></td>
-										</tr>
-										<tr>
-											<td><img src="assets/img/logo_transparent.png" alt="..." style="height: 25rem" /></td>
-											<td>Accountant</td>
-											<td>63</td>
-											<td>$170,750</td>
-											<td><label>
-													<input type="checkbox" name="choice" value="Accountant|isbnCode2">
-												</label></td>
-										</tr>
-										<tr>
-											<td><img src="assets/img/logo_transparent.png" alt="..." style="height: 25rem" /></td>
-											<td>Junior Technical Author</td>
-											<td>66</td>
-											<td>$86,000</td>
-											<td><label>
-													<input type="checkbox" name="choice" value="Junior Technical Author|isbnCode3">
-												</label></td>
-										</tr>
-										<tr>
-											<td><img src="assets/img/logo_transparent.png" alt="..." style="height: 25rem" /></td>
-											<td>Senior Javascript Developer</td>
-											<td>22</td>
-											<td>$433,060</td>
-											<td><label>
-													<input type="checkbox" name="choice" value="Senior Javascript Developer|isbnCode4">
-												</label></td>
-										</tr>
-										<tr>
-											<td><img src="assets/img/logo_transparent.png" alt="..." style="height: 25rem" /></td>
-											<td>Accountant</td>
-											<td>33</td>
-											<td>$162,700</td>
-											<td><label>
-													<input type="checkbox" name="choice" value="Accountant|isbnCode6">
-												</label></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+												</label></td> -->
+												<td><input type="button" onclick="deleteItem()" value="삭제" /></td>
+												<c:set var="totalPrice" value="${totalPrice + cartDTO.cartPrice}" />
+											</tr>
+										</c:forEach>
+									</form>
+								</tbody>
+							</table>
 						</div>
-						<div class="card text-white bg-primary my-5 py-10 text-center">
-							<div class="card-body">
-								<input type="submit" class="btn btn-primary btn-lg" value="결제">
-							</div>
+					</div>
+					<div class="card text-white bg-primary my-5 py-10 text-center">
+						<div class="card-body">
+							<span>결제할 총 금액 : ${totalPrice} 원</span>
 						</div>
-					</form>
+					</div>
+					<br>
+					<div class="card text-white bg-primary my-5 py-10 text-center">
+						<div class="card-body">
+							<input type="submit" class="btn btn-primary btn-lg" onclick="requestPay()" value="결제" />
+						</div>
+					</div>
 				</div>
 			</main>
 			<!-- 안 예뻐 ...-->
@@ -206,7 +247,7 @@
 			<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-			<script src="js/scripts.js"></script>
+			<script src="/js/scripts.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 			<script src="/js/dataTables.js"></script>
 		</div>

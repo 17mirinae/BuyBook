@@ -103,7 +103,7 @@ public class UserController {
 			else if (userDTO.getUserEmail().equals("admin@admin")) { // 관리자
 				session.setAttribute("userSessionName", userDTO.getUserName());
 
-				response.sendRedirect("/");
+				response.sendRedirect("/admin/");
 			} else { // 회원
 				session.setAttribute("userSessionName", userDTO.getUserName());
 				session.setAttribute("userSessionDTO", userDTO);

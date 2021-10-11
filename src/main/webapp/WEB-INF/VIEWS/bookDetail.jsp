@@ -1,3 +1,4 @@
+<%@page import="com.graduate.DTO.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -7,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>MINGW's Library</title>
+<title>Book Store</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -27,8 +28,8 @@
 		<div class="container px-5">
 			<%
 			// 세션값 가져오기
-			String id = (String) session.getAttribute("loginMemberName"); // Object 타입이므로 다운캐스팅
-			if (id == null) {
+			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
+			if (userDTO == null) {
 			%>
 			<a class="navbar-brand" href="/">Book Store</a>
 			<%
@@ -46,13 +47,14 @@
 					<%
 					// 세션값 가져오기
 
-					if (id == null) {
+					if (userDTO == null) {
 					%>
 					<li class="nav-item"><a class="nav-link" href="/member/register">Register</a></li>
 					<li class="nav-item"><a class="nav-link" href="/member/login">Login</a></li>
 					<%
 					} else {
 					%>
+					<li class="nav-item"><a class="nav-link" href="/cart/Cart?userEmail=<%=userDTO.getUserEmail()%>">Cart</a></li>
 					<li class="nav-item"><a class="nav-link" href="/member/my_page">MyPage</a></li>
 					<li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
 					<%
@@ -71,7 +73,7 @@
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					<%
 					// 세션값 가져오기
-					if (id == null) {
+					if (userDTO == null) {
 					%>
 					<a class="dropdown-item disabled" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
 					<%
@@ -98,7 +100,7 @@
 		</div>
 	</nav>
 	<!-- Product section-->
-	<form action="/book/book_detail?bookISBN=${bookDTO.bookISBN}" method="POST">
+	<form action="/book/bookDetail?bookISBN=${bookDTO.bookISBN}" method="POST">
 		<section class="py-5">
 			<div class="container px-4 px-lg-5 my-5">
 				<div class="row gx-4 gx-lg-5 align-items-center">
@@ -109,6 +111,7 @@
 						<div class="small mb-1">${bookDTO.bookGenre}</div>
 						<h1 class="display-5 fw-bolder">${bookDTO.bookTitle}</h1>
 						<div class="fs-5 mb-5">
+							<span class="">도서 가격 : </span> <span>${bookDTO.bookPrice}</span>
 							<span class="">도서 재고 : </span> <span>${bookDTO.bookCount}</span>
 						</div>
 						<p class="lead">
@@ -117,7 +120,7 @@
 						<div class="d-flex">
 							<%
 							//대여는 무조건 로그인 했을 때만 떠라!
-							if (id != null) {
+							if (userDTO != null) {
 							%>
 							<button type="submit" value="장바구니" class="btn btn-outline-dark flex-shrink-0">
 								<i class="bi-cart-fill me-1">장바구니</i>

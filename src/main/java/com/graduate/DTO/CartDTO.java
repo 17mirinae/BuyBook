@@ -3,33 +3,62 @@ package com.graduate.DTO;
 import java.sql.*;
 
 public class CartDTO {
-	private String userEmail; // 주문한 회원 이메일
-	private String bookISBN; // 주문한 도서 ISBN
-	private int cartPrice; // 카트에 담은 금액
-	private Date cartDate; // 결제한 시각
+	private String cartEmail; // 주문한 회원 이메일
+	private String cartISBN; // 주문한 도서 ISBN
+	private String cartImage; // 주문한 도서 이미지
+	private String cartTitle; // 주문한 도서 제목
+	private int cartCount; // 카트에 담은 개수
+	private int cartPrice; // 카트의 금액
 
-	public CartDTO(String userEmail, String bookISBN, int cartPrice, Date cartDate) {
+	public CartDTO(String cartEmail, String cartISBN, String cartImage, String cartTitle, int cartCount,
+			int cartPrice) {
 		super();
-		this.userEmail = userEmail;
-		this.bookISBN = bookISBN;
+		this.cartEmail = cartEmail;
+		this.cartISBN = cartISBN;
+		this.cartImage = cartImage;
+		this.cartTitle = cartTitle;
+		this.cartCount = cartCount;
 		this.cartPrice = cartPrice;
-		this.cartDate = cartDate;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public String getCartEmail() {
+		return cartEmail;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setCartEmail(String cartEmail) {
+		this.cartEmail = cartEmail;
 	}
 
-	public String getBookISBN() {
-		return bookISBN;
+	public String getCartISBN() {
+		return cartISBN;
 	}
 
-	public void setBookISBN(String bookISBN) {
-		this.bookISBN = bookISBN;
+	public void setCartISBN(String cartISBN) {
+		this.cartISBN = cartISBN;
+	}
+
+	public String getCartImage() {
+		return cartImage;
+	}
+
+	public void setCartImage(String cartImage) {
+		this.cartImage = cartImage;
+	}
+
+	public String getCartTitle() {
+		return cartTitle;
+	}
+
+	public void setCartTitle(String cartTitle) {
+		this.cartTitle = cartTitle;
+	}
+
+	public int getCartCount() {
+		return cartCount;
+	}
+
+	public void setCartCount(int cartCount) {
+		this.cartCount = cartCount;
 	}
 
 	public int getCartPrice() {
@@ -40,18 +69,10 @@ public class CartDTO {
 		this.cartPrice = cartPrice;
 	}
 
-	public Date getCartDate() {
-		return cartDate;
-	}
-
-	public void setCartDate(Date cartDate) {
-		this.cartDate = cartDate;
-	}
-
 	@Override
 	public String toString() {
-		return "CartDTO [userEmail=" + userEmail + ", bookISBN=" + bookISBN + ", cartPrice=" + cartPrice + ", cartDate="
-				+ cartDate + "]";
+		return "CartDTO [cartEmail=" + cartEmail + ", cartISBN=" + cartISBN + ", cartImage=" + cartImage
+				+ ", cartTitle=" + cartTitle + ", cartCount=" + cartCount + ", cartPrice=" + cartPrice + "]";
 	}
 
 }
