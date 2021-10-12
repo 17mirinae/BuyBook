@@ -60,15 +60,4 @@ public class BookController {
 		return "bookSearch";
 	}
 
-	// 도서 구매 페이지
-	@RequestMapping(value = "/bookBuy", method = RequestMethod.GET)
-	public String bookBuy(HttpSession session) {
-		return "bookBuy";
-	}
-
-	@RequestMapping(value = "/bookPayment", method = RequestMethod.GET)
-	public String bookPayment() {
-		return "bookPayment";
-	}
-
 }

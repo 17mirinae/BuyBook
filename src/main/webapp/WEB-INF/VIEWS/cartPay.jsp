@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-String name = "minji";//(String) request.getAttribute("name");
-String email = "minji@minji";//(String) request.getAttribute("email");
-String phone = "123-123";//(String) request.getAttribute("phone");
-String address = "asdf";//(String) request.getAttribute("address");
-int totalPrice = 1;//(int) request.getAttribute("totalPrice");
+String name = (String) request.getParameter("inputCartName");
+String email = (String) request.getParameter("inputCartEmail");
+//String phone = "123-123";//(String) request.getAttribute("phone");
+//String address = "asdf";//(String) request.getAttribute("address");
+int totalPrice = Integer.parseInt((String) request.getParameter("totalPrice"));
+
+System.out.println("name: " + name);
+System.out.println("email: " + email);
+System.out.println("total: " + totalPrice);
 %>
 <!DOCTYPE html>
 <html>
@@ -15,8 +19,10 @@ int totalPrice = 1;//(int) request.getAttribute("totalPrice");
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-<script>
-	function requestPay() {
+</head>
+<body>
+	<script>
+$(function(){
 		var IMP = window.IMP; // 생략가능
 		IMP.init("imp75701478"); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		console.log("HI");
@@ -25,11 +31,11 @@ int totalPrice = 1;//(int) request.getAttribute("totalPrice");
 		IMP.request_pay({
 			pg : "kakaopay",
 			pay_method : "card",
-			merchant_uid : "ORD20180131-0000011",
-			name : "노르웨이 회전 의자",
-			amount : 64900,
-			buyer_email : "gildong@gmail.com",
-			buyer_name : "홍길동",
+			merchant_uid : "ORD20180131-0000033",
+			name : "도서 주문",
+			amount : <%=totalPrice%>,
+			buyer_email : '<%=email%>',
+			buyer_name : '<%=name%>',
 			buyer_tel : "010-4242-4242",
 			buyer_addr : "서울특별시 강남구 신사동",
 			buyer_postcode : "01181"
@@ -37,7 +43,7 @@ int totalPrice = 1;//(int) request.getAttribute("totalPrice");
 			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 				jQuery.ajax({
-					url : "/cart/payFail", //cross-domain error가 발생하지 않도록 주의해주세요
+					url : "/cart/cartPay", //cross-domain error가 발생하지 않도록 주의해주세요
 					type : 'POST',
 					dataType : 'json',
 					data : {
@@ -59,7 +65,7 @@ int totalPrice = 1;//(int) request.getAttribute("totalPrice");
 						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
 					}
 				});
-				location.href='<%=request.getContextPath()%>/cart/paySuccess?msg='+msg;
+				location.href='<%=request.getContextPath()%>/cart/paySuccess?inputUserEmail=<%=email%>';
 			} else {
 				// 결제에 실패시
 				var msg = '결제에 실패';
@@ -69,10 +75,7 @@ int totalPrice = 1;//(int) request.getAttribute("totalPrice");
 			}
 		});
 
-	}
+	});
 </script>
-</head>
-<body>
-	<button onclick="requestPay()">결제하기</button>
 </body>
 </html>

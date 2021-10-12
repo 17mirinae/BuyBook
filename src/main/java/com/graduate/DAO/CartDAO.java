@@ -30,6 +30,20 @@ public class CartDAO {
 		return result;
 	}
 
+	// 장바구니 항목 한 개 가져오기
+	public CartDTO getCartItem(String inputCartEmail, String inputCartISBN) {
+		try {
+			return jdbcTemplate.queryForObject(
+					"SELECT * FROM CART WHERE CARTEMAIL = '" + inputCartEmail + "' AND CARTISBN = '" + inputCartISBN
+							+ "';",
+					(rs, rowNum) -> new CartDTO(rs.getString("CARTEMAIL"), rs.getString("CARTISBN"),
+							rs.getString("CARTIMAGE"), rs.getString("CARTTITLE"), rs.getInt("CARTCOUNT"),
+							rs.getInt("CARTPRICE")));
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
 	// 장바구니에 추가하기
 	public void insertCart(CartDTO cartDTO) {
 		jdbcTemplate.update("INSERT INTO CART(CARTEMAIL, CARTISBN, CARTIMAGE, CARTTITLE, CARTCOUNT, CARTPRICE) VALUES('"
@@ -41,6 +55,20 @@ public class CartDAO {
 	// 장바구니에서 해당 회원의 기록 없애기
 	public void deleteCart(String inputCartEmail) {
 		jdbcTemplate.update("DELETE FROM CART WHERE CARTEMAIL = '" + inputCartEmail + "';");
+	}
+
+	// 주문 내역으로 추가하기
+	public void insertOrder(CartDTO cartDTO) {
+		jdbcTemplate.update(
+				"INSERT INTO ORDERED(ORDEREDEMAIL, ORDEREDISBN, ORDEREDTITLE, ORDEREDCOUNT, ORDEREDPRICE, ORDEREDDATE) VALUES('"
+						+ cartDTO.getCartEmail() + "', '" + cartDTO.getCartISBN() + "', '" + cartDTO.getCartTitle()
+						+ "', " + cartDTO.getCartCount() + ", " + cartDTO.getCartPrice() + ", NOW());");
+	}
+
+	// 장바구니 항목 하나 지우기
+	public void deleteCartItem(String inputCartEmail, String inputCartISBN) {
+		jdbcTemplate.update(
+				"DELETE FROM CART WHERE CARTEMAIL = '" + inputCartEmail + "' AND CARTISBN = '" + inputCartISBN + "';");
 	}
 
 }

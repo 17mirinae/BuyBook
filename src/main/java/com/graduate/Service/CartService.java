@@ -24,6 +24,10 @@ public class CartService {
 		return cartList;
 	}
 	
+	// 장바구니 항목 한 개 가져오기
+	public CartDTO getCartItem(String inputUserEmail, String inputBookISBN) {
+		return cartDAO.getCartItem(inputUserEmail, inputBookISBN);
+	}
 	// 장바구니 비우기
 	public void deleteCart(String inputUserEmail) {
 		cartDAO.deleteCart(inputUserEmail);
@@ -35,8 +39,13 @@ public class CartService {
 	}
 	
 	// 장바구니 항목 지우기
-	public void deleteCart(String inputUserEmail, String inputBookISBN) {
-		cartDAO.deleteCart(inputUserEmail, inputBookISBN);
+	public void deleteCartItem(String inputUserEmail, String inputBookISBN) {
+		cartDAO.deleteCartItem(inputUserEmail, inputBookISBN);
+	}
+	
+	// 장바구니에서 주문 내역으로
+	public void insertOrder(CartDTO cartDTO) {
+		cartDAO.insertOrder(cartDTO);
 	}
 
 }

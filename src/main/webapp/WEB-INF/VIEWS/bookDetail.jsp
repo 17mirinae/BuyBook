@@ -54,7 +54,7 @@
 					<%
 					} else {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/cart/Cart?userEmail=<%=userDTO.getUserEmail()%>">Cart</a></li>
+					<li class="nav-item"><a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">Cart</a></li>
 					<li class="nav-item"><a class="nav-link" href="/member/my_page">MyPage</a></li>
 					<li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
 					<%

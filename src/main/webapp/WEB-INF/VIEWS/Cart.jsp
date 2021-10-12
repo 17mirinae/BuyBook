@@ -1,12 +1,6 @@
-<%@page import="com.graduate.Service.*"%>
-<%@page import="com.graduate.DTO.*"%>
+<%@page import="com.graduate.DTO.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-String name = (String) request.getAttribute("name");
-String email = (String) request.getAttribute("email");
-String phone = (String) request.getAttribute("phone");
-%>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -18,75 +12,15 @@ String phone = (String) request.getAttribute("phone");
 <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles2.css" rel="stylesheet" />
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-<script>
-	function requestPay() {
-		var IMP = window.IMP; // 생략가능
-		IMP.init("imp75701478"); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		console.log("HI");
-		var msg;
-
-		IMP.request_pay({
-			pg : "kakaopay",
-			pay_method : "card",
-			merchant_uid : "ORD20180131-0000023",
-			name : "노르웨이 회전 의자",
-			amount : 64900,
-			buyer_email : "gildong@gmail.com",
-			buyer_name : "홍길동",
-			buyer_tel : "010-4242-4242",
-			buyer_addr : "서울특별시 강남구 신사동",
-			buyer_postcode : "01181"
-		}, function(rsp) { // callback
-			if (rsp.success) {
-				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-				jQuery.ajax({
-					url : "/cart/Cart?userEmail="${userDTO.getUserEmail()}, //cross-domain error가 발생하지 않도록 주의해주세요
-					type : 'POST',
-					dataType : 'json',
-					data : {
-						imp_uid : rsp.imp_uid
-					//기타 필요한 데이터가 있으면 추가 전달
-					}
-				}).done(function(data) {
-					//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-					if (everythings_fine) {
-						var msg = '결제가 완료되었습니다.';
-						msg += '\n고유ID : ' + rsp.imp_uid;
-						msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-						msg += '\결제 금액 : ' + rsp.paid_amount;
-						msg += '카드 승인번호 : ' + rsp.apply_num;
-
-						alert(msg);
-					} else {
-						//[3] 아직 제대로 결제가 되지 않았습니다.
-						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-					}
-				});
-				location.href='<%=request.getContextPath()%>/cart/paySuccess?msg='+msg;
-			} else {
-				// 결제에 실패시
-				var msg = '결제에 실패';
-				msg += '에러내용 : ' + rsp.error_msg;
-				location.href='<%=request.getContextPath()%>/cart/payFail?msg='+msg;
-				alert(msg);
-			}
-		});
-
-	}
-</script>
 </head>
 <body>
+	<%
+	// 세션값 가져오기
+	UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
+	%>
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg bg-light static-top ">
 		<div class="container px-5">
-			<%
-			// 세션값 가져오기
-			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
-			%>
 			<a class="navbar-brand" href="/">Book Store</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -175,9 +109,9 @@ String phone = (String) request.getAttribute("phone");
 									</tr>
 								</tfoot> -->
 								<tbody>
-									<form action="/cart/Cart?userEmail=<%=userDTO.getUserEmail()%>" method="POST">
-										<c:set var="totalPrice" value="0" />
-										<c:forEach var="cartDTO" items="${cartList}">
+									<c:set var="totalPrice" value="0" />
+									<c:forEach var="cartDTO" items="${cartList}">
+										<form action="/cart/Cart?cartEmail=${cartDTO.cartEmail}&cartISBN=${cartDTO.cartISBN}" method="POST">
 											<tr>
 												<td><img src="/bookImageStorage/${cartDTO.cartImage}" alt="..." style="height: 25rem" /></td>
 												<td>${cartDTO.cartTitle}</td>
@@ -186,11 +120,11 @@ String phone = (String) request.getAttribute("phone");
 												<!-- <td><label>
 													<input type="checkbox" name="choice" value="System Architect|isbnCode">
 												</label></td> -->
-												<td><input type="button" onclick="deleteItem()" value="삭제" /></td>
+												<td><input type="submit" value="삭제" /></td>
 												<c:set var="totalPrice" value="${totalPrice + cartDTO.cartPrice}" />
 											</tr>
-										</c:forEach>
-									</form>
+										</form>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -203,7 +137,13 @@ String phone = (String) request.getAttribute("phone");
 					<br>
 					<div class="card text-white bg-primary my-5 py-10 text-center">
 						<div class="card-body">
-							<input type="submit" class="btn btn-primary btn-lg" onclick="requestPay()" value="결제" />
+							<form action="/cart/cartPay" method="POST">
+								<input type="hidden" id="inputCartEmail" name="inputCartEmail" value="<%=userDTO.getUserEmail()%>">
+								<input type="hidden" id="inputCartName" name="inputCartName" value="<%=userDTO.getUserName()%>">
+								<input type="hidden" id="totalPrice" name="totalPrice" value="${totalPrice}" />
+								<input type="submit" class="btn btn-primary btn-lg" value="결제" />
+								<!-- onclick="requestPay()" -->
+							</form>
 						</div>
 					</div>
 				</div>

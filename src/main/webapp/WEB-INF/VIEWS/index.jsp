@@ -42,7 +42,7 @@
 					<%
 					} else {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/cart/Cart?userEmail=<%=userDTO.getUserEmail()%>">장바구니</a></li>
+					<li class="nav-item"><a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">장바구니</a></li>
 					<li class="nav-item"><a class="nav-link" href="/user/userDetail">내 정보</a></li>
 					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">로그아웃</a></li>
 					<%
