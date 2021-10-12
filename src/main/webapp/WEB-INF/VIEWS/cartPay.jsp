@@ -31,7 +31,7 @@ $(function(){
 		IMP.request_pay({
 			pg : "kakaopay",
 			pay_method : "card",
-			merchant_uid : "ORD20180131-0000033",
+			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : "도서 주문",
 			amount : <%=totalPrice%>,
 			buyer_email : '<%=email%>',
