@@ -11,7 +11,6 @@ import com.graduate.DTO.BookDTO;
 
 @Component
 public class BookDAO {
-	private BookDTO bookDTO;
 	private JdbcTemplate jdbcTemplate;
 
 	public BookDAO(DataSource dataSource) {
@@ -25,20 +24,20 @@ public class BookDAO {
 					(rs, rowNum) -> new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE")));
+							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT")));
 		} catch (Exception ex) {
 			return null;
 		}
 	}
 
-	// 현재 조회 중인 책을 제외한 동일 장르의 도서 목록
+	// 현재 조회 중인 책을 제외한 동일 장르의 도서 4권
 	public List<BookDTO> selectGenreBookList(String inputBookISBN, String inputBookGenre) {
 		List<BookDTO> result = jdbcTemplate.query("SELECT * FROM BOOK WHERE BOOKISBN != '" + inputBookISBN
 				+ "' AND BOOKGENRE = '" + inputBookGenre + "' ORDER BY RAND() LIMIT 4;", (rs, rowNum) -> {
 					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"));
+							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
 					return bookDTO;
 				});
 
@@ -47,13 +46,14 @@ public class BookDAO {
 
 	// 신작 도서 10권 목록
 	public List<BookDTO> newBookList() {
-		List<BookDTO> result = jdbcTemplate.query("SELECT * FROM BOOK ORDER BY DATE DESC LIMIT 10;", (rs, rowNum) -> {
-			BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
-					rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
-					rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-					rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"));
-			return bookDTO;
-		});
+		List<BookDTO> result = jdbcTemplate.query("SELECT * FROM BOOK ORDER BY BOOKDATE DESC LIMIT 10;",
+				(rs, rowNum) -> {
+					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
+							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
+							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
+							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+					return bookDTO;
+				});
 
 		return result;
 	}
@@ -64,9 +64,23 @@ public class BookDAO {
 			BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 					rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 					rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-					rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"));
+					rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
 			return bookDTO;
 		});
+
+		return result;
+	}
+
+	// 다섯 권 책 조회
+	public List<BookDTO> showFive() {
+		List<BookDTO> result = jdbcTemplate.query("SELECT * FROM BOOK ORDER BY BOOKDATE DESC LIMIT 5;",
+				(rs, rowNum) -> {
+					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
+							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
+							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
+							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+					return bookDTO;
+				});
 
 		return result;
 	}
@@ -84,5 +98,33 @@ public class BookDAO {
 	// 도서 삭제
 	public void deleteBook(BookDTO bookDTO) {
 		jdbcTemplate.update("DELETE FROM BOOK WHERE BOOKISBN = '" + bookDTO.getBookISBN() + "';");
+	}
+
+	// 판매부수 많은 도서 가져오기
+	public List<BookDTO> showHitBookList() {
+		List<BookDTO> result = jdbcTemplate.query("SELECT * FROM BOOK WHERE BOOKHIT >= 5 ORDER BY BOOKHIT DESC;",
+				(rs, rowNum) -> {
+					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
+							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
+							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
+							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+					return bookDTO;
+				});
+
+		return result;
+	}
+
+	// 판매부수 많은 도서 3권 가져오기
+	public List<BookDTO> showHitBookThree() {
+		List<BookDTO> result = jdbcTemplate
+				.query("SELECT * FROM BOOK WHERE BOOKHIT >= 5 ORDER BY BOOKHIT DESC LIMIT 3;", (rs, rowNum) -> {
+					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
+							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
+							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
+							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+					return bookDTO;
+				});
+
+		return result;
 	}
 }

@@ -2,8 +2,6 @@
 <%
 String name = (String) request.getParameter("inputCartName");
 String email = (String) request.getParameter("inputCartEmail");
-//String phone = "123-123";//(String) request.getAttribute("phone");
-//String address = "asdf";//(String) request.getAttribute("address");
 int totalPrice = Integer.parseInt((String) request.getParameter("totalPrice"));
 
 System.out.println("name: " + name);
@@ -25,7 +23,6 @@ System.out.println("total: " + totalPrice);
 $(function(){
 		var IMP = window.IMP; // 생략가능
 		IMP.init("imp75701478"); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		console.log("HI");
 		var msg;
 
 		IMP.request_pay({

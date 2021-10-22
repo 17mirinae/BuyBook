@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Book Store</title>
+<title>Buy Book</title>
 <link href="../css/styles2.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -38,8 +38,7 @@
 										</div>
 										<!-- 비밀번호 -->
 										<div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="/user/userForgotPwd">Forgot Password?</a>
-											<input type="submit" class="btn btn-primary" value="Login" />
+											<a class="small" href="/user/userForgotPwd">Forgot Password?</a> <input type="submit" class="btn btn-primary" value="Login" />
 										</div>
 									</form>
 									<!-- 로그인 -->
@@ -59,11 +58,9 @@
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid px-4">
 					<div class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Book Store 2021</div>
+						<div class="text-muted">Copyright &copy; Buy Book</div>
 						<div>
-							<a href="#">Privacy Policy</a>
-							&middot;
-							<a href="#">Terms &amp; Conditions</a>
+							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a>
 						</div>
 					</div>
 				</div>

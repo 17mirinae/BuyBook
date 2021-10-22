@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Book Store</title>
+<title>Buy Book</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -22,12 +22,11 @@
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg bg-light static-top ">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/">Book Store</a>
+			<a class="navbar-brand" href="/">Buy Book</a>
 			<%
 			// 세션값 가져오기
 			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
 			%>
-			<a class="navbar-brand" href="/">Book Store</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -37,14 +36,14 @@
 					// 세션값 가져오기
 					if (userDTO == null) {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">회원가입</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">로그인</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">Sign In</a></li>
 					<%
 					} else {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">장바구니</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userDetail">내 정보</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">로그아웃</a></li>
+					<li class="nav-item"><a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">My Cart</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userDetail">My Page</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">Sign Out</a></li>
 					<%
 					}
 					%>
@@ -55,7 +54,7 @@
 	<!-- Navigation-->
 	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 		<div class="container">
-			<a class="btn" style="background-color: #e3f2fd; color: dodgerblue;" href="/book/bookSearch">자료 검색</a>
+			<a class="btn" style="background-color: #e3f2fd; color: dodgerblue;" href="/book/bookSearch">도서 검색</a>
 			<div class="dropdown show">
 				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 신청 / 참여 </a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -63,26 +62,26 @@
 					// 세션값 가져오기
 					if (userDTO == null) {
 					%>
-					<a class="dropdown-item disabled" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
+					<a class="dropdown-item disabled" href="/book/userHope">희망 도서 신청</a> <a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
 					<%
 					} else {
 					%>
-					<a class="dropdown-item" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
+					<a class="dropdown-item" href="/book/userHope">희망 도서 신청</a> <a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
 					<%
 					}
 					%>
 				</div>
 			</div>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 서점 이용 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 이용</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/good/unified_search">추천 도서</a> <a class="dropdown-item" href="/book/new_unified_search">신간 도서</a>
+					<a class="dropdown-item" href="/book/goodSearch">추천 도서</a> <a class="dropdown-item" href="/book/newBookSearch">신간 도서</a>
 				</div>
 			</div>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 서점 정보 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 정보</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/storeIntroduce">서점 소개</a> <a class="dropdown-item" href="/notice/unified_search">공지 사항</a>
+					<a class="dropdown-item" href="/storeIntroduce">서점 소개</a> <a class="dropdown-item" href="/board/noticeSearch">공지 사항</a>
 				</div>
 			</div>
 		</div>
@@ -95,7 +94,7 @@
 				<div class="col-xl-6">
 					<div class="text-center text-white">
 						<!-- Page heading-->
-						<h1 class="mb-5">Welcome to Book Store</h1>
+						<h1 class="mb-5">Welcome to Buy Book</h1>
 					</div>
 				</div>
 			</div>
@@ -108,7 +107,7 @@
 		<div class="card text-white bg-primary my-5 py-10 text-center">
 			<div class="card-body">
 				<!--                    <p class="text-white m-0">자유 게시판</p>-->
-				<a href="/board/unified_search" class="btn btn-primary btn-lg">자유 게시판</a>
+				<a href="/board/boardSearch" class="btn btn-primary btn-lg">자유 게시판</a>
 			</div>
 		</div>
 		<!-- Content Row-->
@@ -121,14 +120,14 @@
 							<p class="card-text">${boardDTO.boardContent}</p>
 						</div>
 						<div class="card-footer">
-							<a class="btn btn-primary btn-sm" href="/board/board_detail?boardID=${boardDTO.boardID}">More Info</a>
+							<a class="btn btn-primary btn-sm" href="/board/boardDetail?boardNo=${boardDTO.boardNo}">More Info</a>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
-	<!--    사서 추천 도서 / 인기 도서 섹션 -->
+	<!--    추천 도서 / 인기 도서 섹션 -->
 	<section class="bg-light py-5 border-bottom">
 		<div class="container px-4 px-lg-5">
 			<div class="card text-center">
@@ -141,15 +140,14 @@
 				<div class="card-body">
 					<div class="tab-content">
 						<div class="tab-pane active" id="librarianNominate">
-							<!--                        사서 추천 도서-->
+							<!--                        추천 도서-->
 							<div class="card-group col-sm-auto">
 								<c:forEach var="goodDTO" items="${goodList}">
 									<div class="card" style="width: 18rem;">
 										<img class="card-img-top" src="/bookImageStorage/${goodDTO.goodImage}" alt="Card image cap">
 										<div class="card-body">
 											<h5 class="card-title">${goodDTO.goodTitle}</h5>
-											<%--                                            <p class="card-text">${goodDTO.goodContent}</p> --%>
-											<a href="/good/good_detail?goodID=${goodDTO.goodID}" class="btn btn-primary">자세히 보기</a>
+											<a href="/book/goodDetail?goodNo=${goodDTO.goodNo}" class="btn btn-primary">More Info</a>
 										</div>
 										<div class="card-footer">
 											<small class="text-muted">${goodDTO.goodDate}</small>
@@ -159,31 +157,27 @@
 							</div>
 							<div class="card text-white bg-primary my-5 py-10 text-center">
 								<div class="card-body">
-									<a href="/good/unified_search" class="btn btn-primary btn-lg">추천 도서 게시판</a>
+									<a href="/book/goodSearch" class="btn btn-primary btn-lg">추천 도서</a>
 								</div>
 							</div>
 						</div>
 						<div class="tab-pane" id="hitBook">
 							<!--                        인기 도서-->
 							<div class="card-group col-sm-auto">
-								<c:forEach var="bookDTO2" items="${hitBookList}">
+								<c:forEach var="bookDTO" items="${hitBookList}">
 									<div class="card" style="width: 18rem;">
 										<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">HIT!</div>
-										<img class="card-img-top" src="/bookImageStorage/${bookDTO2.bookImage}" alt="Card image cap">
+										<img class="card-img-top" src="/bookImageStorage/${bookDTO.bookImage}" alt="Card image cap">
 										<div class="card-body">
-											<h5 class="card-title">${bookDTO2.bookTitle}</h5>
-											<%--                                            <p class="card-text">${goodDTO.goodContent}</p> --%>
-											<a href="/book/book_detail?bookISBN=${bookDTO2.bookISBN}&bookGenre=${bookDTO2.bookGenre}" class="btn btn-primary">자세히 보기</a>
+											<h5 class="card-title">${bookDTO.bookTitle}</h5>
+											<a href="/book/bookDetail?bookISBN=${bookDTO.bookISBN}&bookGenre=${bookDTO.bookGenre}" class="btn btn-primary">More Info</a>
 										</div>
-										<%-- <div class="card-footer">
-                                           <small class="text-muted">${bookDTO2.bookDate}</small>
-                                       </div> --%>
 									</div>
 								</c:forEach>
 							</div>
 							<div class="card text-white bg-primary my-5 py-10 text-center">
 								<div class="card-body">
-									<a href="/book/hit_unified_search" class="btn btn-primary btn-lg">인기 도서 게시판</a>
+									<a href="/book/hitBookSearch" class="btn btn-primary btn-lg">인기 도서</a>
 								</div>
 							</div>
 						</div>
@@ -206,23 +200,20 @@
 					<div class="card mb-5 mb-xl-0">
 						<div class="card-body p-10">
 							<div class="mb-3">
-								<span class="display-4 fw-bold"> <i class="bi bi-star-fill text-warning"></i> 공지 사항
+								<span class="display-4 fw-bold"> <i class="bi bi-star-fill text-warning"></i>공지 사항
 								</span>
 							</div>
 							<ul class="list-unstyled mb-4">
-								<!-- <li class="mb-2"><i class="bi bi-check text-primary"></i> <strong>1 users</strong></li>
-                                <li class="mb-2"><i class="bi bi-check text-primary"></i>5GB storage</li> -->
 								<c:forEach var="noticeDTO" items="${noticeList}">
-									<li class="mb-2"><i class="bi bi-check text-primary"></i> <a href="/notice/notice_detail?noticeID=${noticeDTO.noticeID}">${noticeDTO.noticeTitle}</a></li>
+									<li class="mb-2"><i class="bi bi-check text-primary"></i> <a href="/board/noticeDetail?noticeNo=${noticeDTO.noticeNo}">${noticeDTO.noticeTitle}</a></li>
 								</c:forEach>
 							</ul>
 							<div class="d-grid">
-								<a class="btn btn-outline-primary" href="/notice/unified_search">더보기</a>
+								<a class="btn btn-outline-primary" href="/board/noticeSearch">More Info</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- Pricing card pro-->
 				<div class="col-lg-6 col-xl-6">
 					<div class="card mb-5 mb-xl-0">
 						<div class="card-body p-10">
@@ -232,12 +223,12 @@
 							</div>
 							<ul class="list-unstyled mb-4">
 								<c:forEach var="bookDTO" items="${bookList}">
-									<li class="mb-2"><i class="bi bi-check text-primary"></i> <strong> <a class="bi text-primary" href="/book/book_detail?bookISBN=${bookDTO.bookISBN}&bookGenre=${bookDTO.bookGenre}">${bookDTO.bookTitle}</a>
+									<li class="mb-2"><i class="bi bi-check text-primary"></i> <strong> <a class="bi text-primary" href="/book/bookDetail?bookISBN=${bookDTO.bookISBN}&bookGenre=${bookDTO.bookGenre}">${bookDTO.bookTitle}</a>
 									</strong></li>
 								</c:forEach>
 							</ul>
 							<div class="d-grid">
-								<a class="btn btn-outline-primary" href="/book/new_unified_search">더보기</a>
+								<a class="btn btn-outline-primary" href="/book/newBookSearch">More Info</a>
 							</div>
 						</div>
 					</div>
@@ -257,13 +248,6 @@
 						<p class="font-weight-light mb-0">"취업하고 싶어요!"</p>
 					</div>
 				</div>
-				<!-- <div class="col-lg-6">
-					<div class="testimonial-item mx-auto mb-5 mb-lg-0">
-						<img class="img-fluid rounded-circle mb-3" src="assets/img/MJK.png" alt="..." />
-						<h5>MJ.K</h5>
-						<p class="font-weight-light mb-0">"The cake is a lie!"</p>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</section>
@@ -277,15 +261,11 @@
 						<li class="list-inline-item">⋅</li>
 						<li class="list-inline-item"><a href="#!">Contact</a></li>
 					</ul>
-					<p class="text-muted small mb-4 mb-lg-0">&copy; Book Store 2021. All Rights Reserved.</p>
+					<p class="text-muted small mb-4 mb-lg-0">&copy; Buy Book 2021. All Rights Reserved.</p>
 				</div>
 				<div class="col-lg-6 h-100 text-center text-lg-end my-auto">
 					<ul class="list-inline mb-0">
-						<li class="list-inline-item me-4"><a href="#!"> <i class="bi-facebook fs-3"></i>
-						</a></li>
-						<li class="list-inline-item me-4"><a href="#!"> <i class="bi-twitter fs-3"></i>
-						</a></li>
-						<li class="list-inline-item"><a href="#!"> <i class="bi-instagram fs-3"></i>
+						<li class="list-inline-item"><a href="https://www.github.com/17mirinae/Graduate"> <i class="bi-github fs-3"></i>
 						</a></li>
 					</ul>
 				</div>
@@ -299,8 +279,6 @@
 	<!--    사용자 정의 추가용-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
-	<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet" />-->
-	<!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </body>

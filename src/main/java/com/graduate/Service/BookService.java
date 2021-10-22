@@ -26,16 +26,12 @@ public class BookService {
 
 	// ISBN 으로 도서 한 권 가져오기
 	public BookDTO selectByBookISBN(String inputBookISBN) {
-		BookDTO bookDTO = bookDAO.selectByBookISBN(inputBookISBN);
-
-		return bookDTO;
+		return bookDAO.selectByBookISBN(inputBookISBN);
 	}
 
 	// 도서 장르로 도서 가져오기
 	public List<BookDTO> selectGenreBookList(String inputBookISBN, String inputBookGenre) {
-		List<BookDTO> bookGenreList = bookDAO.selectGenreBookList(inputBookISBN, inputBookGenre);
-
-		return bookGenreList;
+		return bookDAO.selectGenreBookList(inputBookISBN, inputBookGenre);
 	}
 
 	// 도서 추가하기
@@ -62,6 +58,31 @@ public class BookService {
 		} else {
 			bookDAO.deleteBook(bookDTO);
 		}
+	}
+
+	// 다섯 권 도서 가져오기
+	public List<BookDTO> showFive() {
+		return bookDAO.showFive();
+	}
+
+	// 신규 도서 10권 가져오기
+	public List<BookDTO> newBookList() {
+		return bookDAO.newBookList();
+	}
+
+	// 같은 장르 도서 4권 가져오기
+	public List<BookDTO> genreBookList(String inputBookISBN, String inputBookGenre) {
+		return bookDAO.selectGenreBookList(inputBookISBN, inputBookGenre);
+	}
+	
+	// 인기 도서 가져오기
+	public List<BookDTO> showHitBookList() {
+		return bookDAO.showHitBookList();
+	}
+	
+	// 인기 도서 세 권 가져오기
+	public List<BookDTO> showHitBookThree() {
+		return bookDAO.showHitBookThree();
 	}
 
 	// 도서 수정하기

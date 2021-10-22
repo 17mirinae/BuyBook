@@ -13,6 +13,7 @@ public class BookDTO {
 	private int bookCount; // 도서 재고수
 	private String bookSummary; // 도서 한 줄 줄거리
 	private Date bookDate; // 도서 추가 시각
+	private int bookHit; // 도서 판매 부수
 
 	public BookDTO(String bookISBN, String bookTitle, String bookAuthor, int bookPrice, String bookGenre,
 			String bookPublisher, String bookImage, int bookCount, String bookSummary) {
@@ -41,6 +42,22 @@ public class BookDTO {
 		this.bookCount = bookCount;
 		this.bookSummary = bookSummary;
 		this.bookDate = bookDate;
+	}
+
+	public BookDTO(String bookISBN, String bookTitle, String bookAuthor, int bookPrice, String bookGenre,
+			String bookPublisher, String bookImage, int bookCount, String bookSummary, Date bookDate, int bookHit) {
+		super();
+		this.bookISBN = bookISBN;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.bookPrice = bookPrice;
+		this.bookGenre = bookGenre;
+		this.bookPublisher = bookPublisher;
+		this.bookImage = bookImage;
+		this.bookCount = bookCount;
+		this.bookSummary = bookSummary;
+		this.bookDate = bookDate;
+		this.bookHit = bookHit;
 	}
 
 	public String getBookISBN() {
@@ -123,12 +140,20 @@ public class BookDTO {
 		this.bookDate = bookDate;
 	}
 
+	public int getBookHit() {
+		return bookHit;
+	}
+
+	public void setBookHit(int bookHit) {
+		this.bookHit = bookHit;
+	}
+
 	@Override
 	public String toString() {
 		return "BookDTO [bookISBN=" + bookISBN + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor
 				+ ", bookPrice=" + bookPrice + ", bookGenre=" + bookGenre + ", bookPublisher=" + bookPublisher
 				+ ", bookImage=" + bookImage + ", bookCount=" + bookCount + ", bookSummary=" + bookSummary
-				+ ", bookDate=" + bookDate + "]";
+				+ ", bookDate=" + bookDate + ", bookHit=" + bookHit + "]";
 	}
 
 }
