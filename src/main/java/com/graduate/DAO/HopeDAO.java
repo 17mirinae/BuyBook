@@ -27,6 +27,7 @@ public class HopeDAO {
 		return result;
 	}
 
+	// 희망 도서 ISBN 으로 한 권 가져오기
 	public HopeDTO selectByHopeISBN(String inputHopeISBN) {
 		try {
 			return jdbcTemplate.queryForObject("SELECT * FROM HOPE WHERE HOPEISBN = '" + inputHopeISBN + "';",
@@ -39,12 +40,13 @@ public class HopeDAO {
 		}
 	}
 
+	// 희망 도서 추가
 	public void insertHope(HopeDTO hopeDTO) {
-		jdbcTemplate.update("INSERT INTO HOPE(HOPEISBN, HOPETITLE, HOPENUMBER, HOPELINK) VALUES('"
-				+ hopeDTO.getHopeISBN() + "', '" + hopeDTO.getHopeTitle() + "', " + hopeDTO.getHopeNumber() + ", '"
-				+ hopeDTO.getHopeLink() + "');");
+		jdbcTemplate.update("INSERT INTO HOPE(HOPEISBN, HOPETITLE, HOPELINK) VALUES('" + hopeDTO.getHopeISBN() + "', '"
+				+ hopeDTO.getHopeTitle() + "', '" + hopeDTO.getHopeLink() + "');");
 	}
 
+	// 희망 도서 인원수 + 1
 	public void updateHope(String inputHopeISBN) {
 		jdbcTemplate.update("UPDATE HOPE SET HOPENUMBER = HOPENUMBER + 1 WHERE HOPEISBN = '" + inputHopeISBN + "';");
 	}

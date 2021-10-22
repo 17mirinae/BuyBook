@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Book Store</title>
+<title>Buy Book</title>
 <link href="/css/styles2.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -23,15 +23,14 @@
 									<h3 class="text-center font-weight-light my-4">Password Recovery</h3>
 								</div>
 								<div class="card-body">
-									<div class="small mb-3 text-muted">Enter your email address and we will send you a link to reset your password.</div>
+									<div class="small mb-3 text-muted">Enter your E-Mail address and we will send you a link to reset your password.</div>
 									<form action="/user/userForgotPwd" method="POST">
 										<div class="form-floating mb-3">
 											<input class="form-control" id="inputUserEmail" type="email" placeholder="name@example.com" name="inputUserEmail" />
-											<label for="inputUserEmail">Email address</label>
+											<label for="inputUserEmail">E-Mail Address</label>
 										</div>
 										<div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="/user/userSignIn">Return to login</a>
-											<input type="submit" class="btn btn-primary" value="Reset Password" />
+											<a class="small" href="/user/userSignIn">Return to sign in</a> <input type="submit" class="btn btn-primary" value="Reset Password" />
 										</div>
 									</form>
 								</div>
@@ -50,11 +49,9 @@
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid px-4">
 					<div class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Book Store</div>
+						<div class="text-muted">Copyright &copy; Buy Book</div>
 						<div>
-							<a href="#">Privacy Policy</a>
-							&middot;
-							<a href="#">Terms &amp; Conditions</a>
+							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a>
 						</div>
 					</div>
 				</div>
@@ -62,6 +59,6 @@
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="/js/scripts.js"></script>
+	<script src="../js/scripts.js"></script>
 </body>
 </html>

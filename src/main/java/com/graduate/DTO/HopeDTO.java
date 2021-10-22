@@ -6,11 +6,19 @@ public class HopeDTO {
 	private int hopeNumber;
 	private String hopeLink;
 
-	public HopeDTO(String _hopeISBN, String _hopeTitle, int _hopeNumber, String _hopeLink) {
-		this.hopeISBN = _hopeISBN;
-		this.hopeTitle = _hopeTitle;
-		this.hopeNumber = _hopeNumber;
-		this.hopeLink = _hopeLink;
+	public HopeDTO(String hopeISBN, String hopeTitle, String hopeLink) {
+		super();
+		this.hopeISBN = hopeISBN;
+		this.hopeTitle = hopeTitle;
+		this.hopeLink = hopeLink;
+	}
+
+	public HopeDTO(String hopeISBN, String hopeTitle, int hopeNumber, String hopeLink) {
+		super();
+		this.hopeISBN = hopeISBN;
+		this.hopeTitle = hopeTitle;
+		this.hopeNumber = hopeNumber;
+		this.hopeLink = hopeLink;
 	}
 
 	public String getHopeISBN() {

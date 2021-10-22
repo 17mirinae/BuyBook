@@ -5,10 +5,12 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.PrintWriter;
 import java.util.*;
 
 import javax.servlet.http.*;
 
+import com.graduate.Exception.*;
 import com.graduate.Service.*;
 import com.graduate.DTO.*;
 
@@ -22,6 +24,8 @@ public class BookController {
 	CartService cartService;
 	@Autowired
 	GoodService goodService;
+	@Autowired
+	HopeService hopeService;
 
 	// 도서 상세
 	@RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
@@ -64,10 +68,45 @@ public class BookController {
 	@RequestMapping(value = "/userHope", method = RequestMethod.GET)
 	public String userHope(Model model) {
 		List<BookDTO> bookList = bookService.showAll();
-		
+
 		model.addAttribute("bookList", bookList);
-		
+
 		return "userHope";
+	}
+
+	// 추천 도서 업로드
+	@PostMapping(value = "/userHope")
+	public void userHope(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			String inputBookISBN = request.getParameter("inputBookISBN");
+			String inputBookTitle = request.getParameter("inputBookTitle");
+			String inputBookLink = request.getParameter("inputBookLink");
+
+			BookDTO bookDTO = bookService.selectByBookISBN(inputBookISBN);
+
+			if (bookDTO == null) {
+				HopeDTO hopeDTO = hopeService.selectByHopeISBN(inputBookISBN);
+				if (hopeDTO == null) {
+					hopeDTO = new HopeDTO(inputBookISBN, inputBookTitle, inputBookLink);
+					hopeService.insertHope(hopeDTO);
+
+					response.sendRedirect("/book/userHope");
+				} else {
+					hopeService.updateHope(hopeDTO.getHopeISBN());
+
+					response.sendRedirect("/book/userHope");
+				}
+			} else
+				throw new AlreadyExistingException("이미 존재하는 도서입니다.");
+		} catch (AlreadyExistingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('이미 존재하는 도서입니다.'); location.href='/book/userHope';</script>");
+
+			out.flush();
+		}
 	}
 
 	// 신작 도서
@@ -79,14 +118,14 @@ public class BookController {
 
 		return "newBookSearch";
 	}
-	
+
 	// 인기 도서 10권
 	@RequestMapping(value = "/hitBookSearch", method = RequestMethod.GET)
 	public String hitBookSearch(Model model) {
 		List<BookDTO> hitBookList = bookService.showHitBookList();
-		
+
 		model.addAttribute("hitBookList", hitBookList);
-		
+
 		return "hitBookSearch";
 	}
 

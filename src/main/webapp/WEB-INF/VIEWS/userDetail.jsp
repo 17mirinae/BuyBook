@@ -13,17 +13,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Book Store</title>
+<title>Buy Book</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="../css/styles2.css" rel="stylesheet" />
+<link href="/css/styles2.css" rel="stylesheet" />
 </head>
 <body>
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg bg-light static-top ">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/member_index">Book Store</a>
+			<a class="navbar-brand" href="/">Buy Book</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -34,14 +34,14 @@
 					UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
 					if (userDTO == null) {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">Register</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">Sign In</a></li>
 					<%
 					} else {
 					%>
 					<li class="nav-item"><a class="nav-link active" href="/user/userChangePwd">Change Password</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userDetail">MyPage</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">Logout</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userDetail">My Page</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">Sign Out</a></li>
 					<%
 					}
 					%>
@@ -166,8 +166,7 @@
 										out.println(userDTO.getUserEmail());
 										%>
 									</label>
-									님 안녕하세요.<br />
-									<br />
+									님 안녕하세요.<br /> <br />
 									<label for="">반납하고자 하는 책의 ISBN</label>
 									<div class="">
 										<select class="form-control form-control-lg" id="inputReturnISBN" name="inputReturnISBN">
@@ -199,8 +198,7 @@
 										out.println(userDTO.getUserEmail());
 										%>
 									</label>
-									님 안녕하세요.<br />
-									<br />
+									님 안녕하세요.<br /> <br />
 									<label for="">연장하고자 하는 책의 ISBN</label>
 									<div class="">
 										<select class="form-control form-control-lg" id="inputExtensionISBN" name="inputExtensionISBN">
