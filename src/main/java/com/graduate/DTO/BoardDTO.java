@@ -4,26 +4,29 @@ import java.sql.*;
 
 public class BoardDTO {
 	private int boardNo; // 게시글 번호
-	private String boardEmail; // 게시글 작성자
+	private String boardEmail; // 게시글 작성자 이메일
+	private String boardName; // 게시글 작성자
 	private String boardTitle; // 게시글 제목
 	private String boardContent; // 게시글 내용
 	private Date boardDate; // 게시글 업로그 날짜
 	private String boardPublic; // 게시글 공개 여부
 
-	public BoardDTO(int boardNo, String boardEmail, String boardTitle, String boardContent, Date boardDate,
-			String boardPublic) {
+	public BoardDTO(int boardNo, String boardEmail, String boardName, String boardTitle, String boardContent,
+			Date boardDate, String boardPublic) {
 		super();
 		this.boardNo = boardNo;
 		this.boardEmail = boardEmail;
+		this.boardName = boardName;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardDate = boardDate;
 		this.boardPublic = boardPublic;
 	}
 
-	public BoardDTO(String boardEmail, String boardTitle, String boardContent) {
+	public BoardDTO(String boardEmail, String boardName, String boardTitle, String boardContent) {
 		super();
 		this.boardEmail = boardEmail;
+		this.boardName = boardName;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 	}
@@ -42,6 +45,14 @@ public class BoardDTO {
 
 	public void setBoardEmail(String boardEmail) {
 		this.boardEmail = boardEmail;
+	}
+
+	public String getBoardName() {
+		return boardName;
+	}
+
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
 	}
 
 	public String getBoardTitle() {
@@ -78,8 +89,9 @@ public class BoardDTO {
 
 	@Override
 	public String toString() {
-		return "BoardDTO [boardNo=" + boardNo + ", boardEmail=" + boardEmail + ", boardTitle=" + boardTitle
-				+ ", boardContent=" + boardContent + ", boardDate=" + boardDate + ", boardPublic=" + boardPublic + "]";
+		return "BoardDTO [boardNo=" + boardNo + ", boardEmail=" + boardEmail + ", boardName=" + boardName
+				+ ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", boardDate=" + boardDate
+				+ ", boardPublic=" + boardPublic + "]";
 	}
 
 }

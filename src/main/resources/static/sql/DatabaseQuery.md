@@ -83,6 +83,17 @@ CREATE TABLE `gradb`.`board` (
   PRIMARY KEY (`BOARDNO`));
 ~~~~
 
+	* 2021-10-23
+~~~~sql
+ALTER TABLE `gradb`.`board` 
+CHANGE COLUMN `BOARDEMAIL` `BOARDNAME` VARCHAR(45) NOT NULL ;
+~~~~
+
+~~~~sql
+ALTER TABLE `gradb`.`board` 
+ADD COLUMN `BOARDEMAIL` VARCHAR(45) NOT NULL AFTER `BOARDNO`;
+~~~~
+
 ### COMMENT
 	* 2021-10-21
 ~~~~sql

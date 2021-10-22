@@ -85,7 +85,8 @@ public class BoardController {
 
 		UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
 
-		BoardDTO boardDTO = new BoardDTO(userDTO.getUserEmail(), inputBoardTitle, inputBoardContent);
+		BoardDTO boardDTO = new BoardDTO(userDTO.getUserEmail(), userDTO.getUserName(), inputBoardTitle,
+				inputBoardContent);
 
 		boardService.insertBoard(boardDTO);
 

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Book Store</title>
+<title>Buy Book</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -17,27 +17,15 @@
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../css/styles.css" rel="stylesheet" />
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 	<c var="bookDTO" items="${bookDTO}"> <!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg bg-light static-top ">
 		<div class="container px-5">
+			<a class="navbar-brand" href="/">Buy Book</a>
 			<%
 			// 세션값 가져오기
 			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
-			if (userDTO == null) {
-			%>
-			<a class="navbar-brand" href="/">Book Store</a>
-			<%
-			} else {
-			%>
-			<a class="navbar-brand" href="/member_index">Book Store</a>
-			<%
-			}
 			%>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -46,17 +34,16 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<%
 					// 세션값 가져오기
-
 					if (userDTO == null) {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/member/register">Register</a></li>
-					<li class="nav-item"><a class="nav-link" href="/member/login">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">Sign In</a></li>
 					<%
 					} else {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">Cart</a></li>
-					<li class="nav-item"><a class="nav-link" href="/member/my_page">MyPage</a></li>
-					<li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
+					<li class="nav-item"><a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">My Cart</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userDetail">My Page</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">Sign Out</a></li>
 					<%
 					}
 					%>
@@ -67,40 +54,40 @@
 	<!-- Navigation-->
 	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 		<div class="container">
-			<a class="btn" style="background-color: #e3f2fd; color: dodgerblue;" href="/book/unified_search">자료 검색</a>
+			<a class="btn" style="background-color: #e3f2fd; color: dodgerblue;" href="/book/bookSearch">도서 검색</a>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 신청 / 참여 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">신청 / 참여</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					<%
 					// 세션값 가져오기
 					if (userDTO == null) {
 					%>
-					<a class="dropdown-item disabled" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
+					<a class="dropdown-item disabled" href="/book/userHope">희망 도서 신청</a> <a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
 					<%
 					} else {
 					%>
-					<a class="dropdown-item" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
+					<a class="dropdown-item" href="/book/userHope">희망 도서 신청</a> <a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
 					<%
 					}
 					%>
 				</div>
 			</div>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 도서관 이용 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 이용</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/good/unified_search">사서 추천 도서</a> <a class="dropdown-item" href="/book/new_unified_search">신간 도서</a>
+					<a class="dropdown-item" href="/book/goodSearch">추천 도서</a> <a class="dropdown-item" href="/book/newBookSearch">신간 도서</a>
 				</div>
 			</div>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 도서관 정보 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 정보</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/library_introduce">도서관 소개</a> <a class="dropdown-item" href="/notice/unified_search">공지 사항</a>
+					<a class="dropdown-item" href="/storeIntroduce">서점 소개</a> <a class="dropdown-item" href="/board/noticeSearch">공지 사항</a>
 				</div>
 			</div>
 		</div>
 	</nav>
 	<!-- Product section-->
-	<form action="/book/bookDetail?bookISBN=${bookDTO.bookISBN}" method="POST">
+	<form action="/book/bookDetail?bookISBN=${bookDTO.bookISBN}&bookGenre=${bookDTO.bookGenre}" method="POST">
 		<section class="py-5">
 			<div class="container px-4 px-lg-5 my-5">
 				<div class="row gx-4 gx-lg-5 align-items-center">
@@ -111,26 +98,28 @@
 						<div class="small mb-1">${bookDTO.bookGenre}</div>
 						<h1 class="display-5 fw-bolder">${bookDTO.bookTitle}</h1>
 						<div class="fs-5 mb-5">
-							<span class="">도서 가격 : </span> <span>${bookDTO.bookPrice}</span>
-							<span class="">도서 재고 : </span> <span>${bookDTO.bookCount}</span>
+							<span class="">도서 가격 : </span> <span>${bookDTO.bookPrice}</span> <span class="">도서 재고 : </span> <span>${bookDTO.bookCount}</span>
 						</div>
 						<p class="lead">
-							저자 : ${bookDTO.bookAuthor}<br /> 출판사 : ${bookDTO.bookPublisher}<br />${bookDTO.bookSummary}
+							저자 : ${bookDTO.bookAuthor}<br /> 출판사 : ${bookDTO.bookPublisher}<br /> <br />${bookDTO.bookSummary}
 						</p>
 						<div class="d-flex">
+							<c:if test="${bookDTO.bookCount == 0}">
+								<button type="submit" value="품절" class="btn btn-outline-dark flex-shrink-0 disabled">
+									<i>품절</i>
+								</button>
+							</c:if>
 							<%
-							//대여는 무조건 로그인 했을 때만 떠라!
 							if (userDTO != null) {
 							%>
-							<button type="submit" value="장바구니" class="btn btn-outline-dark flex-shrink-0">
-								<i class="bi-cart-fill me-1">장바구니</i>
-							</button>
+							<c:if test="${bookDTO.bookCount != 0}">
+								<button type="submit" value="장바구니" class="btn btn-outline-dark flex-shrink-0">
+									<i class="bi-cart-fill me-1">장바구니</i>
+								</button>
+							</c:if>
 							<%
 							}
 							%>
-							<!-- <input class="btn btn-outline-dark flex-shrink-0" type="submit" value="대여하기" /> -->
-							<!-- 이거 작은 카트 모양 이미지인데 input 태그 안에 어떻게 넣는지 모르겠어용 -->
-							<!-- <i class="bi-cart-fill me-1"></i> 대여 하기 </input> -->
 						</div>
 					</div>
 				</div>
@@ -142,27 +131,26 @@
 		<div class="container px-4 px-lg-5 mt-5">
 			<h2 class="fw-bolder mb-4">관련 장르 도서</h2>
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-				<c:forEach var="bookDTO2" items="${genreBookList}">
+				<c:forEach var="genreBookDTO" items="${genreBookList}">
 					<div class="card h-100">
 						<!-- 히트작이면 히트작이라고 태그 띄워주기 -->
-						<c:if test="${bookDTO2.bookHit>='5'}">
+						<c:if test="${genreBookDTO.bookHit >= 5}">
 							<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">HIT!</div>
 						</c:if>
-						<img class="card-img-top" src="../bookImageStorage/${bookDTO2.bookImage}" alt="..." />
+						<img class="card-img-top" src="../bookImageStorage/${genreBookDTO.bookImage}" alt="..." />
 						<div class="card-body p-4">
 							<div class="text-center">
-								<h5 class="fw-bolder">${bookDTO2.bookTitle}</h5>
+								<h5 class="fw-bolder">${genreBookDTO.bookTitle}</h5>
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 							<div class="text-center">
-								<a class="btn btn-outline-dark mt-auto" href="/book/book_detail?bookISBN=${bookDTO2.bookISBN}&bookGenre=${bookDTO2.bookGenre}">도서 상세</a>
+								<a class="btn btn-outline-dark mt-auto" href="/book/bookDetail?bookISBN=${genreBookDTO.bookISBN}&bookGenre=${genreBookDTO.bookGenre}">도서 상세</a>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
-		</div>
 		</div>
 	</section>
 	<!-- Footer--> <footer class="footer bg-light">
@@ -173,18 +161,13 @@
 						<li class="list-inline-item"><a href="#!">About</a></li>
 						<li class="list-inline-item">⋅</li>
 						<li class="list-inline-item"><a href="#!">Contact</a></li>
-						<li class="list-inline-item">⋅</li>
-						<li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-						<li class="list-inline-item">⋅</li>
-						<li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
 					</ul>
-					<p class="text-muted small mb-4 mb-lg-0">&copy; MinGW's Library 2021. All Rights Reserved.</p>
+					<p class="text-muted small mb-4 mb-lg-0">&copy; Buy Book 2021. All Rights Reserved.</p>
 				</div>
 				<div class="col-lg-6 h-100 text-center text-lg-end my-auto">
 					<ul class="list-inline mb-0">
-						<li class="list-inline-item me-4"><a href="#!"><i class="bi-facebook fs-3"></i></a></li>
-						<li class="list-inline-item me-4"><a href="#!"><i class="bi-twitter fs-3"></i></a></li>
-						<li class="list-inline-item"><a href="#!"><i class="bi-instagram fs-3"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.github.com/17mirinae/Graduate"> <i class="bi-github fs-3"></i>
+						</a></li>
 					</ul>
 				</div>
 			</div>
