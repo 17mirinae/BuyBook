@@ -61,6 +61,11 @@ public class UserService {
 
 		return userDTO;
 	}
+	
+	// 비밀번호 변경
+	public void changeUserPwd(UserDTO userDTO, String inputUserNewPwd) {
+		userDAO.updatePwd(userDTO, inputUserNewPwd);
+	}
 
 	// 임시 비밀번호 생성
 	public UserDTO changeUserPwd(UserDTO userDTO) {

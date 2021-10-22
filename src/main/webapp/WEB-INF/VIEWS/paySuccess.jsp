@@ -1,3 +1,4 @@
+<%@page import="com.graduate.DTO.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -7,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>MINGW's Library</title>
+<title>Buy Book</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Bootstrap icons-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
 <!-- Google fonts-->
@@ -23,36 +24,17 @@
 		<div class="container px-5">
 			<%
 			// 세션값 가져오기
-			String id = (String) session.getAttribute("loginMemberName"); // Object 타입이므로 다운캐스팅
-			if (id == null) {
+			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO"); // Object 타입이므로 다운캐스팅
 			%>
-			<a class="navbar-brand" href="/">MINGW's Library</a>
-			<%
-			} else {
-			%>
-			<a class="navbar-brand" href="/member_index">MINGW's Library</a>
-			<%
-			}
-			%>
+			<a class="navbar-brand" href="/">Buy Book</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-					<%
-					// 세션값 가져오기
-					if (id == null) {
-					%>
-					<li class="nav-item"><a class="nav-link" href="/member/register">Register</a></li>
-					<li class="nav-item"><a class="nav-link" href="/member/login">Login</a></li>
-					<%
-					} else {
-					%>
-					<li class="nav-item"><a class="nav-link" href="/member/my_page">MyPage</a></li>
-					<li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
-					<%
-					}
-					%>
+					<li class="nav-item"><a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">My Cart</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userDetail">My Page</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">Sign Out</a></li>
 				</ul>
 			</div>
 		</div>
@@ -60,34 +42,23 @@
 	<!-- Navigation-->
 	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 		<div class="container">
-			<a class="btn" style="background-color: #e3f2fd; color: dodgerblue;" href="/book/unified_search">자료 검색</a>
+			<a class="btn" style="background-color: #e3f2fd; color: dodgerblue;" href="/book/bookSearch">도서 검색</a>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 신청 / 참여 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">신청 / 참여</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<%
-					// 세션값 가져오기
-					if (id == null) {
-					%>
-					<a class="dropdown-item disabled" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
-					<%
-					} else {
-					%>
-					<a class="dropdown-item" href="/member/member_hope">희망 도서 신청</a> <a class="dropdown-item" href="/board/unified_search">자유 게시판</a>
-					<%
-					}
-					%>
+					<a class="dropdown-item" href="/book/userHope">희망 도서 신청</a> <a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
 				</div>
 			</div>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 도서관 이용 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 이용</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/good/unified_search">사서 추천 도서</a> <a class="dropdown-item" href="/book/new_unified_search">신간 도서</a>
+					<a class="dropdown-item" href="/book/goodSearch">추천 도서</a> <a class="dropdown-item" href="/book/newBookSearch">신간 도서</a>
 				</div>
 			</div>
 			<div class="dropdown show">
-				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 도서관 정보 </a>
+				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 정보</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/library_introduce">도서관 소개</a> <a class="dropdown-item" href="/notice/unified_search">공지 사항</a>
+					<a class="dropdown-item" href="/storeIntroduce">서점 소개</a> <a class="dropdown-item" href="/board/noticeSearch">공지 사항</a>
 				</div>
 			</div>
 		</div>
@@ -114,8 +85,8 @@
 				</div>
 				<div class="col-lg-6 h-100 text-center text-lg-end my-auto">
 					<ul class="list-inline mb-0">
-						<!-- <li class="list-inline-item me-4"><a href="#!"><i class="bi-facebook fs-3"></i></a></li> -->
-						<li class="list-inline-item"><a href="https://www.github.com/17mirinae/Graduate"><i class="bi-github fs-3"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.github.com/17mirinae/Graduate"> <i class="bi-github fs-3"></i>
+						</a></li>
 					</ul>
 				</div>
 			</div>

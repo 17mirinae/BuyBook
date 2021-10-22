@@ -22,6 +22,10 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	PhraseService phraseService;
+	@Autowired
+	OrderService orderService;
 
 	// 회원가입
 	@RequestMapping(value = "/userSignUp", method = RequestMethod.GET)
@@ -69,16 +73,6 @@ public class UserController {
 
 			out.flush();
 		}
-	}
-
-	// 회원 수정
-	@RequestMapping(value = "/userUpdate", method = RequestMethod.GET)
-	public String userUpdate(Model model, HttpSession session) {
-//		UserDTO userDTO = (UserDTO)session.getAttribute("userSessionDTO");
-//
-//		model.addAttribute("userDTO", userDTO);
-//		
-		return "userUpdate";
 	}
 
 	// 로그인
@@ -139,9 +133,9 @@ public class UserController {
 				throw new NotExistingException("존재하지 않는 계정입니다.");
 			else { // 임시 비밀번호를 생성해 DB를 업데이트하고 메일을 보내준다.
 				userDTO = userService.changeUserPwd(userDTO);
-				
+
 				userService.sendPasswordEmail(userDTO, "userForgotPwd");
-				
+
 				response.sendRedirect("/user/userSignIn");
 			}
 		} catch (NotExistingException ex) {
@@ -158,10 +152,15 @@ public class UserController {
 	// 회원 내 페이지
 	@RequestMapping(value = "/userDetail", method = RequestMethod.GET)
 	public String userDetail(Model model, HttpSession session) {
-		UserDTO userDTO = (UserDTO)session.getAttribute("userSessionDTO");
-		
-		// List<PhraseDTO> phraseList = phraseDAO.showAll();
-		
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
+
+		PhraseDTO phraseDTO = phraseService.selectOnePhrase();
+
+		List<OrderDTO> orderList = orderService.showAll(userDTO.getUserEmail());
+
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("phraseDTO", phraseDTO);
+
 		return "userDetail";
 	}
 
@@ -182,9 +181,48 @@ public class UserController {
 		return "userChangePwd";
 	}
 
+	// 비밀번호 수정
+	@PostMapping(value = "/userChangePwd")
+	public void userChangePwd(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws Exception {
+		try {
+			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
+
+			String inputUserOldPwd = (String) request.getParameter("inputUserOldPwd");
+			String inputUserNewPwd = (String) request.getParameter("inputUserNewPwd");
+			String inputUserNewConfirmPwd = (String) request.getParameter("inputUserNewConfirmPwd");
+
+			if (userDTO.getUserPwd().equals(inputUserOldPwd)) {
+				if (inputUserNewPwd.equals(inputUserNewConfirmPwd)) {
+					userService.changeUserPwd(userDTO, inputUserNewPwd);
+
+					response.sendRedirect("/user/userDetail");
+				} else
+					throw new NotMatchingException("비밀번호가 맞지 않습니다.");
+			} else
+				throw new NotMatchingException("비밀번호가 맞지 않습니다.");
+		} catch (NotMatchingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('비밀번호가 맞지 않습니다.'); location.href='/user/userChangePwd';</script>");
+
+			out.flush();
+		}
+
+	}
+
 	// 닉네임 수정
 	@RequestMapping(value = "/userChangeName", method = RequestMethod.GET)
 	public String userChangeName() {
 		return "userChangeName";
+	}
+
+	// 닉네임 수정
+	@PostMapping(value = "/userChangeName")
+	public void userChangeName(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws Exception {
+
 	}
 }

@@ -37,12 +37,12 @@ public class UserDAO {
 		jdbcTemplate.update("DELETE FROM USER WHERE USEREMAIL='" + inputUserEmail + "';");
 	}
 
-	public void updatePwd(UserDTO userDTO, String inputUserPwd) {
+	public void updatePwd(UserDTO userDTO, String inputUserNewPwd) {
 		// 회원 비밀번호 수정
-		System.out.println(inputUserPwd);
+		System.out.println(inputUserNewPwd);
 		System.out.println(userDTO.toString());
 		jdbcTemplate.update(
-				"UPDATE USER SET USERPWD='" + inputUserPwd + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
+				"UPDATE USER SET USERPWD='" + inputUserNewPwd + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
 		System.out.println(userDTO.toString());
 	}
 
