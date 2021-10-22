@@ -43,6 +43,15 @@
 						<a class="nav-link" href="/user/userSignIn">Sign In</a>
 					</li>
 					<%
+					} else if (userDTO.getUserEmail().equals("admin@admin")) {
+					%>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userDetail">My Page</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
+					</li>
+					<%
 					} else {
 					%>
 					<li class="nav-item">
