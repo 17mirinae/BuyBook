@@ -3,16 +3,12 @@
 String name = (String) request.getParameter("inputCartName");
 String email = (String) request.getParameter("inputCartEmail");
 int totalPrice = Integer.parseInt((String) request.getParameter("totalPrice"));
-
-System.out.println("name: " + name);
-System.out.println("email: " + email);
-System.out.println("total: " + totalPrice);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Book Store</title>
+<title>Buy Book</title>
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- iamport.payment.js -->
@@ -67,12 +63,12 @@ $(function(){
 				// 결제에 실패시
 				var msg = '결제에 실패';
 				msg += '에러내용 : ' + rsp.error_msg;
-				location.href='<%=request.getContextPath()%>/cart/payFail';
-				alert(msg);
-			}
+				location.href='<%=request.getContextPath()%>
+		/cart/payFail';
+									alert(msg);
+								}
+							});
 		});
-
-	});
-</script>
+	</script>
 </body>
 </html>
