@@ -8,7 +8,7 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../../../assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles2.css" rel="stylesheet" />
 </head>
@@ -16,7 +16,7 @@
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/">Buy Book Admin Page</a>
+			<a class="navbar-brand" href="/admin_index">Buy Book Admin Page</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -38,37 +38,44 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">게시글</h1>
-					<!--                    회원 목록-->
+					<h1 class="mt-4">도서</h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item">
+							<a href="/admin/bookAdd">도서 추가</a>
+						</li>
+						<li class="breadcrumb-item active">도서 삭제</li>
+						<li class="breadcrumb-item">
+							<a href="/admin/bookUpdate">도서 수정</a>
+						</li>
+					</ol>
+					<!--                    도서 목록-->
 					<div class="card mb-4">
-						<div class="card-body">현재 자유 게시판에 기록된 게시글들의 목록을 확인합니다.</div>
+						<div class="card-body">현재 삭제하고자 하는 도서가 존재하는지 미리 확인하세요!</div>
 					</div>
 					<div class="card mb-4">
 						<div class="card-header">
 							<i class="fas fa-table me-1"></i>
-							게시글 회원 목록
+							도서 목록
 						</div>
 						<div class="card-body">
 							<table id="datatablesSimple">
 								<thead>
 									<tr>
-										<th>게시글 번호</th>
+										<th>ISBN</th>
 										<th>제목</th>
-										<th>작성자</th>
-										<th>작성 날짜</th>
-										<th>공개 여부</th>
-										<th>게시글 세부 페이지</th>
+										<th>저자</th>
+										<th>출판사</th>
+										<th>장르</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="boardDTO" items="${boardList}">
+									<c:forEach var="bookDTO" items="${bookList}">
 										<tr>
-											<td>${boardDTO.boardNo}</td>
-											<td>${boardDTO.boardTitle}</td>
-											<td>${boardDTO.boardName}</td>
-											<td>${boardDTO.boardDate}</td>
-											<td>${boardDTO.boardPublic}</td>
-											<td><input type="button" value="자세히" onclick="location.href='/board/boardDetail?boardNo=${boardDTO.boardNo}'" /></td>
+											<td>${bookDTO.bookISBN}</td>
+											<td>${bookDTO.bookTitle}</td>
+											<td>${bookDTO.bookAuthor}</td>
+											<td>${bookDTO.bookPublisher}</td>
+											<td>${bookDTO.bookGenre}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -76,37 +83,47 @@
 						</div>
 					</div>
 				</div>
-			</main>
-			<div class="container px-4 px-lg-5">
-				<div class="row justify-content-center">
-					<div class="card shadow-lg border-5 rounded-lg mt-5">
-						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">게시글 공개 여부 수정</h3>
-						</div>
-						<div class="card-body">
-							<form action="/admin/boardUpdate" method="POST">
-								<div class="form-floating mb-3">
-									<input class="form-control" id="inputBoardNo" type="text" placeholder="게시글의 번호를 입력해주세요." name="inputBoardNo" />
-									<label for="inputBoardNo">수정을 원하는 게시글의 번호</label>
-								</div>
-								<label for="inputBoardPublic">회원 게시글 관리</label>
-								<div class="">
-									<select class="form-control form-control-lg" id="inputBoardPublic" name="inputBoardPublic">
-										<option>Y</option>
-										<option>N</option>
-									</select>
-								</div>
-								<div class="mt-4 mb-0">
-									<div class="d-grid">
-										<input type="submit" class="btn btn-primary btn-block" value="게시글 공개 여부를 수정합니다." />
+				<!--                도서 삭제 파트-->
+				<div class="container px-4 px-lg-5">
+					<div class="row justify-content-center">
+						<div class="card shadow-lg border-5 rounded-lg mt-5">
+							<div class="card-header">
+								<h3 class="text-center font-weight-light my-4">도서 삭제</h3>
+							</div>
+							<div class="card-body">
+								<form action="/admin/bookDelete" method="POST">
+									<!--                                    ISBN10-->
+									<div class="form-floating mb-3">
+										<input class="form-control" id="inputBookISBN" type="text" placeholder="ISBN 코드를 입력하십시오." name="inputBookISBN" />
+										<label for="inputBookISBN">ISBN 코드</label>
 									</div>
-								</div>
-							</form>
+									<!--                                    제목 제목확인-->
+									<div class="row mb-3">
+										<div class="col-md-6">
+											<div class="form-floating mb-3 mb-md-0">
+												<input class="form-control" id="inputBookTitle" type="text" placeholder="제목을 입력하십시오." name="inputBookTitle" />
+												<label for="inputBookTitle">제목</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-floating mb-3 mb-md-0">
+												<input class="form-control" id="inputBookTitleConfirm" type="text" placeholder="제목이 맞는지 확인하십시오." name="inputBookTitleConfirm" />
+												<label for="inputBookTitleConfirm">제목 확인</label>
+											</div>
+										</div>
+									</div>
+									<div class="mt-4 mb-0">
+										<div class="d-grid">
+											<input type="submit" class="btn btn-primary btn-block" value="도서를 삭제합니다." />
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- 안 예뻐 ...-->
+			</main>
+			<!-- Footer-->
 			<footer class="m-5 py-5 bg-dark">
 				<div class="container px-4 px-lg-5">
 					<p class="m-0 text-center text-white">Copyright &copy; Buy Book 2021</p>

@@ -22,6 +22,14 @@ import com.graduate.Exception.*;
 public class AdminController {
 	@Autowired
 	BookService bookService;
+	@Autowired
+	HopeService hopeService;
+	@Autowired
+	NoticeService noticeService;
+	@Autowired
+	BoardService boardService;
+	@Autowired
+	GoodService goodService;
 
 	// 관리자 페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -36,7 +44,7 @@ public class AdminController {
 
 		model.addAttribute("bookList", bookList);
 
-		return "bookAdd";
+		return "adminBookAdd";
 	}
 
 	// 도서 추가 페이지
@@ -52,9 +60,7 @@ public class AdminController {
 			String inputBookCountString = request.getParameter("inputBookCount");
 			String inputBookPrice = request.getParameter("inputBookPrice");
 			String inputBookImage = null;
-			///
 			String inputBookSummary = request.getParameter("inputBookSummary").replaceAll("\r\n", "<br />");
-			int inputBookHit = 0;
 
 			int inputBookCount;
 
@@ -92,11 +98,11 @@ public class AdminController {
 			bookDTO = new BookDTO(inputBookISBN, inputBookTitle, inputBookAuthor, Integer.parseInt(inputBookPrice),
 					inputBookGenre, inputBookPublisher, inputBookImage, inputBookCount, inputBookSummary);
 
-			bookDTO = bookService.addBook(bookDTO);
+			bookDTO = bookService.insertBook(bookDTO);
 
 			System.out.println(bookDTO.toString());
 
-			response.sendRedirect("/admin/book/add");
+			response.sendRedirect("/admin/bookAdd");
 		} catch (AlreadyExistingException ex) {
 			response.setContentType("text/html; charset=UTF-8");
 
@@ -115,4 +121,99 @@ public class AdminController {
 			out.flush();
 		}
 	}
+
+	// 도서 삭제 페이지
+	@RequestMapping(value = "/bookDelete", method = RequestMethod.GET)
+	public String bookDelete(Model model) {
+		List<BookDTO> bookList = bookService.showAll();
+
+		model.addAttribute("bookList", bookList);
+
+		return "adminBookDelete";
+	}
+
+	// 도서 삭제 페이지
+	@PostMapping(value = "/bookDelete")
+	public void bookDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			String inputBookISBN = request.getParameter("inputBookISBN");
+			String inputBookTitle = request.getParameter("inputBookTitle");
+			String inputBookTitleConfirm = request.getParameter("inputBookTitleConfirm");
+
+			BookDTO bookDTO = bookService.selectByBookISBN(inputBookISBN);
+
+			if (inputBookTitle.equals(inputBookTitleConfirm)) {
+				if (bookDTO.getBookTitle().equals(inputBookTitle)) {
+					bookService.deleteBook(bookDTO);
+
+					response.sendRedirect("/admin/bookDelete");
+				} else
+					throw new NotMatchingException("책의 제목과 맞지 않습니다.");
+			} else
+				throw new NotMatchingException("책의 제목과 맞지 않습니다.");
+		} catch (NotMatchingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('책의 제목과 맞지 않습니다.'); location.href='/admin/bookDelete';</script>");
+
+			out.flush();
+		}
+	}
+
+	// 도서 수정 페이지
+	@RequestMapping(value = "/bookUpdate", method = RequestMethod.GET)
+	public String bookUpdate(Model model) {
+		List<BookDTO> bookList = bookService.showAll();
+
+		model.addAttribute("bookList", bookList);
+
+		return "adminBookUpdate";
+	}
+
+	// 도서 수정 페이지
+	@PostMapping(value = "/bookUpdate")
+	public void bookUpdate(HttpServletRequest request, HttpServletResponse response, @RequestParam("inputBookImage") MultipartFile _inputBookImage) throws Exception {
+		try {
+			String inputBookISBN = request.getParameter("inputBookISBN");
+			String inputBookGenre = request.getParameter("inputBookGenre");
+			String inputBookTitle = request.getParameter("inputBookTitle");
+			String inputBookAuthor = request.getParameter("inputBookAuthor");
+			String inputBookPublisher = request.getParameter("inputBookPublisher");
+			String inputBookCountstring = request.getParameter("inputBookCount");
+			String inputBookImage = null;
+			String inuptBookSummary = request.getParameter("inputBookSummary").replaceAll("\r\n", "<br />");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// 공지사항 추가
+	@RequestMapping(value = "/noticeAdd", method = RequestMethod.GET)
+	public String noticeAdd(Model model) {
+		List<NoticeDTO> noticeList = noticeService.showAll();
+
+		model.addAttribute("noticeList", noticeList);
+
+		return "adminNoticeAdd";
+	}
+
+	// 공지사항 추가
+	@PostMapping(value = "/noticeAdd")
+	public void noticeAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+	}
+
+	// 희망 도서 페이지
+	@RequestMapping(value = "/userHope", method = RequestMethod.GET)
+	public String userHope(Model model) {
+		List<HopeDTO> hopeList = hopeService.showAll();
+
+		model.addAttribute("hopeList", hopeList);
+
+		return "adminUserHope";
+	}
+
+	//
 }

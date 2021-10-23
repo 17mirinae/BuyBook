@@ -35,11 +35,11 @@ public class BookService {
 	}
 
 	// 도서 추가하기
-	public BookDTO addBook(BookDTO _bookDTO) {
+	public BookDTO insertBook(BookDTO _bookDTO) {
 		BookDTO bookDTO = bookDAO.selectByBookISBN(_bookDTO.getBookISBN());
 
 		if (bookDTO == null) { // 도서 존재하지 않음 --> 추가 진행
-			bookDAO.addBook(_bookDTO);
+			bookDAO.insertBook(_bookDTO);
 
 			return _bookDTO; // 추가한 도서 반환
 		} else {

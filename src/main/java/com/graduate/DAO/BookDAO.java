@@ -86,7 +86,7 @@ public class BookDAO {
 	}
 
 	// 도서 추가
-	public void addBook(BookDTO bookDTO) {
+	public void insertBook(BookDTO bookDTO) {
 		jdbcTemplate.update(
 				"INSERT INTO BOOK(BOOKISBN, BOOKTITLE, BOOKAUTHOR, BOOKPRICE, BOOKGENRE, BOOKPUBLISHER, BOOKIMAGE, BOOKCOUNT, BOOKSUMMARY, BOOKDATE) VALUES('"
 						+ bookDTO.getBookISBN() + "', '" + bookDTO.getBookTitle() + "', '" + bookDTO.getBookAuthor()
