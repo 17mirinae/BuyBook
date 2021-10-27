@@ -74,30 +74,20 @@ public class BookService {
 	public List<BookDTO> genreBookList(String inputBookISBN, String inputBookGenre) {
 		return bookDAO.selectGenreBookList(inputBookISBN, inputBookGenre);
 	}
-	
+
 	// 인기 도서 가져오기
 	public List<BookDTO> showHitBookList() {
 		return bookDAO.showHitBookList();
 	}
-	
+
 	// 인기 도서 세 권 가져오기
 	public List<BookDTO> showHitBookThree() {
 		return bookDAO.showHitBookThree();
 	}
 
 	// 도서 수정하기
-//	public BookDTO updateBook(BookDTO _bookDTO) { // 도서 수정
-//		BookDTO bookDTO = bookDAO.selectByBookISBN(_bookDTO.getBookISBN());
-//
-//		if (bookDTO == null) { // 도서 존재하지 않음
-//			System.out.println("수정할 도서가 없습니다.");
-//
-//			return null;
-//		} else { // 도서가 존재함
-//			bookDAO.updateBook(_bookDTO);
-//
-//			return _bookDTO;
-//		}
-//	}
+	public void updateBook(BookDTO bookDTO) { // 도서 수정
+		bookDAO.updateBook(bookDTO);
+	}
 
 }

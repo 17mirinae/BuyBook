@@ -8,11 +8,11 @@ public class BoardDTO {
 	private String boardName; // 게시글 작성자
 	private String boardTitle; // 게시글 제목
 	private String boardContent; // 게시글 내용
-	private Date boardDate; // 게시글 업로그 날짜
+	private Timestamp boardDate; // 게시글 업로드 날짜
 	private String boardPublic; // 게시글 공개 여부
 
 	public BoardDTO(int boardNo, String boardEmail, String boardName, String boardTitle, String boardContent,
-			Date boardDate, String boardPublic) {
+			Timestamp boardDate, String boardPublic) {
 		super();
 		this.boardNo = boardNo;
 		this.boardEmail = boardEmail;
@@ -71,11 +71,11 @@ public class BoardDTO {
 		this.boardContent = boardContent;
 	}
 
-	public Date getBoardDate() {
+	public Timestamp getBoardDate() {
 		return boardDate;
 	}
 
-	public void setBoardDate(Date boardDate) {
+	public void setBoardDate(Timestamp boardDate) {
 		this.boardDate = boardDate;
 	}
 

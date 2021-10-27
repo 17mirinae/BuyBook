@@ -22,7 +22,7 @@ public class BoardDAO {
 			return jdbcTemplate.queryForObject("SELECT * FROM BOARD WHERE BOARDNO = " + inputBoardNo + ";",
 					(rs, rowNum) -> new BoardDTO(rs.getInt("BOARDNO"), rs.getString("BOARDEMAIL"),
 							rs.getString("BOARDNAME"), rs.getString("BOARDTITLE"), rs.getString("BOARDCONTENT"),
-							rs.getDate("BOARDDATE"), rs.getString("BOARDPUBLIC")));
+							rs.getTimestamp("BOARDDATE"), rs.getString("BOARDPUBLIC")));
 		} catch (Exception ex) {
 			return null;
 		}
@@ -32,7 +32,7 @@ public class BoardDAO {
 		List<BoardDTO> result = jdbcTemplate.query("SELECT * FROM BOARD;", (rs, rowNum) -> {
 			BoardDTO boardDTO = new BoardDTO(rs.getInt("BOARDNO"), rs.getString("BOARDEMAIL"),
 					rs.getString("BOARDNAME"), rs.getString("BOARDTITLE"), rs.getString("BOARDCONTENT"),
-					rs.getDate("BOARDDATE"), rs.getString("BOARDPUBLIC"));
+					rs.getTimestamp("BOARDDATE"), rs.getString("BOARDPUBLIC"));
 			return boardDTO;
 		});
 		return result;
@@ -42,7 +42,7 @@ public class BoardDAO {
 		List<BoardDTO> result = jdbcTemplate.query("SELECT * FROM BOARD WHERE BOARDPUBLIC = 'Y';", (rs, rowNum) -> {
 			BoardDTO boardDTO = new BoardDTO(rs.getInt("BOARDNO"), rs.getString("BOARDEMAIL"),
 					rs.getString("BOARDNAME"), rs.getString("BOARDTITLE"), rs.getString("BOARDCONTENT"),
-					rs.getDate("BOARDDATE"), rs.getString("BOARDPUBLIC"));
+					rs.getTimestamp("BOARDDATE"), rs.getString("BOARDPUBLIC"));
 			return boardDTO;
 		});
 		return result;
@@ -53,7 +53,7 @@ public class BoardDAO {
 				.query("SELECT * FROM BOARD WHERE BOARDPUBLIC = 'Y' ORDER BY BOARDNO DESC LIMIT 3;", (rs, rowNum) -> {
 					BoardDTO boardDTO = new BoardDTO(rs.getInt("BOARDNO"), rs.getString("BOARDEMAIL"),
 							rs.getString("BOARDNAME"), rs.getString("BOARDTITLE"), rs.getString("BOARDCONTENT"),
-							rs.getDate("BOARDDATE"), rs.getString("BOARDPUBLIC"));
+							rs.getTimestamp("BOARDDATE"), rs.getString("BOARDPUBLIC"));
 					return boardDTO;
 				});
 		return result;

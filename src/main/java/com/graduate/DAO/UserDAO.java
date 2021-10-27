@@ -51,4 +51,13 @@ public class UserDAO {
 		jdbcTemplate.update(
 				"UPDATE USER SET USERNAME='" + inputUserName + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
 	}
+
+	public List<UserDTO> showAll() {
+		List<UserDTO> result = jdbcTemplate.query("SELECT * FROM USER;", (rs, rowNum) -> {
+			UserDTO userDTO = new UserDTO(rs.getString("USEREMAIL"), rs.getString("USERPWD"), rs.getString("USERNAME"));
+			return userDTO;
+		});
+
+		return result;
+	}
 }

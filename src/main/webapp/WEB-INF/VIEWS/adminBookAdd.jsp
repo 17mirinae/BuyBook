@@ -97,7 +97,7 @@
 										<div class="col-md-6">
 											<div class="form-floating mb-3 mb-md-0">
 												<input class="form-control" id="inputBookISBN" type="text" placeholder="ISBN 코드를 입력해주세요." name="inputBookISBN" />
-												<label for="inputBookISBN">ISBN10 코드</label>
+												<label for="inputBookISBN">ISBN 코드</label>
 											</div>
 										</div>
 										<div class="col-md-6">

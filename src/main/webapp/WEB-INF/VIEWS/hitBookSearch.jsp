@@ -70,7 +70,7 @@
 			<div class="dropdown show">
 				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 이용</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/book/goodSearch">추천 도서</a> <a class="dropdown-item" href="/book/newBookSearch">신간 도서</a>
+					<a class="dropdown-item" href="/book/goodSearch">추천 도서</a> <a class="dropdown-item" href="/book/hitBookSearch">인기 도서</a> <a class="dropdown-item" href="/book/newBookSearch">신간 도서</a>
 				</div>
 			</div>
 			<div class="dropdown show">
@@ -87,7 +87,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">도서 검색</h1>
+					<h1 class="mt-4">인기 도서</h1>
 					<div class="card mb-4">
 						<div class="card-body">
 							<table id="datatablesSimple">

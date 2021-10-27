@@ -127,4 +127,14 @@ public class BookDAO {
 
 		return result;
 	}
+
+	// 도서 수정하기
+	public void updateBook(BookDTO bookDTO) {
+		jdbcTemplate.update("UPDATE BOOK SET BOOKTITLE = '" + bookDTO.getBookTitle() + "', BOOKAUTHOR = '"
+				+ bookDTO.getBookAuthor() + "', BOOKPRICE = " + bookDTO.getBookPrice() + ", BOOKGENRE = '"
+				+ bookDTO.getBookGenre() + "', BOOKPUBLISHER = '" + bookDTO.getBookPublisher() + "', BOOKIMAGE = '"
+				+ bookDTO.getBookImage() + "', BOOKCOUNT = " + bookDTO.getBookCount() + ", BOOKSUMMARY = '"
+				+ bookDTO.getBookSummary() + "', BOOKDATE = '" + bookDTO.getBookDate() + "', BOOKHIT = "
+				+ bookDTO.getBookHit() + " WHERE BOOKISBN = '" + bookDTO.getBookISBN() + "';");
+	}
 }

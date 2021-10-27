@@ -1,13 +1,12 @@
 package com.graduate.Controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
 import java.util.*;
 
 import javax.servlet.http.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
@@ -39,12 +38,12 @@ public class UserController {
 		try {
 			String inputUserEmail = request.getParameter("inputUserEmail");
 			String inputUserPwd = request.getParameter("inputUserPwd");
-			String inputUserConfirmPwd = request.getParameter("inputUserConfirmPwd");
+			String inputUserPwdConfirm = request.getParameter("inputUserPwdConfirm");
 			String inputUserName = request.getParameter("inputUserName");
 
 			UserDTO userDTO = null;
 
-			if (inputUserPwd.equals(inputUserConfirmPwd)) { // 비밀번호가 일치
+			if (inputUserPwd.equals(inputUserPwdConfirm)) { // 비밀번호가 일치
 				userDTO = userService.userSignUp(inputUserEmail, inputUserPwd, inputUserName); // 회원가입
 			} else // 비밀번호 일치하지 않음
 				throw new NotMatchingException("확인 비밀번호와 맞지 않습니다.");
@@ -190,10 +189,10 @@ public class UserController {
 
 			String inputUserOldPwd = (String) request.getParameter("inputUserOldPwd");
 			String inputUserNewPwd = (String) request.getParameter("inputUserNewPwd");
-			String inputUserNewConfirmPwd = (String) request.getParameter("inputUserNewConfirmPwd");
+			String inputUserNewPwdConfirm = (String) request.getParameter("inputUserNewPwdConfirm");
 
 			if (userDTO.getUserPwd().equals(inputUserOldPwd)) {
-				if (inputUserNewPwd.equals(inputUserNewConfirmPwd)) {
+				if (inputUserNewPwd.equals(inputUserNewPwdConfirm)) {
 					userService.changeUserPwd(userDTO, inputUserNewPwd);
 
 					response.sendRedirect("/user/userDetail");
@@ -210,19 +209,6 @@ public class UserController {
 
 			out.flush();
 		}
-
-	}
-
-	// 닉네임 수정
-	@RequestMapping(value = "/userChangeName", method = RequestMethod.GET)
-	public String userChangeName() {
-		return "userChangeName";
-	}
-
-	// 닉네임 수정
-	@PostMapping(value = "/userChangeName")
-	public void userChangeName(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws Exception {
 
 	}
 }

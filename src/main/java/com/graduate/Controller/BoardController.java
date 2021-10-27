@@ -41,7 +41,7 @@ public class BoardController {
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("boardDTO", boardDTO);
 
-		return "bookDetail";
+		return "boardDetail";
 	}
 
 	// 게시글 세부 페이지 댓글

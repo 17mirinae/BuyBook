@@ -27,6 +27,11 @@ public class UserService {
 		else
 			return userDTO;
 	}
+	
+	// 회원 목록
+	public List<UserDTO> showAll() {
+		return userDAO.showAll();
+	}
 
 	// 회원가입
 	public UserDTO userSignUp(String inputUserEmail, String inputUserPwd, String inputUserName) {

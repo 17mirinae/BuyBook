@@ -9,6 +9,8 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <link href="../css/styles2.css" rel="stylesheet" />
+<script src="../js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-primary">
@@ -23,23 +25,29 @@
 									<h3 class="text-center font-weight-light my-4">Change Password</h3>
 								</div>
 								<div class="card-body">
+									<!-- 비밀번호 변경 -->
 									<form action="/user/userChangePwd" method="POST">
+										<!-- 현재 비밀번호 -->
 										<div class="form-floating mb-3">
 											<input class="form-control" id="inputUserOldPwd" type="password" name="inputUserOldPwd" />
 											<label for="inputUserOldPwd">Old Password</label>
 										</div>
+										<!-- 현재 비밀번호 -->
+										<!-- 새 비밀번호 -->
 										<div class="form-floating mb-3">
 											<input class="form-control" id="inputUserNewPwd" type="password" name="inputUserNewPwd" />
 											<label for="inputUserNewPwd">New Password</label>
 										</div>
+										<!-- 새 비밀번호 -->
 										<div class="form-floating mb-3">
-											<input class="form-control" id="inputUserNewConfirmPwd" type="password" name="inputUserNewConfirmPwd" />
-											<label for="inputUserNewConfirmPwd">New Confirm Password</label>
+											<input class="form-control" id="inputUserNewPwdConfirm" type="password" name="inputUserNewPwdConfirm" />
+											<label for="inputUserNewPwdConfirm">New Confirm Password</label>
 										</div>
 										<div class="d-flex align-items-center justify-content-center mt-4 mb-0">
 											<input type="submit" class="btn btn-primary" value="Change Password" />
 										</div>
 									</form>
+									<!-- 비밀번호 변경 -->
 								</div>
 							</div>
 						</div>
@@ -53,14 +61,14 @@
 					<div class="d-flex align-items-center justify-content-between small">
 						<div class="text-muted">Copyright &copy; Buy Book</div>
 						<div>
-							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a>
+							<a href="#">Privacy Policy</a>
+							&middot;
+							<a href="#">Terms &amp; Conditions</a>
 						</div>
 					</div>
 				</div>
 			</footer>
 		</div>
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="../js/scripts.js"></script>
 </body>
 </html>

@@ -30,6 +30,8 @@ public class AdminController {
 	BoardService boardService;
 	@Autowired
 	GoodService goodService;
+	@Autowired
+	UserService userService;
 
 	// 관리자 페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -57,10 +59,10 @@ public class AdminController {
 			String inputBookTitle = request.getParameter("inputBookTitle");
 			String inputBookAuthor = request.getParameter("inputBookAuthor");
 			String inputBookPublisher = request.getParameter("inputBookPublisher");
-			String inputBookCountString = request.getParameter("inputBookCount");
 			String inputBookPrice = request.getParameter("inputBookPrice");
-			String inputBookImage = null;
+			String inputBookCountString = request.getParameter("inputBookCount");
 			String inputBookSummary = request.getParameter("inputBookSummary").replaceAll("\r\n", "<br />");
+			String inputBookImage = null;
 
 			int inputBookCount;
 
@@ -87,7 +89,8 @@ public class AdminController {
 			}
 
 			if (inputBookISBN.equals("") || inputBookGenre.equals("") || inputBookTitle.equals("")
-					|| inputBookAuthor.equals("") || inputBookPublisher.equals("") || inputBookPrice.equals(""))
+					|| inputBookAuthor.equals("") || inputBookPublisher.equals("") || inputBookPrice.equals("")
+					|| inputBookSummary.equals(""))
 				throw new FillOutInformationException("모든 정보를 입력해주세요.");
 
 			if (inputBookCountString.equals(""))
@@ -174,21 +177,81 @@ public class AdminController {
 
 	// 도서 수정 페이지
 	@PostMapping(value = "/bookUpdate")
-	public void bookUpdate(HttpServletRequest request, HttpServletResponse response, @RequestParam("inputBookImage") MultipartFile _inputBookImage) throws Exception {
+	public void bookUpdate(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("inputBookImage") MultipartFile _inputBookImage) throws Exception {
 		try {
 			String inputBookISBN = request.getParameter("inputBookISBN");
 			String inputBookGenre = request.getParameter("inputBookGenre");
 			String inputBookTitle = request.getParameter("inputBookTitle");
 			String inputBookAuthor = request.getParameter("inputBookAuthor");
 			String inputBookPublisher = request.getParameter("inputBookPublisher");
-			String inputBookCountstring = request.getParameter("inputBookCount");
+			String inputBookPrice = request.getParameter("inputBookPrice");
+			String inputBookCountString = request.getParameter("inputBookCount");
+			String inputBookSummary = request.getParameter("inputBookSummary").replaceAll("\r\n", "<br />");
 			String inputBookImage = null;
-			String inuptBookSummary = request.getParameter("inputBookSummary").replaceAll("\r\n", "<br />");
-		} catch (Exception ex) {
-			ex.printStackTrace();
+
+			int inputBookCount;
+
+			BookDTO bookDTO = bookService.selectByBookISBN(inputBookISBN);
+
+			if (bookDTO == null)
+				throw new NotExistingException("수정할 도서가 없습니다.");
+			else if (!_inputBookImage.isEmpty()) {
+				try {
+					String uploadDir = "/bookImageStorage/";
+					String realPathUpload = request.getServletContext().getRealPath(uploadDir);
+
+					String fileName = _inputBookImage.getOriginalFilename();
+					String filePath = realPathUpload + fileName;
+
+					File files = new File(filePath);
+					_inputBookImage.transferTo(files);
+
+					inputBookImage = fileName;
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+
+			if (inputBookISBN.equals("") || inputBookGenre.equals("") || inputBookTitle.equals("")
+					|| inputBookAuthor.equals("") || inputBookPublisher.equals("") || inputBookPrice.equals("")
+					|| inputBookSummary.equals(""))
+				throw new FillOutInformationException("모든 정보를 입력해주세요.");
+
+			if (inputBookCountString.equals(""))
+				inputBookCount = bookDTO.getBookCount();
+			else
+				inputBookCount = Integer.parseInt(inputBookCountString);
+
+			bookDTO = new BookDTO(inputBookISBN, inputBookTitle, inputBookAuthor, Integer.parseInt(inputBookPrice),
+					inputBookGenre, inputBookPublisher, inputBookImage, inputBookCount, inputBookSummary,
+					bookDTO.getBookDate(), bookDTO.getBookHit());
+
+			bookService.updateBook(bookDTO);
+
+			System.out.println(bookDTO.toString());
+
+			response.sendRedirect("/admin/bookUpdate");
+		} catch (NotExistingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('수정할 도서가 없습니다.'); location.href='/admin/bookUpdate';</script>");
+
+			out.flush();
+		} catch (FillOutInformationException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('모든 정보를 입력해주세요.'); location.href='/admin/bookUpdate';</script>");
+
+			out.flush();
 		}
 	}
 
+	/////////////////////////////////////////////////////////////////////////////
 	// 공지사항 추가
 	@RequestMapping(value = "/noticeAdd", method = RequestMethod.GET)
 	public String noticeAdd(Model model) {
@@ -202,7 +265,211 @@ public class AdminController {
 	// 공지사항 추가
 	@PostMapping(value = "/noticeAdd")
 	public void noticeAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String inputNoticeTitle = request.getParameter("inputNoticeTitle");
+		String inputNoticeContent = request.getParameter("inputNoticeContent").replaceAll("\r\n", "<br />");
 
+		NoticeDTO noticeDTO = new NoticeDTO(inputNoticeTitle, inputNoticeContent);
+
+		noticeService.insertNotice(noticeDTO);
+
+		response.sendRedirect("/admin/noticeAdd");
+	}
+
+	// 공지사항 삭제
+	@RequestMapping(value = "/noticeDelete", method = RequestMethod.GET)
+	public String noticeDelete(Model model) {
+		List<NoticeDTO> noticeList = noticeService.showAll();
+
+		model.addAttribute("noticeList", noticeList);
+
+		return "adminNoticeDelete";
+	}
+
+	// 공지사항 삭제
+	@PostMapping(value = "/noticeDelete")
+	public void noticeDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			String inputNoticeNo = request.getParameter("inputNoticeNo");
+			String inputNoticeNoConfirm = request.getParameter("inputNoticeNoConfirm");
+
+			NoticeDTO noticeDTO = noticeService.selectByNoticeNo(Integer.parseInt(inputNoticeNo));
+
+			if (noticeDTO == null)
+				throw new NotExistingException("존재하지 않는 공지입니다.");
+			else {
+				if (inputNoticeNo.equals(inputNoticeNoConfirm)) {
+					noticeService.deleteNotice(Integer.parseInt(inputNoticeNo));
+
+					response.sendRedirect("/admin/noticeDelete");
+				} else
+					throw new NotMatchingException("확인 번호가 맞지 않습니다.");
+			}
+		} catch (NotExistingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('존재하지 않는 공지입니다.'); location.href='/admin/noticeDelete';</script>");
+
+			out.flush();
+		} catch (NotMatchingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('확인 번호가 맞지 않습니다.'); location.href='/admin/noticeDelete';</script>");
+
+			out.flush();
+		}
+	}
+
+	// 추천 도서 추가
+	@RequestMapping(value = "/goodAdd", method = RequestMethod.GET)
+	public String goodAdd(Model model) {
+		List<GoodDTO> goodList = goodService.showAll();
+		List<BookDTO> bookList = bookService.showAll();
+
+		model.addAttribute("goodList", goodList);
+		model.addAttribute("bookList", bookList);
+
+		return "adminGoodAdd";
+	}
+
+	// 추천 도서 추가
+	@PostMapping(value = "/goodAdd")
+	public void goodAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			String inputGoodISBN = request.getParameter("inputGoodISBN");
+			String inputGoodTitle = request.getParameter("inputGoodTitle");
+			String inputGoodContent = request.getParameter("inputGoodContent");
+
+			BookDTO bookDTO = bookService.selectByBookISBN(inputGoodISBN);
+
+			if (bookDTO == null)
+				throw new NotExistingException("존재하지 않는 도서입니다.");
+
+			GoodDTO goodDTO = new GoodDTO(inputGoodISBN, inputGoodTitle, inputGoodContent, bookDTO.getBookImage());
+
+			goodDTO = goodService.insertGood(goodDTO);
+
+			if (goodDTO == null)
+				throw new AlreadyExistingException("이미 존재하는 추천 도서입니다.");
+			else
+				response.sendRedirect("/admin/goodAdd");
+		} catch (AlreadyExistingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('이미 존재하는 추천 도서입니다.'); location.href='/admin/goodAdd';</script>");
+
+			out.flush();
+		} catch (NotExistingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('존재하지 않는 도서입니다.'); location.href='/admin/goodAdd';</script>");
+
+			out.flush();
+		}
+	}
+
+	// 추천 도서 삭제
+	@RequestMapping(value = "/goodDelete", method = RequestMethod.GET)
+	public String goodDelete(Model model) {
+		List<GoodDTO> goodList = goodService.showAll();
+
+		model.addAttribute("goodList", goodList);
+
+		return "adminGoodDelete";
+	}
+
+	// 추천 도서 삭제
+	@PostMapping(value = "/goodDelete")
+	public void goodDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			String inputGoodNo = request.getParameter("inputGoodNo");
+			String inputGoodTitle = request.getParameter("inputGoodTitle");
+			String inputGoodTitleConfirm = request.getParameter("inputGoodTitleConfirm");
+
+			GoodDTO goodDTO = goodService.selectByGoodNo(Integer.parseInt(inputGoodNo));
+
+			if (goodDTO == null)
+				throw new NotExistingException("존재하지 않는 추천 도서입니다.");
+			else {
+				if (inputGoodTitle.equals(inputGoodTitleConfirm)) {
+					goodService.deleteGood(Integer.parseInt(inputGoodNo));
+
+					response.sendRedirect("/admin/goodDelete");
+				} else
+					throw new NotMatchingException("게시글 제목이 맞지 않습니다.");
+			}
+		} catch (NotExistingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('존재하지 않는 추천 도서입니다.'); location.href='/admin/goodDelete';</script>");
+
+			out.flush();
+		} catch (NotMatchingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('게시글 제목이 맞지 않습니다.'); location.href='/admin/goodDelete';</script>");
+
+			out.flush();
+		}
+	}
+
+	// 게시판 관리
+	@RequestMapping(value = "/boardUpdate", method = RequestMethod.GET)
+	public String boardUpdate(Model model) {
+		List<BoardDTO> boardList = boardService.showAll();
+
+		model.addAttribute("boardList", boardList);
+
+		return "adminBoardUpdate";
+	}
+
+	// 게시판 관리
+	@PostMapping(value = "/boardUpdate")
+	public void boardUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			int inputBoardNo = Integer.parseInt(request.getParameter("inputBoardNo"));
+			String inputBoardPublic = request.getParameter("inputBoardPublic");
+
+			BoardDTO boardDTO = boardService.selectByBoardNo(inputBoardNo);
+
+			if (boardDTO == null)
+				throw new NotExistingException("존재하지 않는 게시글입니다.");
+			else {
+				boardService.updatePublic(inputBoardNo, inputBoardPublic);
+
+				response.sendRedirect("/admin/boardUpdate");
+			}
+		} catch (NotExistingException ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('존재하지 않는 게시글입니다.'); location.href='/admin/boardUpdate';</script>");
+
+			out.flush();
+		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////
+	// 회원 목록 조회
+	@RequestMapping(value = "/userShow", method = RequestMethod.GET)
+	public String userShow(Model model) {
+		List<UserDTO> userList = userService.showAll();
+
+		model.addAttribute("userList", userList);
+
+		return "adminUserShow";
 	}
 
 	// 희망 도서 페이지
@@ -214,6 +481,4 @@ public class AdminController {
 
 		return "adminUserHope";
 	}
-
-	//
 }

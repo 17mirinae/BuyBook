@@ -9,7 +9,9 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <link href="../css/styles2.css" rel="stylesheet" />
+<script src="../js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-primary">
 	<div id="layoutAuthentication">
@@ -38,7 +40,8 @@
 										</div>
 										<!-- 비밀번호 -->
 										<div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="/user/userForgotPwd">Forgot Password?</a> <input type="submit" class="btn btn-primary" value="Login" />
+											<a class="small" href="/user/userForgotPwd">Forgot Password?</a>
+											<input type="submit" class="btn btn-primary" value="Sign In" />
 										</div>
 									</form>
 									<!-- 로그인 -->
@@ -60,14 +63,14 @@
 					<div class="d-flex align-items-center justify-content-between small">
 						<div class="text-muted">Copyright &copy; Buy Book</div>
 						<div>
-							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a>
+							<a href="#">Privacy Policy</a>
+							&middot;
+							<a href="#">Terms &amp; Conditions</a>
 						</div>
 					</div>
 				</div>
 			</footer>
 		</div>
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="../js/scripts.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@
 <!-- Google fonts-->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="../css/styles.css" rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
 	<!-- Responsive navbar-->
@@ -319,7 +319,7 @@
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<script type="text/javascript" src="../js/scripts.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
 	<!--    사용자 정의 추가용-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>

@@ -36,10 +36,9 @@
 				<div class="container-fluid px-4">
 					<h1 class="mt-4">도서</h1>
 					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item"><a href="/admin/book/add">도서 추가</a></li>
-						<li class="breadcrumb-item"><a href="/admin/book/delete">도서 삭제</a></li>
+						<li class="breadcrumb-item"><a href="/admin/bookAdd">도서 추가</a></li>
+						<li class="breadcrumb-item"><a href="/admin/bookDelete">도서 삭제</a></li>
 						<li class="breadcrumb-item active">도서 수정</li>
-						<li class="breadcrumb-item"><a href="/admin/book/overdue">연체 도서</a></li>
 					</ol>
 					<!--                    도서 목록-->
 					<div class="card mb-4">
@@ -53,12 +52,11 @@
 							<table id="datatablesSimple">
 								<thead>
 									<tr>
-										<th>ISBN10</th>
+										<th>ISBN</th>
 										<th>제목</th>
 										<th>저자</th>
 										<th>출판사</th>
 										<th>장르</th>
-										<th>권수</th>
 									</tr>
 								</thead>
 								<!-- <tfoot>
@@ -79,7 +77,6 @@
 											<td>${bookDTO.bookAuthor}</td>
 											<td>${bookDTO.bookPublisher}</td>
 											<td>${bookDTO.bookGenre}</td>
-											<td>${bookDTO.bookCount}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -95,13 +92,13 @@
 								<h3 class="text-center font-weight-light my-4">도서 수정</h3>
 							</div>
 							<div class="card-body">
-								<form action="/admin/book/update" method="POST" enctype="multipart/form-data">
+								<form action="/admin/bookUpdate" method="POST" enctype="multipart/form-data">
 									<!--                                    ISBN10 & 장르-->
 									<div class="row mb-3">
 										<div class="col-md-6">
 											<div class="form-floating mb-3 mb-md-0">
 												<input class="form-control" id="inputBookISBN" type="text" placeholder="ISBN 코드를 입력해주세요." name="inputBookISBN" />
-												<label for="inputBookISBN">ISBN10 코드</label>
+												<label for="inputBookISBN">ISBN 코드</label>
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -116,35 +113,50 @@
 										<div class="col-md-4">
 											<div class="form-floating mb-3 mb-md-0">
 												<input class="form-control" id="inputBookTitle" type="text" placeholder="제목 명을 입력해주세요." name="inputBookTitle" />
-												<label for="inputFirstName">제목</label>
+												<label for="inputBookTitle">제목</label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-floating mb-3 mb-md-0">
 												<input class="form-control" id="inputBookAuthor" type="text" placeholder="저자 명을 입력해주세요." name="inputBookAuthor" />
-												<label for="inputLastName">저자</label>
+												<label for="inputBookAuthor">저자</label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-floating mb-3 mb-md-0">
 												<input class="form-control" id="inputBookPublisher" type="text" placeholder="출판사 명을 입력해주세요." name="inputBookPublisher" />
-												<label for="inputLastName">출판사</label>
+												<label for="inputBookPublisher">출판사</label>
 											</div>
 										</div>
 									</div>
-									<!--                                    권수-->
-									<div class="form-floating mb-3">
-										<input class="form-control" id="inputBookCount" type="number" placeholder="권수를 입력해주세요." name="inputBookCount" />
-										<label for="inputBookCount">권수</label>
+									<!-- 가격, 권수 -->
+									<div class="row mb-3">
+										<div class="col-md-6">
+											<!--                                    가격-->
+											<div class="form-floating mb-3 mb-md-0">
+												<input class="form-control" id="inputBookPrice" type="number" placeholder="가격을 입력해주세요." name="inputBookPrice" />
+												<label for="inputBookPrice">가격</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<!--                                    권수-->
+											<div class="form-floating">
+												<input class="form-control" id="inputBookCount" type="number" placeholder="권수를 입력해주세요." name="inputBookCount" />
+												<label for="inputBookCount">권수</label>
+											</div>
+										</div>
 									</div>
 									<!--                                    줄거리-->
+									<!-- <div class="form-floating mb-3">
+                                        <input class="form-control" id="inputBookSummary" type="text" placeholder="줄거리를 입력해주세요." name="inputBookSummary" /> <label for="inputBookSummary">한줄 줄거리</label>
+                                    </div> -->
 									<div class="form-group">
-										<textarea class="form-control" id="inputNoticeContent" placeholder="줄거리를 입력해주세요." rows="10" name="inputBookSummary"></textarea>
+										<textarea class="form-control" id="inputBookSummary" placeholder="줄거리를 입력해주세요." rows="10" name="inputBookSummary"></textarea>
 									</div>
-									<div id="inputNoticeContentCount">(0 / 1000)</div>
+									<div id="inputBookSummaryCount">(0 / 1000)</div>
 									<!--                                    파일-->
 									<label class="form-label" for="inputBookImage">책의 이미지 파일을 삽입해주세요.</label>
-									<input class="form-control" id="inputBookImage" type="file" placeholder="이미지 파일을 선택해주세요." name="inputBookImage" />
+									<input class="form-control" id="inputBookImage" type="file" placeholder="이미지 파일을 선택해주세요." name="inputBookImage" enctype="multipart/form-data" />
 									<div class="mt-4 mb-0">
 										<div class="d-grid">
 											<input type="submit" class="btn btn-primary btn-block" value="도서를 수정합니다." />
@@ -159,7 +171,7 @@
 			<!-- Footer-->
 			<footer class="m-5 py-5 bg-dark">
 				<div class="container px-4 px-lg-5">
-					<p class="m-0 text-center text-white">Copyright &copy; MinGW's Library 2021</p>
+					<p class="m-0 text-center text-white">Copyright &copy; Buy Book 2021</p>
 				</div>
 			</footer>
 			<!-- Bootstrap core JS-->
@@ -168,10 +180,6 @@
 			<script src="/js/scripts.js"></script>
 			<!--    회원 정의 추가용-->
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-			<!--        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>-->
-			<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet" />-->
-			<!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">-->
-			<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 			<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
