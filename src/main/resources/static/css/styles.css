@@ -4301,11 +4301,6 @@ textarea.form-control-lg {
   margin-bottom: 0;
 }
 
-.card-text {
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
 .card-text:last-child {
   margin-bottom: 0;
 }

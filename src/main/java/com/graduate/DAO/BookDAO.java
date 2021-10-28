@@ -24,7 +24,7 @@ public class BookDAO {
 					(rs, rowNum) -> new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT")));
+							rs.getString("BOOKSUMMARY"), rs.getTimestamp("BOOKDATE"), rs.getInt("BOOKHIT")));
 		} catch (Exception ex) {
 			return null;
 		}
@@ -37,7 +37,7 @@ public class BookDAO {
 					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+							rs.getString("BOOKSUMMARY"), rs.getTimestamp("BOOKDATE"), rs.getInt("BOOKHIT"));
 					return bookDTO;
 				});
 
@@ -51,7 +51,7 @@ public class BookDAO {
 					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+							rs.getString("BOOKSUMMARY"), rs.getTimestamp("BOOKDATE"), rs.getInt("BOOKHIT"));
 					return bookDTO;
 				});
 
@@ -64,7 +64,7 @@ public class BookDAO {
 			BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 					rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 					rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-					rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+					rs.getString("BOOKSUMMARY"), rs.getTimestamp("BOOKDATE"), rs.getInt("BOOKHIT"));
 			return bookDTO;
 		});
 
@@ -78,7 +78,7 @@ public class BookDAO {
 					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+							rs.getString("BOOKSUMMARY"), rs.getTimestamp("BOOKDATE"), rs.getInt("BOOKHIT"));
 					return bookDTO;
 				});
 
@@ -107,7 +107,7 @@ public class BookDAO {
 					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+							rs.getString("BOOKSUMMARY"), rs.getTimestamp("BOOKDATE"), rs.getInt("BOOKHIT"));
 					return bookDTO;
 				});
 
@@ -121,7 +121,7 @@ public class BookDAO {
 					BookDTO bookDTO = new BookDTO(rs.getString("BOOKISBN"), rs.getString("BOOKTITLE"),
 							rs.getString("BOOKAUTHOR"), rs.getInt("BOOKPRICE"), rs.getString("BOOKGENRE"),
 							rs.getString("BOOKPUBLISHER"), rs.getString("BOOKIMAGE"), rs.getInt("BOOKCOUNT"),
-							rs.getString("BOOKSUMMARY"), rs.getDate("BOOKDATE"), rs.getInt("BOOKHIT"));
+							rs.getString("BOOKSUMMARY"), rs.getTimestamp("BOOKDATE"), rs.getInt("BOOKHIT"));
 					return bookDTO;
 				});
 
@@ -136,5 +136,15 @@ public class BookDAO {
 				+ bookDTO.getBookImage() + "', BOOKCOUNT = " + bookDTO.getBookCount() + ", BOOKSUMMARY = '"
 				+ bookDTO.getBookSummary() + "', BOOKDATE = '" + bookDTO.getBookDate() + "', BOOKHIT = "
 				+ bookDTO.getBookHit() + " WHERE BOOKISBN = '" + bookDTO.getBookISBN() + "';");
+	}
+
+	// 도서의 재고 수 업데이트
+	public void updateCount(String inputBookISBN) {
+		jdbcTemplate.update("UPDATE BOOK SET BOOKCOUNT = BOOKCOUNT - 1 WHERE BOOKISBN = '" + inputBookISBN + "';");
+	}
+
+	// 도서의 판매 수 업데이트
+	public void updateHit(String inputBookISBN) {
+		jdbcTemplate.update("UPDATE BOOK SET BOOKHIT = BOOKHIT + 1 WHERE BOOKISBN = '" + inputBookISBN + "';");
 	}
 }

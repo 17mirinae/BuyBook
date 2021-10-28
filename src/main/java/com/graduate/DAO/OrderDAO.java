@@ -32,7 +32,7 @@ public class OrderDAO {
 				.query("SELECT * FROM ORDERED WHERE ORDEREDEMAIL = '" + inputUserEmail + "';", (rs, rowNum) -> {
 					OrderDTO orderDTO = new OrderDTO(rs.getInt("ORDEREDID"), rs.getString("ORDEREDEMAIL"),
 							rs.getString("ORDEREDISBN"), rs.getString("ORDEREDTITLE"), rs.getInt("ORDEREDCOUNT"),
-							rs.getInt("ORDEREDPRICE"), rs.getDate("ORDEREDDATE"));
+							rs.getInt("ORDEREDPRICE"), rs.getTimestamp("ORDEREDDATE"));
 					return orderDTO;
 				});
 

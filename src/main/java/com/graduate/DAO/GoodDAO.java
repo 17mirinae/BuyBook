@@ -22,7 +22,7 @@ public class GoodDAO {
 			return jdbcTemplate.queryForObject("SELECT * FROM GOOD WHERE GOODNO = " + inputGoodNo + ";",
 					(rs, rowNum) -> new GoodDTO(rs.getInt("GOODNO"), rs.getString("GOODISBN"),
 							rs.getString("GOODTITLE"), rs.getString("GOODCONTENT"), rs.getString("GOODIMAGE"),
-							rs.getDate("GOODDATE")));
+							rs.getTimestamp("GOODDATE")));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 
@@ -33,7 +33,7 @@ public class GoodDAO {
 	public List<GoodDTO> showAll() {
 		List<GoodDTO> result = jdbcTemplate.query("SELECT * FROM GOOD;", (rs, rowNum) -> {
 			GoodDTO goodDTO = new GoodDTO(rs.getInt("GOODNO"), rs.getString("GOODISBN"), rs.getString("GOODTITLE"),
-					rs.getString("GOODCONTENT"), rs.getString("GOODIMAGE"), rs.getDate("GOODDATE"));
+					rs.getString("GOODCONTENT"), rs.getString("GOODIMAGE"), rs.getTimestamp("GOODDATE"));
 			return goodDTO;
 		});
 
@@ -43,7 +43,7 @@ public class GoodDAO {
 	public List<GoodDTO> showThree() {
 		List<GoodDTO> result = jdbcTemplate.query("SELECT * FROM GOOD ORDER BY GOODNO DESC LIMIT 3;", (rs, rowNum) -> {
 			GoodDTO goodDTO = new GoodDTO(rs.getInt("GOODNO"), rs.getString("GOODISBN"), rs.getString("GOODTITLE"),
-					rs.getString("GOODCONTENT"), rs.getString("GOODIMAGE"), rs.getDate("GOODDATE"));
+					rs.getString("GOODCONTENT"), rs.getString("GOODIMAGE"), rs.getTimestamp("GOODDATE"));
 			return goodDTO;
 		});
 

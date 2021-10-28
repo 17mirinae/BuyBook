@@ -9,10 +9,10 @@ public class OrderDTO {
 	private String orderedTitle; // 주문한 도서 제목
 	private int orderedCount; // 주문한 도서 권 수
 	private int orderedPrice; // 주문한 도서 가격
-	private Date orderedDate; // 주문한 날짜
+	private Timestamp orderedDate; // 주문한 날짜
 
 	public OrderDTO(String orderedEmail, String orderedISBN, String orderedTitle, int orderedCount, int orderedPrice,
-			Date orderedDate) {
+			Timestamp orderedDate) {
 		super();
 		this.orderedEmail = orderedEmail;
 		this.orderedISBN = orderedISBN;
@@ -23,7 +23,7 @@ public class OrderDTO {
 	}
 
 	public OrderDTO(int orderedId, String orderedEmail, String orderedISBN, String orderedTitle, int orderedCount,
-			int orderedPrice, Date orderedDate) {
+			int orderedPrice, Timestamp orderedDate) {
 		super();
 		this.orderedId = orderedId;
 		this.orderedEmail = orderedEmail;
@@ -82,11 +82,11 @@ public class OrderDTO {
 		this.orderedPrice = orderedPrice;
 	}
 
-	public Date getOrderedDate() {
+	public Timestamp getOrderedDate() {
 		return orderedDate;
 	}
 
-	public void setOrderedDate(Date orderedDate) {
+	public void setOrderedDate(Timestamp orderedDate) {
 		this.orderedDate = orderedDate;
 	}
 

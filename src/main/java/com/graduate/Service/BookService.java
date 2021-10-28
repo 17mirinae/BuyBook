@@ -90,4 +90,10 @@ public class BookService {
 		bookDAO.updateBook(bookDTO);
 	}
 
+	// 도서 구매 처리
+	public void updateCountAndHit(String inputBookISBN) {
+		bookDAO.updateCount(inputBookISBN);
+		bookDAO.updateHit(inputBookISBN);
+	}
+
 }

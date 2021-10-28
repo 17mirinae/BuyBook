@@ -22,6 +22,8 @@ public class CartController {
 	CartService cartService;
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	BookService bookService;
 
 	// 장바구니
 	@RequestMapping(value = "/Cart", method = RequestMethod.GET)
@@ -29,14 +31,14 @@ public class CartController {
 		UserDTO userDTO = userService.findOneUser(cartEmail);
 
 		List<CartDTO> cartList = cartService.showUserCart(userDTO.getUserEmail());
-		// System.out.println(userDTO.toString());
+
 		model.addAttribute("cartList", cartList);
 
 		return "Cart";
 	}
 
 	// 장바구니 항목 삭제
-	@PostMapping(value = "/Cart")
+	@RequestMapping(value = "/Cart", method = RequestMethod.POST)
 	public void bookCart(@RequestParam String cartEmail, @RequestParam String cartISBN, HttpServletResponse response)
 			throws Exception {
 		cartService.deleteCartItem(cartEmail, cartISBN);
@@ -56,6 +58,7 @@ public class CartController {
 
 		for (CartDTO cartDTO : cartList) {
 			cartService.insertOrder(cartDTO);
+			bookService.updateCountAndHit(cartDTO.getCartISBN());
 		}
 
 		cartService.deleteCart(inputUserEmail);

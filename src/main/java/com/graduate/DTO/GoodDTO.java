@@ -8,9 +8,9 @@ public class GoodDTO {
 	private String goodTitle; // 사서 추천 도서 게시글 제목
 	private String goodContent; // 사서 추천 도서 게시글 내용
 	private String goodImage; // 사서 추천 도서 이미지
-	private Date goodDate; // 사소 추천 도서 게시글 날짜
+	private Timestamp goodDate; // 사소 추천 도서 게시글 날짜
 
-	public GoodDTO(int goodNo, String goodISBN, String goodTitle, String goodContent, String goodImage, Date goodDate) {
+	public GoodDTO(int goodNo, String goodISBN, String goodTitle, String goodContent, String goodImage, Timestamp goodDate) {
 		super();
 		this.goodNo = goodNo;
 		this.goodISBN = goodISBN;
@@ -68,11 +68,11 @@ public class GoodDTO {
 		this.goodImage = goodImage;
 	}
 
-	public Date getGoodDate() {
+	public Timestamp getGoodDate() {
 		return goodDate;
 	}
 
-	public void setGoodDate(Date goodDate) {
+	public void setGoodDate(Timestamp goodDate) {
 		this.goodDate = goodDate;
 	}
 

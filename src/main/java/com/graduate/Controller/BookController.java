@@ -41,17 +41,31 @@ public class BookController {
 
 	// 도서 장바구니 담기
 	@PostMapping("/bookDetail")
-	public void bookDetail(HttpSession session, @RequestParam String bookISBN, HttpServletResponse response)
-			throws Exception {
-		UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
-		BookDTO bookDTO = bookService.selectByBookISBN(bookISBN);
+	public void bookDetail(HttpSession session, @RequestParam String bookISBN, @RequestParam String bookGenre,
+			HttpServletResponse response) throws Exception {
+		try {
+			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
+			BookDTO bookDTO = bookService.selectByBookISBN(bookISBN);
 
-		CartDTO cartDTO = new CartDTO(userDTO.getUserEmail(), bookISBN, bookDTO.getBookImage(), bookDTO.getBookTitle(),
-				1, bookDTO.getBookPrice());
+			
+			System.out.println(bookISBN + bookGenre);
+			
+			CartDTO cartDTO = new CartDTO(userDTO.getUserEmail(), bookISBN, bookDTO.getBookImage(),
+					bookDTO.getBookTitle(), 1, bookDTO.getBookPrice());
 
-		cartService.insertCart(cartDTO);
+			cartService.insertCart(cartDTO);
 
-		response.sendRedirect("/book/bookDetail?bookISBN=" + bookISBN);// + "&bookGenre=" + bookDTO.getBookGenre());
+			response.sendRedirect("/book/bookDetail?bookISBN=" + bookISBN + "&bookGenre=" + bookGenre);
+		} catch (Exception ex) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('중복되는 도서가 있습니다.'); location.href='/book/bookDetail?bookISBN=" + bookISBN
+					+ "&bookGenre=" + bookGenre + "';</script>");
+
+			out.flush();
+		}
 	}
 
 	// 도서 검색 페이지

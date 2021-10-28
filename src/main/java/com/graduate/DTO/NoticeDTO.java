@@ -1,11 +1,11 @@
 package com.graduate.DTO;
 
-import java.sql.Date;
+import java.sql.*;
 
 public class NoticeDTO {
 	private int noticeNo; // 공지 아이디 -- Primary Key, Auto_Increment
 	private String noticeTitle; // 공지 제목
-	private Date noticeDate; // 공지 날짜
+	private Timestamp noticeDate; // 공지 날짜
 	private String noticeContent; // 공지 콘텐츠
 
 	public NoticeDTO(String _noticeTitle, String _noticeContent) {
@@ -14,7 +14,7 @@ public class NoticeDTO {
 		this.noticeContent = _noticeContent;
 	}
 
-	public NoticeDTO(int _noticeNo, String _noticeTitle, Date _noticeDate, String _noticeContent) {
+	public NoticeDTO(int _noticeNo, String _noticeTitle, Timestamp _noticeDate, String _noticeContent) {
 		// 공지 받아올 때
 		this.noticeNo = _noticeNo;
 		this.noticeTitle = _noticeTitle;
@@ -38,11 +38,11 @@ public class NoticeDTO {
 		this.noticeTitle = noticeTitle;
 	}
 
-	public Date getNoticeDate() {
+	public Timestamp getNoticeDate() {
 		return noticeDate;
 	}
 
-	public void setNoticeDate(Date noticeDate) {
+	public void setNoticeDate(Timestamp noticeDate) {
 		this.noticeDate = noticeDate;
 	}
 

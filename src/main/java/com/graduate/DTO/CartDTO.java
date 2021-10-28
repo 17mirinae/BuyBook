@@ -1,7 +1,5 @@
 package com.graduate.DTO;
 
-import java.sql.*;
-
 public class CartDTO {
 	private String cartEmail; // 주문한 회원 이메일
 	private String cartISBN; // 주문한 도서 ISBN

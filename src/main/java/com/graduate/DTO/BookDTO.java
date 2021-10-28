@@ -12,7 +12,7 @@ public class BookDTO {
 	private String bookImage; // 도서 이미지
 	private int bookCount; // 도서 재고수
 	private String bookSummary; // 도서 한 줄 줄거리
-	private Date bookDate; // 도서 추가 시각
+	private Timestamp bookDate; // 도서 추가 시각
 	private int bookHit; // 도서 판매 부수
 
 	public BookDTO(String bookISBN, String bookTitle, String bookAuthor, int bookPrice, String bookGenre,
@@ -30,7 +30,7 @@ public class BookDTO {
 	}
 
 	public BookDTO(String bookISBN, String bookTitle, String bookAuthor, int bookPrice, String bookGenre,
-			String bookPublisher, String bookImage, int bookCount, String bookSummary, Date bookDate) {
+			String bookPublisher, String bookImage, int bookCount, String bookSummary, Timestamp bookDate) {
 		super();
 		this.bookISBN = bookISBN;
 		this.bookTitle = bookTitle;
@@ -45,7 +45,7 @@ public class BookDTO {
 	}
 
 	public BookDTO(String bookISBN, String bookTitle, String bookAuthor, int bookPrice, String bookGenre,
-			String bookPublisher, String bookImage, int bookCount, String bookSummary, Date bookDate, int bookHit) {
+			String bookPublisher, String bookImage, int bookCount, String bookSummary, Timestamp bookDate, int bookHit) {
 		super();
 		this.bookISBN = bookISBN;
 		this.bookTitle = bookTitle;
@@ -132,11 +132,11 @@ public class BookDTO {
 		this.bookSummary = bookSummary;
 	}
 
-	public Date getBookDate() {
+	public Timestamp getBookDate() {
 		return bookDate;
 	}
 
-	public void setBookDate(Date bookDate) {
+	public void setBookDate(Timestamp bookDate) {
 		this.bookDate = bookDate;
 	}
 

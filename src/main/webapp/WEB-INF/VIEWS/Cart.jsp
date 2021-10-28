@@ -86,6 +86,10 @@
 				<div class="container-fluid px-4">
 					<h1 class="mt-4">장바구니</h1>
 					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-table me-1"></i>
+							도서 목록
+						</div>
 						<div class="card-body">
 							<table id="datatablesSimple">
 								<thead>
@@ -100,34 +104,36 @@
 								<tbody>
 									<c:set var="totalPrice" value="0" />
 									<c:forEach var="cartDTO" items="${cartList}">
-										<form action="/cart/Cart?cartEmail=${cartDTO.cartEmail}&cartISBN=${cartDTO.cartISBN}" method="POST">
-											<tr>
-												<td><img src="/bookImageStorage/${cartDTO.cartImage}" alt="..." style="height: 25rem" /></td>
-												<td>${cartDTO.cartTitle}</td>
-												<td>${cartDTO.cartCount}</td>
-												<td>${cartDTO.cartPrice}</td>
-												<td><input type="submit" value="삭제" /></td>
-												<c:set var="totalPrice" value="${totalPrice + cartDTO.cartPrice}" />
-											</tr>
-										</form>
+										<tr>
+											<td><img src="/bookImageStorage/${cartDTO.cartImage}" alt="..." style="height: 25rem" /></td>
+											<td>${cartDTO.cartTitle}</td>
+											<td>${cartDTO.cartCount}</td>
+											<td>${cartDTO.cartPrice}</td>
+											<td>
+												<form action="/cart/Cart?cartEmail=${cartDTO.cartEmail}&cartISBN=${cartDTO.cartISBN}" method="POST">
+													<input type="submit" value="삭제" />
+												</form>
+											</td>
+											<c:set var="totalPrice" value="${totalPrice + cartDTO.cartPrice}" />
+										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<div class="card text-white bg-primary my-5 py-10 text-center">
-						<div class="card-body">
-							<span>결제할 총 금액 : ${totalPrice} 원</span>
-						</div>
+				</div>
+				<div class="card text-white bg-primary my-5 py-10 text-center">
+					<div class="card-body">
+						<span>결제할 총 금액 : ${totalPrice} 원</span>
 					</div>
-					<br>
-					<div class="card text-white bg-primary my-5 py-10 text-center">
-						<div class="card-body">
-							<form action="/cart/cartPay" method="POST">
-								<input type="hidden" id="totalPrice" name="totalPrice" value="${totalPrice}" />
-								<input type="submit" class="btn btn-primary btn-lg" value="결제" />
-							</form>
-						</div>
+				</div>
+				<br />
+				<div class="card text-white bg-primary my-5 py-10 text-center">
+					<div class="card-body">
+						<form action="/cart/cartPay" method="POST">
+							<input type="hidden" id="totalPrice" name="totalPrice" value="${totalPrice}" />
+							<input type="submit" class="btn btn-primary btn-lg" value="결제" />
+						</form>
 					</div>
 				</div>
 			</main>

@@ -1,18 +1,21 @@
 <%@page import="com.graduate.DTO.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
-int totalPrice = Integer.parseInt((String) request.getParameter("totalPrice"));
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Buy Book</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<%
+UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
+
+int totalPrice = Integer.parseInt((String) request.getParameter("totalPrice"));
+%>
 </head>
 <body>
 	<script>
@@ -31,7 +34,7 @@ $(function(){
 			buyer_name : '<%=userDTO.getUserName()%>',
 			buyer_tel : '<%=userDTO.getUserPhone()%>',
 			buyer_addr : '<%=userDTO.getUserAddress()%>',
-			//buyer_postcode : "01181"
+			buyer_postcode : ""
 		}, function(rsp) { // callback
 			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
@@ -63,8 +66,7 @@ $(function(){
 				// 결제에 실패시
 				var msg = '결제에 실패';
 				msg += '에러내용 : ' + rsp.error_msg;
-				location.href='<%=request.getContextPath()%>
-		/cart/payFail';
+				location.href='<%=request.getContextPath()%>/cart/payFail';
 									alert(msg);
 								}
 							});
