@@ -6,7 +6,7 @@ public class BookDTO {
 	private String bookISBN; // 도서 ISBN -- Primary Key
 	private String bookTitle; // 도서 제목
 	private String bookAuthor; // 도서 저자
-	private int bookPrice; // 도서 금액
+	private int bookPrice; // 도서 가격
 	private String bookGenre; // 도서 장르
 	private String bookPublisher; // 도서 출판사
 	private String bookImage; // 도서 이미지

@@ -25,7 +25,7 @@ public class MainController {
 	// 메인
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
-		// 공지, 게시글, 신규 도서, 추천 도서, 베스트셀러
+		// 공지, 게시글, 신규 도서, 추천 도서, 인기 도서
 		List<NoticeDTO> noticeList = noticeService.showFive();
 		List<BoardDTO> boardList = boardService.showVisibleThree();
 		List<BookDTO> bookList = bookService.showFive();

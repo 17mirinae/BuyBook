@@ -8,6 +8,8 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Buy Book</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <link href="../css/styles2.css" rel="stylesheet" />
 <script src="../js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -55,6 +57,18 @@
 											<label for="inputUserName">Name</label>
 										</div>
 										<!-- 이름 -->
+										<!-- 연락처 -->
+										<div class="form-floating mb-3">
+											<input class="form-control" id="inputUserPhone" type="text" placeholder="Phone" name="inputUserPhone" />
+											<label for="inputUserPhone">Phone</label>
+										</div>
+										<!-- 연락처 -->
+										<!-- 주소 -->
+										<div class="form-floating mb-3">
+											<input class="form-control" id="inputUserAddress" type="text" placeholder="Full Name" name="inputUserAddress" />
+											<label for="inputUserAddress">Address</label>
+										</div>
+										<!-- 주소 -->
 										<div class="mt-4 mb-0">
 											<div class="d-grid">
 												<input type="submit" class="btn btn-primary btn-block" value="Sign Up" />

@@ -1,7 +1,6 @@
 <%@page import="com.graduate.DTO.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -11,12 +10,16 @@
 <title>Buy Book</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="../css/styles2.css" rel="stylesheet" />
+<link href="../css/styles.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
 <script src="../js/scripts.js"></script>
 <script src="../js/dataTables.js"></script>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <!--    회원 정의 추가용-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
@@ -27,6 +30,7 @@
 <script src="https://cdn.datatables.net/fixedheader/3.1.8/js/dataTables.fixedHeader.min.js"></script>
 </head>
 <body>
+	<c var="noticeDTO" items="${noticeDTO}"> <!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg bg-light static-top ">
 		<div class="container px-5">
 			<%
@@ -41,6 +45,7 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<%
 					// 세션값 가져오기
+
 					if (userDTO == null) {
 					%>
 					<li class="nav-item">
@@ -59,7 +64,7 @@
 						<a class="nav-link" href="/user/userDetail">My Page</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
+						<a class="nav-link" href="/member/logout">Logout</a>
 					</li>
 					<%
 					}
@@ -108,118 +113,53 @@
 			</div>
 		</div>
 	</nav>
-	<!-- Page Content-->
-	<div class="container px-4 px-lg-5">
-		<!-- Heading Row-->
-		<div id="layoutSidenav_content">
-			<main>
-				<div class="container-fluid px-4">
-					<h1 class="mt-4">희망 도서 신청</h1>
-					<!--                    도서 목록-->
-					<div class="card mb-4">
-						<div class="card-body">현재 신청하고자 하는 도서가 존재하는지 미리 확인하세요!</div>
-					</div>
-					<div class="card mb-4">
-						<div class="card-header">
-							<i class="fas fa-table me-1"></i>
-							도서 목록
-						</div>
-						<div class="card-body">
-							<table id="datatablesSimple">
-								<thead>
-									<tr>
-										<th>ISBN</th>
-										<th>제목</th>
-										<th>저자</th>
-										<th>장르</th>
-										<th>가격</th>
-										<th>출판사</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="bookDTO" items="${bookList}">
-										<tr>
-											<td>${bookDTO.bookISBN}</td>
-											<td>${bookDTO.bookTitle}</td>
-											<td>${bookDTO.bookAuthor}</td>
-											<td>${bookDTO.bookGenre}</td>
-											<td>${bookDTO.bookPrice}</td>
-											<td>${bookDTO.bookPublisher}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="container px-4 px-lg-5">
-					<div class="row justify-content-center">
-						<div class="card shadow-lg border-5 rounded-lg mt-5">
-							<div class="card-header">
-								<h3 class="text-center font-weight-light my-4">희망 도서 신청</h3>
-							</div>
-							<div class="card-body">
-								<form action="/book/userHope" method="POST">
-									<!--                                    ISBN & 제목-->
-									<div class="row mb-3">
-										<div class="col-md-6">
-											<div class="form-floating mb-3 mb-md-0">
-												<input class="form-control" id="inputBookISBN" type="text" placeholder="ISBN 코드를 입력해주세요." name="inputBookISBN" />
-												<label for="inputBookISBN">ISBN 코드</label>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-floating">
-												<input class="form-control" id="inputBookTitle" type="text" placeholder="제목을 입력해주세요." name="inputBookTitle" />
-												<label for="inputBookTitle">도서 제목</label>
-											</div>
-										</div>
-									</div>
-									<!--                                    링크-->
-									<div class="form-floating mb-3">
-										<input class="form-control" id="inputBookLink" type="text" placeholder="해당 도서에 대한 링크를 입력해주세요." name="inputBookLink" />
-										<label for="inputBookLink">도서 링크</label>
-									</div>
-									<div class="mt-4 mb-0">
-										<div class="d-grid">
-											<input type="submit" class="btn btn-primary btn-block" value="해당 도서를 신청합니다." />
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</main>
-			<!-- Footer-->
-			<footer class="footer bg-light">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-							<ul class="list-inline mb-2">
-								<li class="list-inline-item">
-									<a href="#!">About</a>
-								</li>
-								<li class="list-inline-item">⋅</li>
-								<li class="list-inline-item">
-									<a href="#!">Contact</a>
-								</li>
-							</ul>
-							<p class="text-muted small mb-4 mb-lg-0">&copy; Buy Book 2021. All Rights Reserved.</p>
-						</div>
-						<div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-							<ul class="list-inline mb-0">
-								<li class="list-inline-item">
-									<a href="https://www.github.com/17mirinae/Graduate">
-										<i class="bi-github fs-3"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
+	<div class="container mt-5">
+		<!--        중앙정렬-->
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<!-- Post content-->
+				<article>
+					<!-- Post header-->
+					<header class="mb-4">
+						<!-- Post title-->
+						<h1 class="fw-bolder mb-1">${noticeDTO.noticeTitle}</h1>
+						<!-- Post meta content-->
+						<div class="text-muted fst-italic mb-2">${noticeDTO.noticeDate}</div>
+						<!-- Post categories -->
+					</header>
+					<section class="mb-5">
+						<p class="fs-5 mb-4">${noticeDTO.noticeContent}</p>
+					</section>
+				</article>
+			</div>
 		</div>
 	</div>
+	<!-- Footer--> <footer class="footer bg-light">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+					<ul class="list-inline mb-2">
+						<li class="list-inline-item">
+							<a href="#!">About</a>
+						</li>
+						<li class="list-inline-item">⋅</li>
+						<li class="list-inline-item">
+							<a href="#!">Contact</a>
+						</li>
+					</ul>
+					<p class="text-muted small mb-4 mb-lg-0">&copy; Buy Book 2021. All Rights Reserved.</p>
+				</div>
+				<div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+					<ul class="list-inline mb-0">
+						<li class="list-inline-item">
+							<a href="https://www.github.com/17mirinae/Graduate">
+								<i class="bi-github fs-3"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer> </c>
 </body>
 </html>

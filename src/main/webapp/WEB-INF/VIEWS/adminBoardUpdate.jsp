@@ -8,22 +8,32 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../../../assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="/css/styles2.css" rel="stylesheet" />
+<link href="../css/styles2.css" rel="stylesheet" />
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+<script src="../js/dataTables.js"></script>
+<!--    회원 정의 추가용-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/">Buy Book Admin Page</a>
+			<a class="navbar-brand" href="/admin/">Buy Book Admin Page</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="/adminIndex">Home</a>
+						<a class="nav-link active" aria-current="page" href="/">Home</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
@@ -46,18 +56,18 @@
 					<div class="card mb-4">
 						<div class="card-header">
 							<i class="fas fa-table me-1"></i>
-							게시글 회원 목록
+							게시글 목록
 						</div>
 						<div class="card-body">
 							<table id="datatablesSimple">
 								<thead>
 									<tr>
-										<th>게시글 번호</th>
+										<th>번호</th>
 										<th>제목</th>
 										<th>작성자</th>
 										<th>작성 날짜</th>
 										<th>공개 여부</th>
-										<th>게시글 세부 페이지</th>
+										<th>상세 페이지</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -89,7 +99,7 @@
 									<input class="form-control" id="inputBoardNo" type="text" placeholder="게시글의 번호를 입력해주세요." name="inputBoardNo" />
 									<label for="inputBoardNo">수정을 원하는 게시글의 번호</label>
 								</div>
-								<label for="inputBoardPublic">회원 게시글 관리</label>
+								<label for="inputBoardPublic">회원 게시글 공개 여부</label>
 								<div class="">
 									<select class="form-control form-control-lg" id="inputBoardPublic" name="inputBoardPublic">
 										<option>Y</option>
@@ -112,17 +122,6 @@
 					<p class="m-0 text-center text-white">Copyright &copy; Buy Book 2021</p>
 				</div>
 			</footer>
-			<!-- Bootstrap core JS-->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-			<!-- Core theme JS-->
-			<script src="js/scripts.js"></script>
-			<!--    회원 정의 추가용-->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-			<script src="js/scripts.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-			<script src="/js/dataTables.js"></script>
 		</div>
 	</div>
 </body>

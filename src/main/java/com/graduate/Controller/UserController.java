@@ -40,11 +40,14 @@ public class UserController {
 			String inputUserPwd = request.getParameter("inputUserPwd");
 			String inputUserPwdConfirm = request.getParameter("inputUserPwdConfirm");
 			String inputUserName = request.getParameter("inputUserName");
+			String inputUserPhone = request.getParameter("inputUserPhone");
+			String inputUserAddress = request.getParameter("inputUserAddress");
 
 			UserDTO userDTO = null;
 
 			if (inputUserPwd.equals(inputUserPwdConfirm)) { // 비밀번호가 일치
-				userDTO = userService.userSignUp(inputUserEmail, inputUserPwd, inputUserName); // 회원가입
+				userDTO = userService.userSignUp(inputUserEmail, inputUserPwd, inputUserName, inputUserPhone,
+						inputUserAddress); // 회원가입
 			} else // 비밀번호 일치하지 않음
 				throw new NotMatchingException("확인 비밀번호와 맞지 않습니다.");
 
@@ -95,6 +98,7 @@ public class UserController {
 				throw new SignInFailException("로그인에 실패하였습니다.");
 			else if (userDTO.getUserEmail().equals("admin@admin")) { // 관리자
 				session.setAttribute("userSessionName", userDTO.getUserName());
+				session.setAttribute("userSessionDTO", userDTO);
 
 				response.sendRedirect("/admin/");
 			} else { // 회원
@@ -187,9 +191,9 @@ public class UserController {
 		try {
 			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
 
-			String inputUserOldPwd = (String) request.getParameter("inputUserOldPwd");
-			String inputUserNewPwd = (String) request.getParameter("inputUserNewPwd");
-			String inputUserNewPwdConfirm = (String) request.getParameter("inputUserNewPwdConfirm");
+			String inputUserOldPwd = request.getParameter("inputUserOldPwd");
+			String inputUserNewPwd = request.getParameter("inputUserNewPwd");
+			String inputUserNewPwdConfirm = request.getParameter("inputUserNewPwdConfirm");
 
 			if (userDTO.getUserPwd().equals(inputUserOldPwd)) {
 				if (inputUserNewPwd.equals(inputUserNewPwdConfirm)) {
@@ -210,5 +214,31 @@ public class UserController {
 			out.flush();
 		}
 
+	}
+
+	// 회원 정보 수정
+	@RequestMapping(value = "/userChangeInfo", method = RequestMethod.GET)
+	public String userChangeInfo() {
+		return "userChangeInfo";
+	}
+
+	// 회원 정보 수정
+	@PostMapping(value = "/userChangeInfo")
+	public void userChangeInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+			UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
+			
+			String inputUserName = request.getParameter("inputUserName");
+			String inputUserPhone = request.getParameter("inputUserPhone");
+			String inputUserAddress = request.getParameter("inputUserAddress");
+			
+			userService.changeUserName(userDTO, inputUserName);
+			userService.changeUserPhone(userDTO, inputUserPhone);
+			userService.changeUserAddress(userDTO, inputUserAddress);
+			
+			userDTO = userService.findOneUser(userDTO.getUserEmail());
+			
+			session.setAttribute("userSessionDTO", userDTO);
+			
+			response.sendRedirect("/user/userDetail");
 	}
 }

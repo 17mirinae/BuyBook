@@ -27,18 +27,19 @@ public class UserService {
 		else
 			return userDTO;
 	}
-	
+
 	// 회원 목록
 	public List<UserDTO> showAll() {
 		return userDAO.showAll();
 	}
 
 	// 회원가입
-	public UserDTO userSignUp(String inputUserEmail, String inputUserPwd, String inputUserName) {
+	public UserDTO userSignUp(String inputUserEmail, String inputUserPwd, String inputUserName, String inputUserPhone,
+			String inputUserAddress) {
 		UserDTO userDTO = userDAO.selectByUserEmail(inputUserEmail);
 
 		if (userDTO == null) { // 회원이 존재하지 않음 --> 회원가입 진행
-			userDTO = new UserDTO(inputUserEmail, inputUserPwd, inputUserName);
+			userDTO = new UserDTO(inputUserEmail, inputUserPwd, inputUserName, inputUserPhone, inputUserAddress);
 
 			userDAO.insertUser(userDTO);
 
@@ -66,10 +67,25 @@ public class UserService {
 
 		return userDTO;
 	}
-	
+
 	// 비밀번호 변경
 	public void changeUserPwd(UserDTO userDTO, String inputUserNewPwd) {
 		userDAO.updatePwd(userDTO, inputUserNewPwd);
+	}
+	
+	// 이름 변경
+	public void changeUserName(UserDTO userDTO, String inputUserName) {
+		userDAO.updateName(userDTO, inputUserName);
+	}
+	
+	// 연락처 변경
+	public void changeUserPhone(UserDTO userDTO, String inputUserPhone) {
+		userDAO.updatePhone(userDTO, inputUserPhone);
+	}
+	
+	// 주소 변경
+	public void changeUserAddress(UserDTO userDTO, String inputUserAddress) {
+		userDAO.updateAddress(userDTO, inputUserAddress);
 	}
 
 	// 임시 비밀번호 생성
@@ -93,15 +109,10 @@ public class UserService {
 				break;
 			}
 		}
-		
-		// System.out.println(newPwd.toString());
-		// System.out.println(userDTO.toString());
 
 		userDAO.updatePwd(userDTO, newPwd.toString());
-		
-		// System.out.println(userDTO.toString());
-		
-		return userDTO;
+
+		return userDAO.selectByUserEmail(userDTO.getUserEmail());
 	}
 
 	public void sendPasswordEmail(UserDTO userDTO, String div) throws Exception {
@@ -119,7 +130,7 @@ public class UserService {
 		String msg = "";
 
 		if (div.equals("userForgotPwd")) {
-			subject = "Book Store 임시 비밀번호입니다.";
+			subject = "Buy Book 임시 비밀번호입니다.";
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 			msg += "<h3 style='color: blue;'>";
 			msg += userDTO.getUserEmail() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";

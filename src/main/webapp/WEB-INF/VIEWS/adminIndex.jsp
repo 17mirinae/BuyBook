@@ -11,12 +11,22 @@
 <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../css/styles.css" rel="stylesheet" />
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+<script src="../js/dataTables.js"></script>
+<!--    회원 정의 추가용-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/adminIndex">Buy Book Admin Page</a>
+			<a class="navbar-brand" href="/admin/">Buy Book Admin Page</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -118,7 +128,7 @@
 										<p class="card-text">
 											Buy Book 의 도서 시스템의
 											<br />
-											<b>공지사항 게시판</b>을 관리합니다.
+											<b>공지 사항 게시판</b>을 관리합니다.
 										</p>
 										<a href="/admin/noticeAdd" class="btn btn-primary">공지 사항 추가</a>
 										<a href="/admin/noticeDelete" class="btn btn-primary">공지 사항 삭제</a>
@@ -178,18 +188,6 @@
 										<a href="/admin/userHope" class="btn btn-primary">회원 희망 도서</a>
 									</div>
 								</div>
-								<!-- <div class="card" style="width: 18rem;">
-									<img class="card-img-top" src="assets/img/member_black_show.jpg" alt="Card image cap">
-									<div class="card-body">
-										<h5 class="card-title">회원 블랙리스트 관리</h5>
-										<p class="card-text">
-											MinGW's Library 의 도서 시스템의
-											<br />
-											<b>블랙리스트 회원 정보</b>를 관리합니다.
-										</p>
-										<a href="/admin/member/black_show" class="btn btn-primary">회원 블랙리스트 관리</a>
-									</div>
-								</div> -->
 							</div>
 						</div>
 					</div>
@@ -202,15 +200,6 @@
 				<p class="m-0 text-center text-white">Copyright &copy; Buy Book 2021</p>
 			</div>
 		</footer>
-		<!-- Bootstrap core JS-->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- Core theme JS-->
-		<script src="../js/scripts.js"></script>
-		<!--    회원 정의 추가용-->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 	</div>
 </body>
 </html>

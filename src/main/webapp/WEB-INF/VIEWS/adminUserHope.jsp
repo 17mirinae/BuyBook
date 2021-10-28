@@ -8,15 +8,25 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="/css/styles2.css" rel="stylesheet" />
+<link href="../css/styles2.css" rel="stylesheet" />
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+<script src="../js/dataTables.js"></script>
+<!--    회원 정의 추가용-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/adminIndex">Buy Book Admin Page</a>
+			<a class="navbar-brand" href="/admin/">Buy Book Admin Page</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -40,15 +50,11 @@
 				<div class="container-fluid px-4">
 					<h1 class="mt-4">회원</h1>
 					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active">
+						<li class="breadcrumb-item">
 							<a href="/admin/userShow">회원 목록</a>
 						</li>
 						<li class="breadcrumb-item active">회원 희망 도서</li>
-						<li class="breadcrumb-item">
-							<a href="/admin/member/black_show">회원 블랙리스트</a>
-						</li>
 					</ol>
-					<!--                    회원 목록-->
 					<div class="card mb-4">
 						<div class="card-body">회원들이 서점에 들여오길 원하는 도서들의 목록입니다.</div>
 					</div>
@@ -67,12 +73,6 @@
 										<th>희망 도서 링크</th>
 									</tr>
 								</thead>
-								<tfoot>
-									<tr>
-										<th>ISBN</th>
-										<th>희망 신청 인원 수</th>
-									</tr>
-								</tfoot>
 								<tbody>
 									<c:forEach var="hopeDTO" items="${hopeList}">
 										<tr>
@@ -88,23 +88,11 @@
 					</div>
 				</div>
 			</main>
-			<!-- 안 예뻐 ...-->
 			<footer class="m-5 py-5 bg-dark">
 				<div class="container px-4 px-lg-5">
 					<p class="m-0 text-center text-white">Copyright &copy; Buy Book 2021</p>
 				</div>
 			</footer>
-			<!-- Bootstrap core JS-->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-			<!-- Core theme JS-->
-			<script src="js/scripts.js"></script>
-			<!--    회원 정의 추가용-->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-			<script src="js/scripts.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-			<script src="/js/dataTables.js"></script>
 		</div>
 	</div>
 </body>

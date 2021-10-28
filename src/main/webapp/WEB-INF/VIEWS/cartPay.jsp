@@ -1,7 +1,7 @@
+<%@page import="com.graduate.DTO.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-String name = (String) request.getParameter("inputCartName");
-String email = (String) request.getParameter("inputCartEmail");
+UserDTO userDTO = (UserDTO) session.getAttribute("userSessionDTO");
 int totalPrice = Integer.parseInt((String) request.getParameter("totalPrice"));
 %>
 <!DOCTYPE html>
@@ -27,11 +27,11 @@ $(function(){
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : "도서 주문",
 			amount : <%=totalPrice%>,
-			buyer_email : '<%=email%>',
-			buyer_name : '<%=name%>',
-			buyer_tel : "010-4242-4242",
-			buyer_addr : "서울특별시 강남구 신사동",
-			buyer_postcode : "01181"
+			buyer_email : '<%=userDTO.getUserEmail()%>',
+			buyer_name : '<%=userDTO.getUserName()%>',
+			buyer_tel : '<%=userDTO.getUserPhone()%>',
+			buyer_addr : '<%=userDTO.getUserAddress()%>',
+			//buyer_postcode : "01181"
 		}, function(rsp) { // callback
 			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
@@ -58,7 +58,7 @@ $(function(){
 						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
 					}
 				});
-				location.href='<%=request.getContextPath()%>/cart/paySuccess?inputUserEmail=<%=email%>';
+				location.href='<%=request.getContextPath()%>/cart/paySuccess?inputUserEmail=<%=userDTO.getUserEmail()%>';
 			} else {
 				// 결제에 실패시
 				var msg = '결제에 실패';

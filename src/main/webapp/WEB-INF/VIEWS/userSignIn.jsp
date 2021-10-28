@@ -8,6 +8,8 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Buy Book</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <link href="../css/styles2.css" rel="stylesheet" />
 <script src="../js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>

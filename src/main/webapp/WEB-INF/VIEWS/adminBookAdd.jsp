@@ -8,22 +8,35 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../css/styles2.css" rel="stylesheet" />
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+<script src="../js/dataTables.js"></script>
+<!--    회원 정의 추가용-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<!-- 글자제한 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/adminIndex">Buy Book Admin Page</a>
+			<a class="navbar-brand" href="/admin/">Buy Book Admin Page</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="/adminIndex">Home</a>
+						<a class="nav-link active" aria-current="page" href="/">Home</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
@@ -64,8 +77,11 @@
 										<th>ISBN</th>
 										<th>제목</th>
 										<th>저자</th>
-										<th>출판사</th>
 										<th>장르</th>
+										<th>가격</th>
+										<th>출판사</th>
+										<th>재고 수</th>
+										<th>판매 수</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -74,8 +90,11 @@
 											<td>${bookDTO.bookISBN}</td>
 											<td>${bookDTO.bookTitle}</td>
 											<td>${bookDTO.bookAuthor}</td>
-											<td>${bookDTO.bookPublisher}</td>
 											<td>${bookDTO.bookGenre}</td>
+											<td>${bookDTO.bookPrice}</td>
+											<td>${bookDTO.bookPublisher}</td>
+											<td>${bookDTO.bookCount}</td>
+											<td>${bookDTO.bookHit}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -92,7 +111,7 @@
 							</div>
 							<div class="card-body">
 								<form action="/admin/bookAdd" method="POST" enctype="multipart/form-data">
-									<!--                                    ISBN10 & 장르-->
+									<!--                                    ISBN & 장르-->
 									<div class="row mb-3">
 										<div class="col-md-6">
 											<div class="form-floating mb-3 mb-md-0">
@@ -111,19 +130,19 @@
 									<div class="row mb-3">
 										<div class="col-md-4">
 											<div class="form-floating mb-3 mb-md-0">
-												<input class="form-control" id="inputBookTitle" type="text" placeholder="제목 명을 입력해주세요." name="inputBookTitle" />
+												<input class="form-control" id="inputBookTitle" type="text" placeholder="제목을 입력해주세요." name="inputBookTitle" />
 												<label for="inputBookTitle">제목</label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-floating mb-3 mb-md-0">
-												<input class="form-control" id="inputBookAuthor" type="text" placeholder="저자 명을 입력해주세요." name="inputBookAuthor" />
+												<input class="form-control" id="inputBookAuthor" type="text" placeholder="저자를 입력해주세요." name="inputBookAuthor" />
 												<label for="inputBookAuthor">저자</label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-floating mb-3 mb-md-0">
-												<input class="form-control" id="inputBookPublisher" type="text" placeholder="출판사 명을 입력해주세요." name="inputBookPublisher" />
+												<input class="form-control" id="inputBookPublisher" type="text" placeholder="출판사를 입력해주세요." name="inputBookPublisher" />
 												<label for="inputBookPublisher">출판사</label>
 											</div>
 										</div>
@@ -138,17 +157,13 @@
 											</div>
 										</div>
 										<div class="col-md-6">
-											<!--                                    권수-->
+											<!--                                    재고 수-->
 											<div class="form-floating">
-												<input class="form-control" id="inputBookCount" type="number" placeholder="권수를 입력해주세요." name="inputBookCount" />
-												<label for="inputBookCount">권수</label>
+												<input class="form-control" id="inputBookCount" type="number" placeholder="재고 수를 입력해주세요." name="inputBookCount" />
+												<label for="inputBookCount">재고 수</label>
 											</div>
 										</div>
 									</div>
-									<!--                                    줄거리-->
-									<!-- <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputBookSummary" type="text" placeholder="줄거리를 입력해주세요." name="inputBookSummary" /> <label for="inputBookSummary">한줄 줄거리</label>
-                                    </div> -->
 									<div class="form-group">
 										<textarea class="form-control" id="inputBookSummary" placeholder="줄거리를 입력해주세요." rows="10" name="inputBookSummary"></textarea>
 									</div>
@@ -173,19 +188,6 @@
 					<p class="m-0 text-center text-white">Copyright &copy; Buy Book 2021</p>
 				</div>
 			</footer>
-			<!-- Bootstrap core JS-->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-			<!-- Core theme JS-->
-			<script src="/js/scripts.js"></script>
-			<!--    회원 정의 추가용-->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-			<script src="/js/dataTables.js"></script>
-			<!-- 글자제한 -->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-			<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 		</div>
 	</div>
 </body>

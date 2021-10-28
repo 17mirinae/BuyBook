@@ -20,7 +20,7 @@ public class UserDAO {
 		try {
 			return jdbcTemplate.queryForObject("SELECT * FROM USER WHERE USEREMAIL='" + inputUserEmail + "';",
 					(rs, rowNum) -> new UserDTO(rs.getString("USEREMAIL"), rs.getString("USERPWD"),
-							rs.getString("USERNAME")));
+							rs.getString("USERNAME"), rs.getString("USERPHONE"), rs.getString("USERADDRESS")));
 		} catch (Exception ex) {
 			return null;
 		}
@@ -28,8 +28,9 @@ public class UserDAO {
 
 	public void insertUser(UserDTO userDTO) {
 		// 회원가입
-		jdbcTemplate.update("INSERT INTO USER(USEREMAIL, USERPWD, USERNAME) VALUES('" + userDTO.getUserEmail() + "', '"
-				+ userDTO.getUserPwd() + "', '" + userDTO.getUserName() + "');");
+		jdbcTemplate.update("INSERT INTO USER(USEREMAIL, USERPWD, USERNAME, USERPHONE, USERADDRESS) VALUES('"
+				+ userDTO.getUserEmail() + "', '" + userDTO.getUserPwd() + "', '" + userDTO.getUserName() + "', '"
+				+ userDTO.getUserPhone() + "', '" + userDTO.getUserAddress() + "');");
 	}
 
 	public void deleteUser(String inputUserEmail) {
@@ -39,22 +40,32 @@ public class UserDAO {
 
 	public void updatePwd(UserDTO userDTO, String inputUserNewPwd) {
 		// 회원 비밀번호 수정
-		System.out.println(inputUserNewPwd);
-		System.out.println(userDTO.toString());
-		jdbcTemplate.update(
-				"UPDATE USER SET USERPWD='" + inputUserNewPwd + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
-		System.out.println(userDTO.toString());
+		jdbcTemplate.update("UPDATE USER SET USERPWD = '" + inputUserNewPwd + "' WHERE USEREMAIL = '"
+				+ userDTO.getUserEmail() + "';");
 	}
 
 	public void updateName(UserDTO userDTO, String inputUserName) {
-		// 회원 닉네임 변경
-		jdbcTemplate.update(
-				"UPDATE USER SET USERNAME='" + inputUserName + "' WHERE USEREMAIL='" + userDTO.getUserEmail() + "';");
+		// 회원 이름 변경
+		jdbcTemplate.update("UPDATE USER SET USERNAME = '" + inputUserName + "' WHERE USEREMAIL = '"
+				+ userDTO.getUserEmail() + "';");
+	}
+
+	public void updatePhone(UserDTO userDTO, String inputUserPhone) {
+		// 회원 연락처 변경
+		jdbcTemplate.update("UPDATE USER SET USERPHONE = '" + inputUserPhone + "' WHERE USEREMAIL = '"
+				+ userDTO.getUserEmail() + "';");
+	}
+
+	public void updateAddress(UserDTO userDTO, String inputUserAddress) {
+		// 회원 주소 변경
+		jdbcTemplate.update("UPDATE USER SET USERADDRESS = '" + inputUserAddress + "' WHERE USEREMAIL = '"
+				+ userDTO.getUserEmail() + "';");
 	}
 
 	public List<UserDTO> showAll() {
 		List<UserDTO> result = jdbcTemplate.query("SELECT * FROM USER;", (rs, rowNum) -> {
-			UserDTO userDTO = new UserDTO(rs.getString("USEREMAIL"), rs.getString("USERPWD"), rs.getString("USERNAME"));
+			UserDTO userDTO = new UserDTO(rs.getString("USEREMAIL"), rs.getString("USERPWD"), rs.getString("USERNAME"),
+					rs.getString("USERPHONE"), rs.getString("USERADDRESS"));
 			return userDTO;
 		});
 

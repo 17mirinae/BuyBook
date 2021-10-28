@@ -10,13 +10,23 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 <!-- Bootstrap icons-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
 <!-- Google fonts-->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="css/styles.css" rel="stylesheet" />
+<link href="/css/styles.css" rel="stylesheet" />
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript" src="/js/dataTables.js"></script>
+<!--    사용자 정의 추가용-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- Responsive navbar-->
@@ -46,7 +56,7 @@
 					} else if (userDTO.getUserEmail().equals("admin@admin")) {
 					%>
 					<li class="nav-item">
-						<a class="nav-link" href="/user/userDetail">My Page</a>
+						<a class="nav-link" href="/admin/">Admin Page</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
@@ -97,6 +107,7 @@
 				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 이용</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					<a class="dropdown-item" href="/book/goodSearch">추천 도서</a>
+					<a class="dropdown-item" href="/book/hitBookSearch">인기 도서</a>
 					<a class="dropdown-item" href="/book/newBookSearch">신간 도서</a>
 				</div>
 			</div>
@@ -215,12 +226,6 @@
 	</section>
 	<section class="py-5 border-bottom">
 		<div class="container px-5 my-5">
-			<!--
-            <div class="text-center mb-5">
-                <h2 class="fw-bolder">Pay as you grow</h2>
-                <p class="lead mb-0">With our no hassle pricing plans</p>
-            </div>
--->
 			<div class="row gx-5 justify-content-center">
 				<!-- Pricing card free-->
 				<div class="col-lg-6 col-xl-6">
@@ -280,7 +285,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
 					<div class="testimonial-item mx-auto mb-5 mb-lg-0">
-						<img class="img-fluid rounded-circle mb-3" src="assets/img/MJC.jpg" alt="..." />
+						<img class="img-fluid rounded-circle mb-3" src="/assets/img/MJC.jpg" alt="..." />
 						<h5>MJ.C</h5>
 						<p class="font-weight-light mb-0">"취업하고 싶어요!"</p>
 					</div>
@@ -316,14 +321,5 @@
 			</div>
 		</div>
 	</footer>
-	<!-- Bootstrap core JS-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script type="text/javascript" src="js/scripts.js"></script>
-	<!--    사용자 정의 추가용-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </body>
 </html>

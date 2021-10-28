@@ -8,22 +8,32 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="/css/styles2.css" rel="stylesheet" />
+<link href="../css/styles2.css" rel="stylesheet" />
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+<script src="../js/dataTables.js"></script>
+<!--    회원 정의 추가용-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/admin_index">Buy Book Admin Page</a>
+			<a class="navbar-brand" href="/admin/">Buy Book Admin Page</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="/adminIndex">Home</a>
+						<a class="nav-link active" aria-current="page" href="/">Home</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
@@ -64,8 +74,11 @@
 										<th>ISBN</th>
 										<th>제목</th>
 										<th>저자</th>
-										<th>출판사</th>
 										<th>장르</th>
+										<th>가격</th>
+										<th>출판사</th>
+										<th>재고 수</th>
+										<th>판매 수</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -74,8 +87,11 @@
 											<td>${bookDTO.bookISBN}</td>
 											<td>${bookDTO.bookTitle}</td>
 											<td>${bookDTO.bookAuthor}</td>
-											<td>${bookDTO.bookPublisher}</td>
 											<td>${bookDTO.bookGenre}</td>
+											<td>${bookDTO.bookPrice}</td>
+											<td>${bookDTO.bookPublisher}</td>
+											<td>${bookDTO.bookCount}</td>
+											<td>${bookDTO.bookHit}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -129,17 +145,6 @@
 					<p class="m-0 text-center text-white">Copyright &copy; Buy Book 2021</p>
 				</div>
 			</footer>
-			<!-- Bootstrap core JS-->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-			<!-- Core theme JS-->
-			<script src="js/scripts.js"></script>
-			<!--    회원 정의 추가용-->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-			<script src="js/scripts.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-			<script src="/js/dataTables.js"></script>
 		</div>
 	</div>
 </body>

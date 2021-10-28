@@ -10,13 +10,23 @@
 <meta name="author" content="" />
 <title>Buy Book</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <!-- Bootstrap icons-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
 <!-- Google fonts-->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../css/styles.css" rel="stylesheet" />
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="../js/scripts.js"></script>
+<script type="text/javascript" src="../js/dataTables.js"></script>
+<!-- Core theme JS-->
+<!--    사용자 정의 추가용-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<c var="bookDTO" items="${bookDTO}"> <!-- Responsive navbar-->
@@ -36,14 +46,24 @@
 					// 세션값 가져오기
 					if (userDTO == null) {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignUp">Sign Up</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignIn">Sign In</a></li>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userSignUp">Sign Up</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userSignIn">Sign In</a>
+					</li>
 					<%
 					} else {
 					%>
-					<li class="nav-item"><a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">My Cart</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userDetail">My Page</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/userSignOut">Sign Out</a></li>
+					<li class="nav-item">
+						<a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">My Cart</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userDetail">My Page</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
+					</li>
 					<%
 					}
 					%>
@@ -62,11 +82,13 @@
 					// 세션값 가져오기
 					if (userDTO == null) {
 					%>
-					<a class="dropdown-item disabled" href="/book/userHope">희망 도서 신청</a> <a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
+					<a class="dropdown-item disabled" href="/book/userHope">희망 도서 신청</a>
+					<a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
 					<%
 					} else {
 					%>
-					<a class="dropdown-item" href="/book/userHope">희망 도서 신청</a> <a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
+					<a class="dropdown-item" href="/book/userHope">희망 도서 신청</a>
+					<a class="dropdown-item" href="/board/boardSearch">자유 게시판</a>
 					<%
 					}
 					%>
@@ -75,13 +97,16 @@
 			<div class="dropdown show">
 				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 이용</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/book/goodSearch">추천 도서</a> <a class="dropdown-item" href="/book/newBookSearch">신간 도서</a>
+					<a class="dropdown-item" href="/book/goodSearch">추천 도서</a>
+					<a class="dropdown-item" href="/book/hitBookSearch">인기 도서</a>
+					<a class="dropdown-item" href="/book/newBookSearch">신간 도서</a>
 				</div>
 			</div>
 			<div class="dropdown show">
 				<a class="btn dropdown-toggle" style="background-color: #e3f2fd; color: dodgerblue;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서점 정보</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="/storeIntroduce">서점 소개</a> <a class="dropdown-item" href="/board/noticeSearch">공지 사항</a>
+					<a class="dropdown-item" href="/storeIntroduce">서점 소개</a>
+					<a class="dropdown-item" href="/board/noticeSearch">공지 사항</a>
 				</div>
 			</div>
 		</div>
@@ -98,10 +123,17 @@
 						<div class="small mb-1">${bookDTO.bookGenre}</div>
 						<h1 class="display-5 fw-bolder">${bookDTO.bookTitle}</h1>
 						<div class="fs-5 mb-5">
-							<span class="">도서 가격 : </span> <span>${bookDTO.bookPrice}</span> <span class="">도서 재고 : </span> <span>${bookDTO.bookCount}</span>
+							<span class="">도서 가격 : </span>
+							<span>${bookDTO.bookPrice}</span>
+							<span class=""> 도서 재고 : </span>
+							<span>${bookDTO.bookCount}</span>
 						</div>
 						<p class="lead">
-							저자 : ${bookDTO.bookAuthor}<br /> 출판사 : ${bookDTO.bookPublisher}<br /> <br />${bookDTO.bookSummary}
+							저자 : ${bookDTO.bookAuthor}
+							<br />
+							출판사 : ${bookDTO.bookPublisher}
+							<br />
+							<br />${bookDTO.bookSummary}
 						</p>
 						<div class="d-flex">
 							<c:if test="${bookDTO.bookCount == 0}">
@@ -137,7 +169,7 @@
 						<c:if test="${genreBookDTO.bookHit >= 5}">
 							<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">HIT!</div>
 						</c:if>
-						<img class="card-img-top" src="../bookImageStorage/${genreBookDTO.bookImage}" alt="..." />
+						<img class="card-img-top" src="/bookImageStorage/${genreBookDTO.bookImage}" alt="..." />
 						<div class="card-body p-4">
 							<div class="text-center">
 								<h5 class="fw-bolder">${genreBookDTO.bookTitle}</h5>
@@ -158,20 +190,27 @@
 			<div class="row">
 				<div class="col-lg-6 h-100 text-center text-lg-start my-auto">
 					<ul class="list-inline mb-2">
-						<li class="list-inline-item"><a href="#!">About</a></li>
+						<li class="list-inline-item">
+							<a href="#!">About</a>
+						</li>
 						<li class="list-inline-item">⋅</li>
-						<li class="list-inline-item"><a href="#!">Contact</a></li>
+						<li class="list-inline-item">
+							<a href="#!">Contact</a>
+						</li>
 					</ul>
 					<p class="text-muted small mb-4 mb-lg-0">&copy; Buy Book 2021. All Rights Reserved.</p>
 				</div>
 				<div class="col-lg-6 h-100 text-center text-lg-end my-auto">
 					<ul class="list-inline mb-0">
-						<li class="list-inline-item"><a href="https://www.github.com/17mirinae/Graduate"> <i class="bi-github fs-3"></i>
-						</a></li>
+						<li class="list-inline-item">
+							<a href="https://www.github.com/17mirinae/Graduate">
+								<i class="bi-github fs-3"></i>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
-	</footer> <!-- Bootstrap core JS--> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script> <!-- Core theme JS--> <script type="text/javascript" src="../js/scripts.js"></script> <!--    사용자 정의 추가용--> <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script> <!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet" />--> <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">--> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script> </c>
+	</footer></c>
 </body>
 </html>
