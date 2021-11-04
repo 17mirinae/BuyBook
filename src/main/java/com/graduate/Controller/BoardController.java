@@ -24,7 +24,7 @@ public class BoardController {
 	@Autowired
 	NoticeService noticeService;
 	@Autowired
-	CommentDAO commentDAO;
+	CommentService commentService;
 
 	// 게시판 메인
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -36,7 +36,7 @@ public class BoardController {
 	@RequestMapping(value = "/boardDetail", method = RequestMethod.GET)
 	public String boardDetail(Model model, @RequestParam int boardNo) {
 		BoardDTO boardDTO = boardService.selectByBoardNo(boardNo);
-		List<CommentDTO> commentList = commentDAO.selectByBoardNo(boardNo);
+		List<CommentDTO> commentList = commentService.selectByBoardNo(boardNo);
 
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("boardDTO", boardDTO);
@@ -51,11 +51,12 @@ public class BoardController {
 		BoardDTO boardDTO = boardService.selectByBoardNo(boardNo);
 
 		String inputCommentContent = request.getParameter("inputCommentContent");
+		int latestCommentNo = commentService.findLatestCommentNo(boardNo);
 
-		CommentDTO commentDTO = new CommentDTO(boardDTO.getBoardNo(), (String) session.getAttribute("userSessionName"),
+		CommentDTO commentDTO = new CommentDTO(latestCommentNo, boardDTO.getBoardNo(), (String) session.getAttribute("userSessionName"),
 				inputCommentContent);
 
-		commentDAO.insertComment(commentDTO);
+		commentService.insertComment(commentDTO);
 
 		response.sendRedirect("/board/boardDetail?boardNo=" + boardNo);
 	}

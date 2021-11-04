@@ -241,7 +241,7 @@
 								<c:forEach var="noticeDTO" items="${noticeList}">
 									<li class="mb-2">
 										<i class="bi bi-check text-primary"></i>
-										<a href="/board/noticeDetail?noticeNo=${noticeDTO.noticeNo}">${noticeDTO.noticeTitle}</a>
+										<strong><a class="bi text-primary" href="/board/noticeDetail?noticeNo=${noticeDTO.noticeNo}">${noticeDTO.noticeTitle}</a></strong>
 									</li>
 								</c:forEach>
 							</ul>

@@ -44,9 +44,9 @@ public class CommentDAO {
 	}
 
 	public void insertComment(CommentDTO commentDTO) {
-		jdbcTemplate.update("INSERT INTO COMMENT(COMMENTBOARDNO, COMMENTNAME, COMMENTCONTENT) VALUES("
-				+ commentDTO.getCommentBoardNo() + ", '" + commentDTO.getCommentName() + "', '"
-				+ commentDTO.getCommentContent() + "');");
+		jdbcTemplate.update("INSERT INTO COMMENT(COMMENTNO, COMMENTBOARDNO, COMMENTNAME, COMMENTCONTENT) VALUES("
+				+ commentDTO.getCommentNo() + ", " + commentDTO.getCommentBoardNo() + ", '"
+				+ commentDTO.getCommentName() + "', '" + commentDTO.getCommentContent() + "');");
 	}
 
 	public void deleteComment(int inputCommentNo, int inputCommentBoardNo) {

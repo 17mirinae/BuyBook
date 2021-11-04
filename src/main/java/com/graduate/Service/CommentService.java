@@ -1,5 +1,7 @@
 package com.graduate.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -23,5 +25,14 @@ public class CommentService {
 	public void deleteComment(int inputCommentNo, int inputCommentBoardNo) {
 		// 댓글 삭제
 		commentDAO.deleteComment(inputCommentNo, inputCommentBoardNo);
+	}
+	
+	public List<CommentDTO> selectByBoardNo(int inputBoardNo) {
+		// 댓글 리스트
+		return commentDAO.selectByBoardNo(inputBoardNo);
+	}
+	
+	public int findLatestCommentNo(int inputBoardNo) {
+		return commentDAO.findLatestCommentNo(inputBoardNo);
 	}
 }

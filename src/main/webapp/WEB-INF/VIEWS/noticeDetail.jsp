@@ -45,7 +45,6 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<%
 					// 세션값 가져오기
-
 					if (userDTO == null) {
 					%>
 					<li class="nav-item">
@@ -53,6 +52,15 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/user/userSignIn">Sign In</a>
+					</li>
+					<%
+					} else if (userDTO.getUserEmail().equals("admin@admin")) {
+					%>
+					<li class="nav-item">
+						<a class="nav-link" href="/admin/">Admin Page</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
 					</li>
 					<%
 					} else {
@@ -64,7 +72,7 @@
 						<a class="nav-link" href="/user/userDetail">My Page</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/member/logout">Logout</a>
+						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
 					</li>
 					<%
 					}

@@ -40,6 +40,18 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<%
+					if (userDTO.getUserEmail().equals("admin@admin")) {
+					%>
+					<li class="nav-item">
+						<a class="nav-link" href="/admin/">Admin Page</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
+					</li>
+					<%
+					} else {
+					%>
 					<li class="nav-item">
 						<a class="nav-link" href="/cart/Cart?cartEmail=<%=userDTO.getUserEmail()%>">My Cart</a>
 					</li>
@@ -49,6 +61,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
 					</li>
+					<%
+					}
+					%>
 				</ul>
 			</div>
 		</div>

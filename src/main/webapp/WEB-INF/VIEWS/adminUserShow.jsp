@@ -70,6 +70,8 @@
 										<th>이름</th>
 										<th>이메일</th>
 										<th>비밀번호</th>
+										<th>연락처</th>
+										<th>주소</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -78,6 +80,8 @@
 											<td>${userDTO.userName}</td>
 											<td>${userDTO.userEmail}</td>
 											<td>${userDTO.userPwd}</td>
+											<td>${userDTO.userPhone}</td>
+											<td>${userDTO.userAddress}</td>
 										</tr>
 									</c:forEach>
 								</tbody>

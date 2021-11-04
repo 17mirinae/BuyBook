@@ -39,7 +39,6 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<%
 					// 세션값 가져오기
-
 					if (userDTO == null) {
 					%>
 					<li class="nav-item">
@@ -47,6 +46,15 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/user/userSignIn">Sign In</a>
+					</li>
+					<%
+					} else if (userDTO.getUserEmail().equals("admin@admin")) {
+					%>
+					<li class="nav-item">
+						<a class="nav-link" href="/admin/">Admin Page</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/user/userSignOut">Sign Out</a>
 					</li>
 					<%
 					} else {
@@ -216,13 +224,11 @@
 						책에 대한 경험을 배로 얻어보세요.
 					</p>
 				</div>
-				<!-- 
 				<div class="col-sm-8 col-md-6">
 					<div class="px-5 px-sm-0">
-						<img class="img-fluid rounded-circle" src="https://source.unsplash.com/u8Jn2rzYIps/900x900" alt="..." />
+						<img class="img-fluid rounded-circle" src="/assets/img/StopWaiting.png" alt="..." />
 					</div>
 				</div>
-				 -->
 			</div>
 		</div>
 	</section>

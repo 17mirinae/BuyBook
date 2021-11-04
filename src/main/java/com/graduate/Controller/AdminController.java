@@ -215,7 +215,7 @@ public class AdminController {
 
 			if (inputBookISBN.equals("") || inputBookGenre.equals("") || inputBookTitle.equals("")
 					|| inputBookAuthor.equals("") || inputBookPublisher.equals("") || inputBookPrice.equals("")
-					|| inputBookSummary.equals(""))
+					|| inputBookSummary.equals("") || inputBookImage.equals(""))
 				throw new FillOutInformationException("모든 정보를 입력해주세요.");
 
 			if (inputBookCountString.equals(""))
