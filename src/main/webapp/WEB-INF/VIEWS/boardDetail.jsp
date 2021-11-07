@@ -172,7 +172,7 @@
 								<div class="d-flex mb-4 ">
 									<!-- Parent comment-->
 									<div class="ms-3">
-										<div class="fw-bold">${commentDTO.commentName}
+										<div class="fw-bold">${commentDTO.commentName}</div>
 										${commentDTO.commentContent}
 									</div>
 								</div>

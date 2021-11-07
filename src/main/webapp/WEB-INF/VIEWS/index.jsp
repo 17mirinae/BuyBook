@@ -210,6 +210,9 @@
 											<h5 class="card-title">${bookDTO.bookTitle}</h5>
 											<a href="/book/bookDetail?bookISBN=${bookDTO.bookISBN}&bookGenre=${bookDTO.bookGenre}" class="btn btn-primary">More Info</a>
 										</div>
+										<div class="card-footer">
+											<small class="text-muted">${bookDTO.bookDate}</small>
+										</div>
 									</div>
 								</c:forEach>
 							</div>

@@ -29,7 +29,7 @@ public class BoardDAO {
 	}
 
 	public List<BoardDTO> showAll() {
-		List<BoardDTO> result = jdbcTemplate.query("SELECT * FROM BOARD;", (rs, rowNum) -> {
+		List<BoardDTO> result = jdbcTemplate.query("SELECT * FROM BOARD ORDER BY BOARDNO DESC;", (rs, rowNum) -> {
 			BoardDTO boardDTO = new BoardDTO(rs.getInt("BOARDNO"), rs.getString("BOARDEMAIL"),
 					rs.getString("BOARDNAME"), rs.getString("BOARDTITLE"), rs.getString("BOARDCONTENT"),
 					rs.getTimestamp("BOARDDATE"), rs.getString("BOARDPUBLIC"));
@@ -39,7 +39,7 @@ public class BoardDAO {
 	}
 
 	public List<BoardDTO> showVisibleBoard() {
-		List<BoardDTO> result = jdbcTemplate.query("SELECT * FROM BOARD WHERE BOARDPUBLIC = 'Y';", (rs, rowNum) -> {
+		List<BoardDTO> result = jdbcTemplate.query("SELECT * FROM BOARD WHERE BOARDPUBLIC = 'Y' ORDER BY BOARDNO DESC;", (rs, rowNum) -> {
 			BoardDTO boardDTO = new BoardDTO(rs.getInt("BOARDNO"), rs.getString("BOARDEMAIL"),
 					rs.getString("BOARDNAME"), rs.getString("BOARDTITLE"), rs.getString("BOARDCONTENT"),
 					rs.getTimestamp("BOARDDATE"), rs.getString("BOARDPUBLIC"));
